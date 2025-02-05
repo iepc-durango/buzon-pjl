@@ -30,16 +30,23 @@ const submit = () => {
 </script>
 
 <template>
+    
     <Head title="Log in" />
+    <AuthenticationCard class="bg-white">
 
-    <AuthenticationCard>
         <template #logo>
-            <AuthenticationCardLogo />
+           
+
+            <div class="flex lg:justify-center lg:col-start-2 ">
+            <img src="../../../../public/img/logo.jpeg" class=" w-3/6 h-26 ">
+                    </div> 
+            
         </template>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
             {{ status }}
         </div>
+        
 
         <form @submit.prevent="submit">
             <div>
@@ -78,12 +85,14 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                    Forgot your password?
+                    Olvidaste tu contraseña?
                 </Link>
 
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
+                    Acceder
                 </PrimaryButton>
+                
+   
             </div>
         </form>
     </AuthenticationCard>
