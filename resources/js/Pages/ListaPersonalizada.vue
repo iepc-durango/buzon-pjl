@@ -15,10 +15,10 @@ const checkedNames = ref([])
     
     <!-- component -->
 <!-- This is an example component -->
-<div class="grid grid-cols-2 gap-4">
-<div class="max-w-full md:w-auto ">
+<div class="grid grid-cols-2 gap-4 py-20">
+<div class="max-w-full md:w-auto  bg-white rounded-lg">
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
   <div class="p-4">
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative mt-1">
@@ -69,10 +69,7 @@ const checkedNames = ref([])
           
         </tr>
 
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td  class="w-4 p-4"><input  type="checkbox" id="jack" value="Jack" v-model="checkedNames"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" /></td>
-          <td class="w-4 p-4 px-6 py-4"><label for="jack"   >Jack</label></td>
-        </tr>
+        
 
 
         <tr
@@ -114,9 +111,9 @@ const checkedNames = ref([])
 </div>
 
 
-<div class="max-w-full md:w-auto ">
+<div class="max-w-full md:w-auto bg-white rounded-lg">
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
   
 <h2 class="font-mono text-xl font-semibold">Destinatarios Seleccionados</h2>
 
@@ -124,7 +121,21 @@ const checkedNames = ref([])
 <div>{{ checkedNames.join(', ') }}</div>
   </div>
 </div>
+
 </div>
+
+
+<div class="flex justify-center">
+<button type="button" class="text-white  bg-[#545559] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2">
+  
+  <svg class="h-8 w-8 text-zinc-400 px-1"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="3" y="5" width="18" height="14" rx="2" />  <polyline points="3 7 12 13 21 7" /></svg>
+
+Enviar Correo
+</button>
+
+</div>
+
+
 
 
 

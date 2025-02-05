@@ -2,8 +2,9 @@
 
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3'
-import { onMounted } from 'vue'
+import { onMounted,ref } from 'vue'
 import { Modal } from 'flowbite'
+import Quill from 'quill';
 
 onMounted(() => {
     const $buttonElement = document.querySelector('#button');
@@ -43,14 +44,40 @@ onMounted(() => {
 
 })
 
-import { ref } from "vue";
 
-const value = ref('');
-
-
-
+const content = ref(''); // Variable para almacenar el contenido
+  
+  const editor = ref(null);
+  
+  // Crear una instancia de Quill y sincronizar con el valor de content
+  onMounted(() => {
+    const quill = new Quill(editor.value, {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          [{ header: '1' }, { header: '2' }, { font: [] }],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['bold', 'italic', 'underline'],
+          ['link'],
+          [{ align: [] }],
+          ['image'],
+        ],
+      },
+    });
+  
+    // Sincroniza el contenido del editor con la variable content
+    quill.on('text-change', () => {
+      content.value = quill.root.innerHTML;
+    });
+  });
 
 </script>
+
+ <style scoped>
+  .editor {
+    height: 300px;
+  }
+  </style>
 
 
 
@@ -105,10 +132,10 @@ const value = ref('');
             </div>
 
 
-            <div>
+            <div  ref="editor" class="editor">
                
                 <label class="text-black dark:text-gray-200" for="passwordConfirmation">Descripción</label>
-                <textarea  name="content" id="textarea" type="textarea" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 "></textarea>
+                <textarea v-model="content" name="content" id="textarea" type="textarea" class="block mt-4 w-full h-20 px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 "></textarea>
             </div>
 
             <div>
