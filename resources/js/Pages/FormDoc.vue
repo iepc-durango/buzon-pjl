@@ -4,7 +4,11 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3'
 import { onMounted,ref } from 'vue'
 import { Modal } from 'flowbite'
-import Quill from 'quill';
+import { createApp } from 'vue'
+import { QuillEditor } from '@vueup/vue-quill'
+
+
+//Funciones para mostrar y ocultar los modales 
 
 onMounted(() => {
     const $buttonElement = document.querySelector('#button');
@@ -39,56 +43,31 @@ onMounted(() => {
         // modal.show();
     }
 
-    
-
-
 })
 
+// Componente para mostrar el Editor 
+const app = createApp()
+app.component('QuillEditor', QuillEditor)
 
-const content = ref(''); // Variable para almacenar el contenido
-  
-  const editor = ref(null);
-  
-  // Crear una instancia de Quill y sincronizar con el valor de content
-  onMounted(() => {
-    const quill = new Quill(editor.value, {
-      theme: 'snow',
-      modules: {
-        toolbar: [
-          [{ header: '1' }, { header: '2' }, { font: [] }],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['bold', 'italic', 'underline'],
-          ['link'],
-          [{ align: [] }],
-          ['image'],
-        ],
-      },
-    });
-  
-    // Sincroniza el contenido del editor con la variable content
-    quill.on('text-change', () => {
-      content.value = quill.root.innerHTML;
-    });
-  });
+//Funcion para deshabilitar el input de opcion de otro
+
+const selectedTipo = ref('');
+const isInputEnabled = ref(false);
+
+const handleSelectChange = (event) => {
+  isInputEnabled.value = event.target.value === 'Otro';
+};
+
 
 </script>
 
- <style scoped>
-  .editor {
-    height: 300px;
-  }
-  </style>
-
-
+ 
 
 <template>
 
 
-<AppLayout title="Dashboard">
+<AppLayout title="">
     <Head title="Welcome" />
-
-    
-   
 
 
         <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-8">
@@ -111,34 +90,28 @@ const content = ref(''); // Variable para almacenar el contenido
             
 
             <div>
-                <label for="acuerdo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Acuerdo</label>
+                <label for="acuerdo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. Expediente</label>
                 <input type="text" id="acuerdo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" required />
             </div>
 
             <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo</label>
-  <select id="countries" class="">
-    <option selected>Choose a country</option>
-    <option value="US">United States</option>
-    <option value="CA">Canada</option>
-    <option value="FR">France</option>
-    <option value="DE">Germany</option>
+                <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo</label>
+  <select id="tipo"  v-model="selectedTipo"   @change="handleSelectChange" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+    <option selected>Tipo</option>
+    <option value="Acuerdo">Acuerdo</option>
+    <option value="PES">PES</option>
+    <option value="Otro">Otro</option>
   </select>
             </div>
 
-            <div>
-                <label for="acuerdo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Especificar</label>
-                <input type="text" id="acuerdo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" required />
-            </div>
-
-
-            <div  ref="editor" class="editor">
-               
-                <label class="text-black dark:text-gray-200" for="passwordConfirmation">Descripción</label>
-                <textarea v-model="content" name="content" id="textarea" type="textarea" class="block mt-4 w-full h-20 px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 "></textarea>
-            </div>
 
             <div>
+            <label for="espeificar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Especificar</label>
+    <input type="text" id="small-input" :disabled="!isInputEnabled" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500">
+  </div>
+
+    
+            <!------<div>
                 <label class="block text-sm font-medium text-black">
                 Archivos
               </label>
@@ -159,9 +132,16 @@ const content = ref(''); // Variable para almacenar el contenido
                   </p>
                 </div>
               </div>
-            </div>
+            </div>--->
 
           
+        </div>
+
+
+
+        <div class="py-12">
+
+            <QuillEditor theme="snow"  toolbar="full" />
         </div>
         
         <div class="flex justify-end mt-6">
@@ -172,11 +152,14 @@ const content = ref(''); // Variable para almacenar el contenido
         </div>
 
 
-        <Editor v-model="value" editorStyle="height: 320px" />
         
             </form>
 
         </section>
+
+
+        
+
 
         
         

@@ -1,11 +1,13 @@
 import './bootstrap';
 import '../css/app.css';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-import 'quill/dist/quill.snow.css';
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
