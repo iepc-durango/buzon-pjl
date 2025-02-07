@@ -16,6 +16,7 @@ Route::get('/', function () {
 Route::inertia('/formdoc', 'FormDoc');
 Route::inertia('/listapersonalizada', 'ListaPersonalizada');
 Route::inertia('/listapersonalizada2', 'ListaPersonalizada2');
+Route::inertia('/detalles', 'Detalles');
 
 
 Route::middleware([

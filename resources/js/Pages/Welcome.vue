@@ -59,6 +59,6 @@ onMounted(() => {
   opacity: 0;
 }
 .loading-screen {
-  @apply fixed top-0 left-0 w-full h-full flex justify-center items-center;
+  @apply fixed top-60 left-0 w-full h-full flex justify-center items-center;
 }
 </style>

@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'log'),
+    'default' => env('pruebascorreoalo@gmail.com', 'ses'),
 
     /*
     |--------------------------------------------------------------------------
