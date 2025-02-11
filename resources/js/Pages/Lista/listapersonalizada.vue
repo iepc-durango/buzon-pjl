@@ -1,8 +1,10 @@
-<script lang="ts" setup>
+<script setup>
 
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
+import Pagination from "@/Components/Pagination.vue";
 import { ref } from "vue";
+import { usePage } from '@inertiajs/vue3';
 
 const checkedNames = ref([])
 
@@ -14,9 +16,13 @@ defineProps({
     },
 });
 
+
+console.log(usePage().props.destinatarios);
+
 </script>
 
 <template>
+
 
   
   <AppLayout title="ListaPersonalizada">
@@ -55,7 +61,7 @@ defineProps({
                         <input
                             type="text"
                             autocomplete="off"
-                            placeholder="Search students data..."
+                            placeholder="Search Destinatarios..."
                             id="search"
                             class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -100,28 +106,31 @@ defineProps({
                                     <tbody
                                         class="divide-y divide-gray-200 bg-white"
                                     >
-                                        <tr  >
+                                        <tr v-for="destinatarios in destinatarios.data" :key="destinatarios.id" >
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                                             >
-                                              1
+                                              {{ destinatarios.id }}
                                             </td>
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                                             >
-                                                jhova
+                                                {{ destinatarios.nombre }}
                                             </td>
                                             <td
                                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                             >
-                                               444
+                                               {{ destinatarios.correo }}
                                             </td>
                                             
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div>Pagination Links</div>
+                            <div>
+
+                                <Pagination  :data="destinatarios.data"/>
+                            </div>
                         </div>
                     </div>
                 </div>

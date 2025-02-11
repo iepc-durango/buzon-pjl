@@ -3,6 +3,9 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DestinatariosContrroller;
+
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -11,12 +14,18 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+
+    
 });
 
 Route::inertia('/formdoc', 'FormDoc');
-Route::inertia('/listapersonalizada', 'ListaPersonalizada');
-Route::inertia('/listapersonalizada2', 'ListaPersonalizada2');
+
 Route::inertia('/detalles', 'Detalles');
+
+Route::inertia('/listapersonalizada', 'ListaPersonalizada');
+
+
+
 
 
 Route::middleware([
@@ -27,6 +36,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('destinatarios', DestinatariosContrroller::class);
+
 });
+
+
 
 
