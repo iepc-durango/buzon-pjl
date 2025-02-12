@@ -8,16 +8,21 @@ defineProps({
         type: Object,
         required: true,
     },
+
+    updatePageNumbers: {
+        type:Function,
+        required: true,
+    }
 });
 
-const updatePageNumbers = (link) => {
+//const updatePageNumbers = (link) => {
 
-    let pageNumber = link.url.split("=")[1];
+    //let pageNumber = link.url.split("=")[1];
 
-    router.visit("/destinatarios?page=" + pageNumber, {
-        preserveScroll: true,
-    })
-};
+    //router.visit("/destinatarios?page=" + pageNumber, {
+      //  preserveScroll: true,
+    //})
+//};
 
 
 </script>
@@ -78,7 +83,7 @@ const updatePageNumbers = (link) => {
 
                                     class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                                     :class="{
-                                        'z-10 bg-indigo-50 border-indigo-500 text-indigo-600':
+                                        'z-10 bg-[#A6A6A6]  text-white':
                                          link.active,
                                         'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': 
                                         !link.active,

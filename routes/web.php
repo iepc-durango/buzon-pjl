@@ -41,6 +41,8 @@ Route::middleware([
 
     Route::resource('destinatarios', DestinatariosContrroller::class);
 
+   
+
 
 });
 

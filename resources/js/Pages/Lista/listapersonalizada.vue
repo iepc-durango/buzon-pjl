@@ -3,13 +3,16 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
 import Pagination from "@/Components/Pagination.vue";
-import {  computed, ref } from "vue";
-//import { usePage } from '@inertiajs/vue3';
+import { Link, Head, useForm, router, usePage} from '@inertiajs/vue3';
+import {  ref, computed, watch } from "vue";
+
+
+
 
 const checkedNames = ref([])
 
 
-defineProps({
+const props = defineProps({
     destinatarios: {
         type: Object,
         required: true,
@@ -17,18 +20,53 @@ defineProps({
 });
 
 
-//let search = ref (""), pageNumber = ref(1);
-
-//let destinatariosUrl = computed(() => {
-    //let url = new URL(route("destinatarios.index"));
-    //url.searchParams.append("page", pageNumber.value)
 
 
-    //if(search.value){
-      //  url.searchParams.append("search", search.value);
-    //}
-//});
+let search = ref(usePage().props.search),
+pageNumbers = ref(1);
 
+
+let destinatarioUrl = computed(() => {
+    let url = new URL(route("destinatarios.index"));
+
+    url.searchParams.append("page", pageNumbers.value);
+    //url.searchParams.append("search", search.value);
+    //return url.toString();
+
+    if(search.value){
+        url.searchParams.append("search", search.value);
+    }
+
+    return url;
+});
+
+
+const updatePageNumbers = (link) => {
+    pageNumbers.value = link.url.split("=")[1];
+}
+
+watch(
+    () => destinatarioUrl.value,
+(updatedDestinatarioUrl) => {
+    router.visit(updatedDestinatarioUrl, {
+        preserveScroll: true, 
+        preserveState: true,
+        replace: true,
+
+    });
+}
+
+);
+
+
+//watch(
+    //() => search.value,
+    //(value) => {
+       // if(value){
+        //  pageNumbers.value = 1;  
+        //}
+   // }
+//);
 
 
 
@@ -42,7 +80,7 @@ defineProps({
 
   
   <AppLayout title="ListaPersonalizada">
-    <Head title="Welcome" />
+    <Head title="Destinatarios" />
     
     <!-- component -->
 <!-- This is an example component -->
@@ -77,7 +115,8 @@ defineProps({
                         
 
                         <input
-                       
+
+                            v-model="search"
                             type="text"
                             autocomplete="off"
                             placeholder="Search Destinatarios..."
@@ -104,7 +143,7 @@ defineProps({
                                                 scope="col"
                                                 class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                                             >
-                                                ID
+                                                
                                             </th>
                                             <th
                                                 scope="col"
@@ -125,11 +164,13 @@ defineProps({
                                     <tbody
                                         class="divide-y divide-gray-200 bg-white"
                                     >
+
+                                   
                                         <tr v-for="destinatarios in destinatarios.data" :key="destinatarios.id" >
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                                             >
-                                              {{ destinatarios.id }}
+                                            <input id="checkbox-table-search-1"  type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             </td>
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
@@ -148,7 +189,9 @@ defineProps({
                             </div>
                             <div>
 
-                                <Pagination  :data="destinatarios" />
+                                <Pagination  :data="destinatarios" 
+                                :updatePageNumbers="updatePageNumbers"
+                                />
                             </div>
                         </div>
                     </div>
