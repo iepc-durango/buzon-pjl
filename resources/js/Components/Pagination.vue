@@ -1,7 +1,6 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
 
-
+import { router } from '@inertiajs/vue3'
 
 defineProps({
 
@@ -11,6 +10,15 @@ defineProps({
     },
 });
 
+const updatePageNumbers = (link) => {
+
+    let pageNumber = link.url.split("=")[1];
+
+    router.visit("/destinatarios?page=" + pageNumber, {
+        preserveScroll: true,
+    })
+};
+
 
 </script>
 
@@ -19,7 +27,6 @@ defineProps({
 
 <template>
 
-{{ data }}
 
 <div class="max-w-7xl mx-auto py-6">
         <div class="max-w-none mx-auto">
@@ -36,17 +43,21 @@ defineProps({
                                 Showing
                                 <!-- space -->
                                 <span class="font-medium">{{
-                                 data.meta.to 
+                                 data.meta.from
                                  }}
                                  </span>
                                 <!-- space -->
                                 to
                                 <!-- space -->
-                                <span class="font-medium">10</span>
+                                <span class="font-medium">{{ 
+                                data.meta.to
+                                }}</span>
                                 <!-- space -->
                                 of
                                 <!-- space -->
-                                <span class="font-medium"> 100 </span>
+                                <span class="font-medium"> {{ 
+                                data.meta.total
+                                }} </span>
                                 <!-- space -->
                                 results
                             </p>
@@ -57,13 +68,23 @@ defineProps({
                                 aria-label="Pagination"
                             >
                                 <button
+
+                                @click.prevent="updatePageNumbers(link)"
+
+                                    v-for="(link, index) in data.meta.links"
+                                    :key="index"
+
+                                    :disabled="link.active || !link.url"
+
                                     class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                                     :class="{
-                                        'z-10 bg-indigo-50 border-indigo-500 text-indigo-600': true,
-                                        'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': false,
+                                        'z-10 bg-indigo-50 border-indigo-500 text-indigo-600':
+                                         link.active,
+                                        'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': 
+                                        !link.active,
                                     }"
                                 >
-                                    <span>1</span>
+                                    <span v-html="link.label"></span>
                                 </button>
                             </nav>
                         </div>

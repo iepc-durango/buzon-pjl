@@ -3,8 +3,8 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { ref } from "vue";
-import { usePage } from '@inertiajs/vue3';
+import {  computed, ref } from "vue";
+//import { usePage } from '@inertiajs/vue3';
 
 const checkedNames = ref([])
 
@@ -17,7 +17,23 @@ defineProps({
 });
 
 
-console.log(usePage().props.destinatarios);
+//let search = ref (""), pageNumber = ref(1);
+
+//let destinatariosUrl = computed(() => {
+    //let url = new URL(route("destinatarios.index"));
+    //url.searchParams.append("page", pageNumber.value)
+
+
+    //if(search.value){
+      //  url.searchParams.append("search", search.value);
+    //}
+//});
+
+
+
+
+
+//console.log(usePage().props.destinatarios);
 
 </script>
 
@@ -58,7 +74,10 @@ console.log(usePage().props.destinatarios);
                             <MagnifyingGlass />
                         </div>
 
+                        
+
                         <input
+                       
                             type="text"
                             autocomplete="off"
                             placeholder="Search Destinatarios..."
@@ -129,7 +148,7 @@ console.log(usePage().props.destinatarios);
                             </div>
                             <div>
 
-                                <Pagination  :data="destinatarios.data"/>
+                                <Pagination  :data="destinatarios" />
                             </div>
                         </div>
                     </div>

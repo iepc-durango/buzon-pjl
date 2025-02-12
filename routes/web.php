@@ -7,6 +7,8 @@ use App\Http\Controllers\DestinatariosContrroller;
 
 
 
+
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -22,7 +24,7 @@ Route::inertia('/formdoc', 'FormDoc');
 
 Route::inertia('/detalles', 'Detalles');
 
-Route::inertia('/listapersonalizada', 'ListaPersonalizada');
+//Route::inertia('/listapersonalizada', 'ListaPersonalizada');
 
 
 
@@ -39,7 +41,9 @@ Route::middleware([
 
     Route::resource('destinatarios', DestinatariosContrroller::class);
 
+
 });
+
 
 
 

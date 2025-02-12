@@ -24,6 +24,7 @@
         "@vueup/vue-quill": "^1.2.0",
         "flowbite": "^3.1.1",
         "quill": "^2.0.3",
+        "vue-router": "^4.5.0",
         "vue-trix": "^1.2.0"
     }
 }
