@@ -41,6 +41,8 @@ Route::middleware([
 
     Route::resource('destinatarios', DestinatariosContrroller::class);
 
+    Route::get('/api/items', [DestinatariosContrroller::class, 'getItems']);
+
    
 
 

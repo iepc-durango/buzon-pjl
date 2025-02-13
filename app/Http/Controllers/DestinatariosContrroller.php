@@ -13,10 +13,12 @@ use Illuminate\Http\Request;
 
 
 class DestinatariosContrroller extends Controller
+
 {
     public function index(Request $request)
 
     {
+
 
         
 
@@ -26,6 +28,7 @@ class DestinatariosContrroller extends Controller
        $destinatarios = DestinatarioResource::collection(
         $destinatariosQuery->paginate(10)
     );
+    
 
        //$destinatarios = DestinatarioResource::collection(Destinatarios::paginate(10));
 
@@ -48,5 +51,13 @@ class DestinatariosContrroller extends Controller
                 $query->where('nombre', 'like', '%'.$search.'%')
                 ->orWhere('correo', 'like', '%' . $search . '%');
             });
+    }
+
+
+
+    public function getItems()
+    {
+        $destinatarios = Destinatarios::all();
+        return response()->json($destinatarios);
     }
 }

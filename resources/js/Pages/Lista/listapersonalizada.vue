@@ -9,7 +9,6 @@ import {  ref, computed, watch } from "vue";
 
 
 
-const checkedNames = ref([])
 
 
 const props = defineProps({
@@ -17,7 +16,19 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+
+
 });
+
+
+// Creamos la variable reactiva para los destinatarios seleccionados
+const selectedDestinatarios = ref([]);
+
+// Función para obtener el destinatario completo por su ID
+const getDestinatarioById = (id) => {
+  return props.destinatarios.data.find(destinatario => destinatario.id === id);
+};
+
 
 
 
@@ -170,7 +181,11 @@ watch(
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                                             >
-                                            <input id="checkbox-table-search-1"  type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <input 
+                                            v-model="selectedDestinatarios" 
+                                            :value="destinatarios.id"  
+                                            type="checkbox" 
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             </td>
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
@@ -212,11 +227,23 @@ watch(
 <h2 class="font-mono text-xl font-semibold">Destinatarios Seleccionados</h2>
 
 
-<div>{{ checkedNames.join(', ') }}</div>
+
+
+<div v-if="selectedDestinatarios.length > 0">
+      <h3>Destinatarios seleccionados:</h3>
+      <ul>
+        <li v-for="id in selectedDestinatarios" :key="id">
+          {{ getDestinatarioById(id).correo }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
   </div>
 </div>
 
-</div>
+
 
 
 <div class="flex justify-center">

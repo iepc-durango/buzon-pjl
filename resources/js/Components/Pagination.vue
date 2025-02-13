@@ -45,27 +45,20 @@ defineProps({
                     >
                         <div>
                             <p class="text-sm text-gray-700">
-                                Showing
-                                <!-- space -->
-                                <span class="font-medium">{{
-                                 data.meta.from
-                                 }}
-                                 </span>
-                                <!-- space -->
-                                to
-                                <!-- space -->
-                                <span class="font-medium">{{ 
-                                data.meta.to
-                                }}</span>
-                                <!-- space -->
-                                of
-                                <!-- space -->
-                                <span class="font-medium"> {{ 
-                                data.meta.total
-                                }} </span>
-                                <!-- space -->
-                                results
-                            </p>
+                Showing
+                <span class="font-medium" v-if="data.meta && data.meta.from">
+                  {{ data.meta.from }}
+                </span>
+                to
+                <span class="font-medium" v-if="data.meta && data.meta.to">
+                  {{ data.meta.to }}
+                </span>
+                of
+                <span class="font-medium" v-if="data.meta && data.meta.total">
+                  {{ data.meta.total }}
+                </span>
+                results
+              </p>
                         </div>
                         <div>
                             <nav
