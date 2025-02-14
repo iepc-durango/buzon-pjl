@@ -13,7 +13,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Inicio" />
 
     <div class="bg-white text-black/50 dark:bg-white dark:text-white/50">
 
