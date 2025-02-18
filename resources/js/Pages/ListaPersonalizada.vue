@@ -1,9 +1,18 @@
 <script lang="ts" setup>
 
 import AppLayout from '@/Layouts/AppLayout.vue';
+import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
 import { ref } from "vue";
 
 const checkedNames = ref([])
+
+
+defineProps({
+    destinatarios: {
+        type: Object,
+        required: true,
+    },
+});
 
 </script>
 
@@ -19,92 +28,106 @@ const checkedNames = ref([])
 <div class="max-w-full md:w-auto  bg-white rounded-lg">
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
-  <div class="p-4">
-    <label for="table-search" class="sr-only">Search</label>
-    <div class="relative mt-1">
-      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd"
-            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </div>
-      <input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-gray-500" placeholder="Search for items">
-      </div>
+  
+    <div class="bg-gray-100 py-10">
+        <div class="mx-auto max-w-7xl">
+            <div class="px-4 sm:px-6 lg:px-8">
+                <div class="sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <h1 class="text-xl font-semibold text-gray-900">
+                            Destinatarios
+                        </h1>
+                        <p class="mt-2 text-sm text-gray-700">
+                            Seleciona los correos a donde se enviara tu correo
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col justify-between sm:flex-row mt-6">
+                    <div class="relative text-sm text-gray-800 col-span-3">
+                        <div
+                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
+                        >
+                            <MagnifyingGlass />
+                        </div>
+
+                        <input
+                            type="text"
+                            autocomplete="off"
+                            placeholder="Search students data..."
+                            id="search"
+                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-col">
+                    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div
+                            class="inline-block min-w-full py-2 align-center md:px-6 lg:px-8"
+                        >
+                            <div
+                                class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
+                            >
+                                <table
+                                    class="min-w-full divide-y divide-gray-300"
+                                >
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th
+                                                scope="col"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                            >
+                                                ID
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                            >
+                                                Nombre
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                            >
+                                                Email
+                                            </th>
+                                            
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody
+                                        class="divide-y divide-gray-200 bg-white"
+                                    >
+                                        <tr  >
+                                            <td
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                            >
+                                              1
+                                            </td>
+                                            <td
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                            >
+                                                jhova
+                                            </td>
+                                            <td
+                                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                            >
+                                               444
+                                            </td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>Pagination Links</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" class="p-4">
-            
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Nombre
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Correo
-          </th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-
-
-
-          <td class="w-4 p-4">
-            <div class="flex items-center">
-              <input id="checkbox-table-search-1"  type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-              <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-            </div>
-          </td>
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" >
-            karina
-          </th>
-          <td class="px-6 py-4">
-            Sliver
-          </td>
-          
-        </tr>
-
-        
-
-
-        <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="w-4 p-4">
-            <div class="flex items-center">
-              <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-              <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-            </div>
-          </td>
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-            Microsoft Surface Pro
-          </th>
-          <td class="px-6 py-4">
-            White
-          </td>
-         
-        </tr>
-        <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="w-4 p-4">
-            <div class="flex items-center">
-              <input id="checkbox-table-search-3" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-              <label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-            </div>
-          </td>
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-            Magic Mouse 2
-          </th>
-          <td class="px-6 py-4">
-            Black
-          </td>
-         
-        </tr>
-      </tbody>
-    </table>
   </div>
   
   

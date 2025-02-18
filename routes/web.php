@@ -11,6 +11,12 @@ use App\Http\Controllers\WordController;
 
 
 use Inertia\Inertia;
+use App\Http\Controllers\DestinatariosContrroller;
+use App\Http\Controllers\NotificacionController;
+
+
+
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -19,27 +25,18 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+
+    
 });
 
-
-
-Route::post('/send-email', [EmailController::class, 'sendEmail']);
-
-Route::post('/generate-document', [WordController::class, 'generate'])->name('generate.document');
-
-
-
-
-
 Route::inertia('/formdoc', 'FormDoc');
-Route::inertia('/formdoc3', 'FormDoc3');
-Route::inertia('/listapersonalizada', 'ListaPersonalizada');
-Route::inertia('/listapersonalizada2', 'ListaPersonalizada2');
+
 Route::inertia('/detalles', 'Detalles');
-Route::inertia('/useform', 'useForm');
-Route::inertia('/form', 'Form');
-Route::inertia('/form3', 'Form3');
-Route::inertia('/mail', 'Mail');
+
+//Route::inertia('/listapersonalizada', 'ListaPersonalizada');
+
+
+
 
 
 Route::middleware([
@@ -50,4 +47,20 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('destinatarios', DestinatariosContrroller::class);
+
+    Route::get('/api/items', [DestinatariosContrroller::class, 'getItems']);
+
+
 });
+
+
+Route::middleware(['auth'])->get('/notificaciones/create', [NotificacionController::class, 'create'])->name('notificaciones.create');
+
+// Ruta para almacenar la nueva notificación
+Route::middleware(['auth'])->post('/notificaciones', [NotificacionController::class, 'store'])->name('notificaciones.store');
+
+
+
+
