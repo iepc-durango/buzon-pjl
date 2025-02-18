@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Destinatarios extends Model
+class Tipo extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['nombre', 'correo'];
-
 
     public function notificaciones()
     {

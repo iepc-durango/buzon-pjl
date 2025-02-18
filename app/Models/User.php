@@ -64,4 +64,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relación con las notificaciones.
+     * Un usuario puede tener muchas notificaciones.
+     */
+    public function notificaciones()
+    {
+        return $this->hasMany(Notificacion::class, 'user_id');
+    }
+
 }
