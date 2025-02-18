@@ -2,6 +2,14 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\WordController;
+
+
+
+
+
 use Inertia\Inertia;
 use App\Http\Controllers\DestinatariosContrroller;
 use App\Http\Controllers\NotificacionController;

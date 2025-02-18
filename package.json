@@ -23,9 +23,10 @@
         "@ckeditor/ckeditor5-vue": "^7.3.0",
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@vueup/vue-quill": "^1.2.0",
-        "flowbite": "^3.1.1",
+        "flowbite": "^3.1.2",
         "quill": "^2.0.3",
-        "vue-router": "^4.5.0",
-        "vue-trix": "^1.2.0"
+        "vue-pdf": "^4.3.0",
+        "vue-trix": "^1.2.0",
+        "vuetify": "^3.7.12"
     }
 }
