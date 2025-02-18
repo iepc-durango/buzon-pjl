@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificacionController;
 
 
 
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -52,6 +53,7 @@ Route::middleware(['auth'])->get('/notificaciones/create', [NotificacionControll
 
 // Ruta para almacenar la nueva notificación
 Route::middleware(['auth'])->post('/notificaciones', [NotificacionController::class, 'store'])->name('notificaciones.store');
+
 
 
 
