@@ -69,7 +69,7 @@ const form = useForm({
 const submitForm = () => {
     form.post(route('notificaciones.store'), {
         onSuccess: () => {
-            console.log('Notificación creada exitosamente');
+            console.log('Notificación creada y correo enviado');
         },
         onError: (errors) => {
             console.log(errors);
