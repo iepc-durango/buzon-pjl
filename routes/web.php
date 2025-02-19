@@ -2,9 +2,18 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\WordController;
+
+
+
+
+
 use Inertia\Inertia;
 use App\Http\Controllers\DestinatariosContrroller;
 use App\Http\Controllers\Notificacion2Controller;
+
 
 
 
@@ -48,11 +57,23 @@ Route::middleware([
 
 });
 
+//ruta para generar documento
+
+Route::inertia('/formdoc3', 'FormDoc3');
+Route::inertia('/formdoc', 'FormDoc');
+
+
 
 //Route::middleware(['auth'])->get('/notificaciones/create', [NotificacionController::class, 'create'])->name('notificaciones.create');
 
 // Ruta para almacenar la nueva notificación
 //Route::middleware(['auth'])->post('/notificaciones', [NotificacionController::class, 'store'])->name('notificaciones.store');
+
+
+//Ruta para generar word
+
+Route::post('/generate-document', [WordController::class, 'generate'])->name('generate.document');
+
 
 
 

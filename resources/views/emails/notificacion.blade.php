@@ -11,3 +11,7 @@
     <p><strong>Fecha de la notificación:</strong> {{ $notificacion->fecha }}</p>
 </body>
 </html>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2a86c83a5f42b1c98978215eedef5c092bbc2f1d
