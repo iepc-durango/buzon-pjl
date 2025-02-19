@@ -158,7 +158,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('/generate-document', this.formData, {
+        const response = await axios.get('/generate-document', this.formData, {
           responseType: 'blob', // Indica que la respuesta es un archivo
         });
 
@@ -166,7 +166,7 @@ export default {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'documento_generado.docx');
+        link.setAttribute('download', 'documento_generado.pdf');
         document.body.appendChild(link);
         link.click();
         link.remove();

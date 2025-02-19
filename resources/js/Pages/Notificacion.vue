@@ -1,12 +1,16 @@
 <template>
-    <div>
-        <h1>Crear Notificación</h1>
+
+
+<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-8">
+    <h1 class="text-xl font-bold text-black capitalize dark:text-white">Nuevo Correo</h1>
+    
+        
 
         <form @submit.prevent="submitForm">
             <!-- Select para Tipo -->
-            <div class="form-group">
-                <label for="tipo_id">Tipo</label>
-                <select v-model="form.tipo_id" id="tipo_id" class="form-control" required>
+            <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+                <label for="tipo_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo</label>
+                <select v-model="form.tipo_id" id="tipo_id"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" required>
                     <option v-for="tipo in tipos" :key="tipo.id" :value="tipo.id">
                         {{ tipo.tipo }}
                     </option>
@@ -16,7 +20,7 @@
             <!-- Select para Destinatarios -->
             <div class="form-group">
                 <label for="destinatario_id">Destinatario</label>
-                <select v-model="form.destinatario_id" id="destinatario_id" class="form-control" required>
+                <select v-model="form.destinatario_id" id="destinatario_id" class="border form-control" required>
                     <option v-for="destinatario in destinatarios" :key="destinatario.id" :value="destinatario.id">
                         {{ destinatario.nombre }}
                     </option>
@@ -43,7 +47,8 @@
 
             <button type="submit" class="btn btn-primary">Crear Notificación</button>
         </form>
-    </div>
+    
+    </section>
 </template>
 
 <script setup>

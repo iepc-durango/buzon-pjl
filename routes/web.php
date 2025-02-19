@@ -20,6 +20,8 @@ use App\Http\Controllers\Notificacion2Controller;
 
 
 
+
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -60,7 +62,7 @@ Route::middleware([
 //ruta para generar documento
 
 Route::inertia('/formdoc3', 'FormDoc3');
-Route::inertia('/formdoc', 'FormDoc');
+Route::inertia('/formdoc4', 'FormDoc4');
 
 
 
@@ -72,7 +74,7 @@ Route::inertia('/formdoc', 'FormDoc');
 
 //Ruta para generar word
 
-Route::post('/generate-document', [WordController::class, 'generate'])->name('generate.document');
+//Route::get('/generate-document', [WordController::class, 'generate'])->name('generate.document');
 
 
 
