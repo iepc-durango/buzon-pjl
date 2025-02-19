@@ -12,7 +12,8 @@ use App\Http\Controllers\WordController;
 
 use Inertia\Inertia;
 use App\Http\Controllers\DestinatariosContrroller;
-use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\Notificacion2Controller;
+
 
 
 
@@ -63,10 +64,10 @@ Route::inertia('/formdoc', 'FormDoc');
 
 
 
-Route::middleware(['auth'])->get('/notificaciones/create', [NotificacionController::class, 'create'])->name('notificaciones.create');
+//Route::middleware(['auth'])->get('/notificaciones/create', [NotificacionController::class, 'create'])->name('notificaciones.create');
 
 // Ruta para almacenar la nueva notificación
-Route::middleware(['auth'])->post('/notificaciones', [NotificacionController::class, 'store'])->name('notificaciones.store');
+//Route::middleware(['auth'])->post('/notificaciones', [NotificacionController::class, 'store'])->name('notificaciones.store');
 
 
 //Ruta para generar word
@@ -75,5 +76,10 @@ Route::post('/generate-document', [WordController::class, 'generate'])->name('ge
 
 
 
+
+Route::middleware(['auth'])->get('/notificaciones2/create', [Notificacion2Controller::class, 'create'])->name('notificaciones.create');
+
+// Ruta para almacenar la nueva notificación
+Route::middleware(['auth'])->post('/notificaciones2', [Notificacion2Controller::class, 'store'])->name('notificaciones.store');
 
 
