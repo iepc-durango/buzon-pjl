@@ -56,11 +56,22 @@ Route::middleware([
 
 });
 
+//ruta para generar documento
+
+Route::inertia('/formdoc3', 'FormDoc3');
+Route::inertia('/formdoc', 'FormDoc');
+
+
 
 Route::middleware(['auth'])->get('/notificaciones/create', [NotificacionController::class, 'create'])->name('notificaciones.create');
 
 // Ruta para almacenar la nueva notificación
 Route::middleware(['auth'])->post('/notificaciones', [NotificacionController::class, 'store'])->name('notificaciones.store');
+
+
+//Ruta para generar word
+
+Route::post('/generate-document', [WordController::class, 'generate'])->name('generate.document');
 
 
 
