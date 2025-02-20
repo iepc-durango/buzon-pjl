@@ -17,7 +17,7 @@ class WordController extends Controller
     {
 
 
-        $pdfPath = base_path('buzon-pjl/storage/app/plantillas/oficio.pdf');
+        $pdfPath = base_path('/storage/app/plantillas/oficio.pdf');
         $pdf = new Fpdi();
         // add a page
         //$pdf->AddPage();
@@ -33,8 +33,8 @@ class WordController extends Controller
     
         $pdf->SetFont('arial', '', '14');
     
-        //$pdf->SetXY(78.2, 109.5);
-        //$pdf->Write(0, 'xxxxxx');
+        $pdf->SetXY(78.2, 109.5);
+        $pdf->Write(0, 'xxxxxx');
     
         $pdf->Output();
 

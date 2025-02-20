@@ -158,20 +158,21 @@ export default {
       }
 
       try {
-        const response = await axios.get('/generate-document', this.formData, {
-          responseType: 'blob', // Indica que la respuesta es un archivo
-        });
 
-        // Crear un enlace para descargar el archivo
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'documento_generado.pdf');
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+axios({
+  url: '/generate-document', //back
+  method: 'GET',
+  responseType: 'blob',  // archivo binario
+})
+  .then(response => {
+  const blob = response.data;
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'archivo.pdf';  // nombre del archivo 
+  link.click();
+});
 
-        console.log('Documento generado correctamente');
+console.log('Documento generado correctamente');
       } catch (error) {
         console.error('Error al generar el documento:', error);
       }
