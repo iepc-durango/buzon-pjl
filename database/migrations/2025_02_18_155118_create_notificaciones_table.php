@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('descripcion');
             $table->timestamp('fecha')->useCurrent();
+            
             $table->timestamps();
         });
     }

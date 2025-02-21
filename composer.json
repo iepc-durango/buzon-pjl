@@ -18,6 +18,8 @@
         "resend/resend-php": "^0.15.1",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6",
+
+        
         "symfony/http-client": "^7.2",
         "symfony/postmark-mailer": "^7.2",
         "tecnickcom/tcpdf": "^6.8",

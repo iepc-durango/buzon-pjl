@@ -27,6 +27,9 @@ class WordController extends Controller
         $pdf->AddPage($orientation = 'P', $size = 'Letter');
         $pdf->SetAutoPageBreak(false, 0); #pone margen
         // import page 1
+
+
+        
         $tplIdx = $pdf->importPage(1);
         // use the imported page and place it at point 10,10 with a width of 100 mm
         $pdf->useImportedPage($tplIdx);

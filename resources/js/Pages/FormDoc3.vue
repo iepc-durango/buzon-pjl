@@ -157,26 +157,9 @@ export default {
         this.formData.tipo = this.formData.especificar;
       }
 
-      try {
-
-axios({
-  url: '/generate-document', //back
-  method: 'GET',
-  responseType: 'blob',  // archivo binario
-})
-  .then(response => {
-  const blob = response.data;
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'archivo.pdf';  // nombre del archivo 
-  link.click();
-});
-
-console.log('Documento generado correctamente');
-      } catch (error) {
-        console.error('Error al generar el documento:', error);
-      }
-    },
+     
+      
+      
   },
 };
 </script>
