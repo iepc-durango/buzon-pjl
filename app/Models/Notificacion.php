@@ -2,51 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property int $tipo_id
- * @property User $user_id
- * @property Destinatarios $destinatario_id
- * @property string $titulo
- * @property string $descripcion
- * @property string $fecha
- */
 class Notificacion extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', 'tipo_id', 'titulo', 'no_acuerdo', 'sesion', 'descripcion', 
+        'fecha_aprobacion', 'no_expediente', 'denunciante', 'denunciado', 'municipio',
+        'descripcion_fundamento', 'descripcion_docu', 'frag_doc', 'descripcion_notificado'
+    ];
 
     protected $table = 'notificaciones';
 
-    protected $fillable = [
-        'tipo_id', 'user_id', 'destinatario_id', 'titulo', 'descripcion', 'fecha'
-    ];
-
-    /**
-     * @return BelongsTo<Tipo, Notificacion>
-     */
-    public function tipo(): BelongsTo
-    {
-        return $this->belongsTo(Tipo::class, 'tipo_id');
-    }
-
-    /**
-     * @return BelongsTo<User, Notificacion>
-     */
-    public function usuario(): BelongsTo
+    public function usuario()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo<Destinatarios, Notificacion>
-     */
-    public function destinatario(): BelongsTo
+    public function tipo()
     {
-        return $this->belongsTo(Destinatarios::class, 'destinatario_id');
+        return $this->belongsTo(Tipo::class);
+    }
+
+    public function detalles()
+    {
+        return $this->hasMany(Detalle::class, 'id_notificacion');
     }
 }

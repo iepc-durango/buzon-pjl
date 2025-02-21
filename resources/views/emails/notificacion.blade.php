@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificación</title>
+    <meta charset="utf-8">
+    <title>Nueva Notificación</title>
 </head>
 <body>
-    <h1>{{ $notificacion->titulo }}</h1>
-    <p>{{ $notificacion->descripcion }}</p>
-    <p><strong>Fecha de la notificación:</strong> {{ $notificacion->fecha }}</p>
+    <p>Estimado usuario,</p>
+    <p>Se ha generado una nueva notificación. Adjuntamos el documento correspondiente.</p>
+    <p>Para confirmar que has leído la notificación, haz clic en el siguiente enlace:</p>
+    <p><a href="{{ $link }}">Marcar Notificación como Leída</a></p>
+    <p>Saludos,</p>
+    <p>El equipo de Notificaciones</p>
 </body>
 </html>

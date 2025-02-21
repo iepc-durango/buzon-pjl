@@ -65,13 +65,6 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Relación con las notificaciones.
-     * Un usuario puede tener muchas notificaciones.
-     */
-    public function notificaciones()
-    {
-        return $this->hasMany(Notificacion::class, 'user_id');
-    }
+   
 
 }
