@@ -10,9 +10,15 @@ onMounted(() => {
     router.get('/login'); // Redirige con Inertia.js
   }, 4000);
 });
+
+
 </script>
 
 <template>
+
+
+
+
     <Head title="Inicio" />
 
     <div class="bg-white text-black/50 dark:bg-white dark:text-white/50">
@@ -45,8 +51,8 @@ onMounted(() => {
         </div>
 
 
-       
-
+     
+    
         
     
 </template>

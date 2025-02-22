@@ -1,8 +1,6 @@
 <script setup>
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
-
-
 
 
 
@@ -10,29 +8,20 @@ import { defineProps } from 'vue';
 
 // Usamos defineProps para obtener las propiedades que son pasadas al componente
 const props = defineProps({
-  notificaciones: Array
+  detalles: Array
 });
+
 
 
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
-       
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <Welcome />
-                </div>
-            </div>
-        </div>
-
-
-      <!-- Contenedor de la tabla -->
-      <div class="relative overflow-x-auto shadow-0 py-3 sm:rounded-lg">
+    
+    <AppLayout title="Detalles">
         
-
+        <div class="py-10">
+            
+        </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Tabla de detalles -->
             <div class="flex justify-center">
@@ -48,9 +37,9 @@ const props = defineProps({
                         </thead>
                         <tbody>
                             <!-- Recorrer los detalles y mostrar la información -->
-                            <tr  v-for="notificacion in notificaciones" :key="notificacion.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                            <tr v-for="detalle in props.detalles" :key="detalle.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ notificacion.tipo_id  }}
+                                    {{ detalle.id_notificacion  }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ detalle.destinatario_id  }}
@@ -67,9 +56,5 @@ const props = defineProps({
                 </div>
             </div>
         </div>
-    </div>
-
-
-
     </AppLayout>
 </template>

@@ -23,6 +23,17 @@ use Illuminate\Support\Facades\Mail;
 
 class NotificacionController extends Controller
 {
+
+
+    public function index()
+    {
+        
+        $notificaciones = Notificacion::all(); 
+
+        return Inertia::render('Components/Welcome', [
+            'notificaciones' => $notificaciones
+        ]);
+    }
     /**
      * Muestra el formulario de creación.
      */
@@ -40,7 +51,9 @@ class NotificacionController extends Controller
             'Vicente Guerrero'
         ];
 
-        return Inertia::render('Notificaciones/create', compact('tipos', 'municipios'));
+        $destinatarios = Destinatario::all();
+
+        return Inertia::render('Notificaciones/create', compact('tipos', 'municipios', 'destinatarios'));
     }
 
     /**
@@ -120,7 +133,7 @@ class NotificacionController extends Controller
             $type = $request->input('tipo');
 
             // Define la ruta a la plantilla según el tipo
-            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'Acuerdo2.pdf' : 'PES.pdf'));
+            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'Acuerdo.pdf' : 'PES.pdf'));
 
             $pdf = new Fpdi();
             $pdf->AddPage();
@@ -128,22 +141,22 @@ class NotificacionController extends Controller
             $templateId = $pdf->importPage(1);
             $pdf->useTemplate($templateId);
 
-            $pdf->SetFont('Helvetica', '', 12);
+            $pdf->SetFont('Times', '', 11);
 
             $currentDate = now()->format('Y-m-d H:i:s');
             $typeText = $type === 'Acuerdo' ? 'Acuerdo' : 'PES';
 
             if ($type === 'Acuerdo') {
-                $pdf->SetXY(50, 40);
-                $pdf->Cell(0, 10, $data['no_acuerdo'] ?? '', 0, 1);
-                $pdf->SetXY(50, 50);
+                $pdf->SetXY(50, 78);
+                $pdf->Cell(40, 50, $data['no_acuerdo'] ?? '', 0, 1);
+                $pdf->SetXY(113, 98);
                 $pdf->Cell(0, 10, $data['fecha_aprobacion'] ?? '', 0, 1);
-                $pdf->SetXY(50, 60);
+                $pdf->SetXY(163, 98);
                 $pdf->Cell(0, 10, $data['sesion'] ?? '', 0, 1);
-                $pdf->SetXY(50, 70);
-                $pdf->Cell(0, 10, $data['titulo'] ?? '', 0, 1);
-                $pdf->SetXY(50, 80);
-                $pdf->MultiCell(0, 10, $data['descripcion'] ?? '', 0, 1);
+                $pdf->SetXY(32, 115);
+                $pdf->MultiCell(150, 5, $data['titulo'] ?? '', 0, 'L');
+                $pdf->SetXY(32, 155);
+                $pdf->MultiCell(150, 5, $data['descripcion'] ?? '', 0, 1);
             } else if ($type === 'PES') {
                 $pdf->SetXY(10, 10);
                 $pdf->Cell(0, 10, $data['no_expediente'] ?? '', 0, 1);

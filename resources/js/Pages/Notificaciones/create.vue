@@ -28,7 +28,7 @@
       <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
       <div>
         <label for="titulo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
-        <textarea v-model="form.titulo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <textarea v-model="form.titulo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500" />
 
       </div>
       </div>
@@ -101,21 +101,47 @@
     <div class="modal-content">
       <h3>Selecciona una opción</h3>
       <p>¿Deseas guardar esta notificación en la lista global o en una lista personalizada?</p>
-      <button @click="seleccionarLista('global')">Lista Global</button>
-      <button @click="seleccionarLista('personalizada')">Lista Personalizada</button>
+      <div class="flex flex-col justify-center items-center space-y-2">
+  <button @click="seleccionarLista('global')" type="button" class="text-white bg-gray-500 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-10 py-2 text-center mb-2 block dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800">
+    Lista Global
+  </button>
+  <button @click="seleccionarLista('personalizada')" type="button" class="text-white bg-gray-500 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center mb-2 block dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800">
+    Lista Personalizada
+  </button>
+</div>
+
       <button @click="modalVisible = false">Cerrar</button>
     </div>
   </div>
 
+<!-- Modal de Selección de Lista -->
+<div v-if="modalLista" class="modal">
+      <div class="modal-content">
+        <h3>Selecciona los destinatarios</h3>
+        <select v-model="selectedEmails" multiple class="w-full p-2 border rounded-lg">
+          <option v-for="destinatario in destinatarios" :key="destinatario.id" :value="destinatario.id">
+            {{ destinatario.correo }}
+          </option>
+        </select>
+        <button @click="sendNotification">Enviar Notificación</button>
+      </div>
+    </div>
+  
+
+  
+ 
   <!-- Modal de Confirmación de Envío Global -->
   <div v-if="confirmModalVisible" class="modal">
     <div class="modal-content">
       <h3>Confirmar Envío</h3>
       <p>¿Estás seguro de que deseas enviar este correo a todos los usuarios existentes?</p>
-      <button @click="enviarCorreoGlobal">Sí, Enviar</button>
+      <button @click="enviarCorreoGlobal" type="button" class="text-white bg-gray-500 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800">Sí, enviar</button>
       <button @click="confirmModalVisible = false">Cancelar</button>
     </div>
   </div>
+
+
+ 
 
 </AppLayout>
 </template>
@@ -131,7 +157,8 @@ axios.defaults.withCredentials = true;
 
 const props = defineProps({
   tipos: Array,
-  municipios: Array
+  municipios: Array,
+  destinatarios: Array
 });
 
 const form = useForm({
@@ -154,6 +181,11 @@ const form = useForm({
 const selectedTipo = computed(() => props.tipos.find(t => t.id === form.tipo_id));
 const modalVisible = ref(false);
 const confirmModalVisible = ref(false);
+const selectedEmails = ref([]); // Arreglo que almacena los correos seleccionados
+
+
+
+
 
 watch(() => form.tipo_id, (newTipo) => {
   if (!newTipo) return;
@@ -188,13 +220,25 @@ const generarPDF = async () => {
   }
 };
 
+const sendNotification = async () => {
+  if (selectedEmails.value.length === 0) {
+    alert("Por favor, selecciona al menos un destinatario.");
+    return;
+  }
+}
+
 const seleccionarLista = (tipo) => {
   if (tipo === 'global') {
     confirmModalVisible.value = true;
-  } else {
-    console.log("Guardando en lista personalizada...");
+  } else if (tipo === 'personalizada') {
+    listaPersonalizadaVisible.value = true;
   }
 };
+
+
+
+
+
 
 const enviarCorreoGlobal = async () => {
   try {
