@@ -44,6 +44,7 @@ const props = defineProps({
                                 <th scope="col" class="px-6 py-3">Destinatario</th>
                                 <th scope="col" class="px-6 py-3">Fecha de Envío</th>
                                 <th scope="col" class="px-6 py-3">Estado de Notificacion</th>
+                                <th scope="col" class="px-6 py-3">Estado de Notificacion</th>
                             </tr>
                         </thead>
                         <tbody>
