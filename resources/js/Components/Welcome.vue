@@ -2,12 +2,20 @@
 import { Link } from '@inertiajs/vue3'
 
 
+// const props = defineProps({
+//   notificaciones: {
+//     type: Array,
+//     default: () => []
+//   },
+// });
+
+
 </script>
 
 <template>
     
    
-     Contenedor del botón fuera de la tabla
+    
     <div class="flex justify-end py-3 px-4 mb-4">
         <Link
       href="/notificaciones/create"
@@ -16,7 +24,24 @@ import { Link } from '@inertiajs/vue3'
       Crear Notificacion
     </Link>
         </div> 
+
+
+        
+  <!-- <div class="p-6">
+    <h1 class="text-2xl font-bold mb-4">Listado de Notificaciones</h1>
+    <ul>
+      <li v-for="notificacion in notificaciones" :key="notificacion.id">
+        <strong>ID:</strong> {{ notificacion.id }} -
+        <strong>Título:</strong> {{ notificacion.titulo }} -
+        <strong>Creado:</strong> {{ notificacion.created_at }}
+      </li>
+    </ul>
+  </div> -->
+
+ 
+</template>
+
+
         
     
 
-</template>

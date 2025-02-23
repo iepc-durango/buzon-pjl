@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // obligatorio
             $table->foreignId('tipo_id')->constrained('tipos')->onDelete('cascade'); // obligatorio
-            $table->string('titulo')->nullable();
+            $table->text('titulo')->nullable();
             $table->string('no_acuerdo')->nullable();
             $table->string('sesion')->nullable();
             $table->text('descripcion')->nullable();
