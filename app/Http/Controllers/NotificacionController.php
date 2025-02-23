@@ -17,23 +17,20 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\EnviarNotificacionJob;
 
-
-use Illuminate\Support\Facades\Mail;
-
-
 class NotificacionController extends Controller
 {
 
-
-    public function index()
+public function index()
     {
         
         $notificaciones = Notificacion::all(); 
 
-        return Inertia::render('Components/Welcome', [
+        return Inertia::render('Index', [
             'notificaciones' => $notificaciones
         ]);
     }
+
+
     /**
      * Muestra el formulario de creación.
      */
@@ -50,7 +47,6 @@ class NotificacionController extends Controller
             'Santiago Papasquiaro', 'Súchil', 'Tamazula', 'Tepehuanes', 'Tlahualilo', 'Topia',
             'Vicente Guerrero'
         ];
-
         $destinatarios = Destinatario::all();
 
         return Inertia::render('Notificaciones/create', compact('tipos', 'municipios', 'destinatarios'));
@@ -83,21 +79,17 @@ class NotificacionController extends Controller
         // Genera el PDF y obtiene el contenido binario
         $pdfContent = $this->generatePdf(new Request($request->all()));
 
-        // Codifica el PDF en base64 para poder almacenarlo en sesión de forma segura
+        // Codifica el PDF en base64 para almacenarlo de forma segura en sesión
         $pdfContent = base64_encode($pdfContent);
 
-        // Opcional: convierte recursivamente los datos del formulario a UTF-8 si es necesario
-        $data = $request->all();
-        // Por ejemplo, podrías hacer: $data = $this->recursiveUtf8Encode($data);
-
-        Session::put('form_data', $data);
+        Session::put('form_data', $request->all());
         Session::put('pdf_data', $pdfContent);
 
         return response()->json(['message' => 'PDF generado y guardado en sesión']);
     }
 
     /**
-     * Almacena la notificación y el PDF de forma definitiva.
+     * (Opcional) Almacena la notificación y el PDF de forma definitiva.
      */
     public function store(Request $request)
     {
@@ -110,7 +102,6 @@ class NotificacionController extends Controller
         // Decodifica el PDF para guardarlo en disco
         $pdfContent = base64_decode($pdfContent);
 
-        // Asigna el ID del usuario autenticado
         $formData['user_id'] = Auth::id();
 
         $notificacion = Notificacion::create($formData);
@@ -128,12 +119,10 @@ class NotificacionController extends Controller
     public function generatePdf(Request $request)
     {
         try {
-            // Extrae los datos del formulario, excepto el campo "tipo"
             $data = $request->except('tipo');
             $type = $request->input('tipo');
 
-            // Define la ruta a la plantilla según el tipo
-            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'Acuerdo.pdf' : 'PES.pdf'));
+            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'Acuerdo2.pdf' : 'PES.pdf'));
 
             $pdf = new Fpdi();
             $pdf->AddPage();
@@ -141,22 +130,22 @@ class NotificacionController extends Controller
             $templateId = $pdf->importPage(1);
             $pdf->useTemplate($templateId);
 
-            $pdf->SetFont('Times', '', 11);
+            $pdf->SetFont('Helvetica', '', 12);
 
             $currentDate = now()->format('Y-m-d H:i:s');
             $typeText = $type === 'Acuerdo' ? 'Acuerdo' : 'PES';
 
             if ($type === 'Acuerdo') {
-                $pdf->SetXY(50, 78);
-                $pdf->Cell(40, 50, $data['no_acuerdo'] ?? '', 0, 1);
-                $pdf->SetXY(113, 98);
+                $pdf->SetXY(50, 40);
+                $pdf->Cell(0, 10, $data['no_acuerdo'] ?? '', 0, 1);
+                $pdf->SetXY(50, 50);
                 $pdf->Cell(0, 10, $data['fecha_aprobacion'] ?? '', 0, 1);
-                $pdf->SetXY(163, 98);
+                $pdf->SetXY(50, 60);
                 $pdf->Cell(0, 10, $data['sesion'] ?? '', 0, 1);
-                $pdf->SetXY(32, 115);
-                $pdf->MultiCell(150, 5, $data['titulo'] ?? '', 0, 'L');
-                $pdf->SetXY(32, 155);
-                $pdf->MultiCell(150, 5, $data['descripcion'] ?? '', 0, 1);
+                $pdf->SetXY(50, 70);
+                $pdf->Cell(0, 10, $data['titulo'] ?? '', 0, 1);
+                $pdf->SetXY(50, 80);
+                $pdf->MultiCell(0, 10, $data['descripcion'] ?? '', 0, 1);
             } else if ($type === 'PES') {
                 $pdf->SetXY(10, 10);
                 $pdf->Cell(0, 10, $data['no_expediente'] ?? '', 0, 1);
@@ -179,9 +168,7 @@ class NotificacionController extends Controller
     }
 
     /**
-     * Envía el correo a todos los destinatarios usando colas.
-     * Crea la notificación, guarda el PDF definitivamente y genera registros en detalles
-     * con un enlace único para cada destinatario.
+     * Envía el correo a todos los destinatarios usando colas (Lista Global).
      */
     public function enviarCorreoGlobal(Request $request)
     {
@@ -191,13 +178,11 @@ class NotificacionController extends Controller
         
         $formData = Session::get('form_data');
         $pdfContentBase64 = Session::get('pdf_data');
-        // No decodificamos aquí para enviar al Job; lo usaremos para adjuntar en el correo luego.
+        // Decodifica el PDF para guardarlo en disco
         $pdfContentBinary = base64_decode($pdfContentBase64);
 
-        // Asigna el ID del usuario autenticado
         $formData['user_id'] = Auth::id();
 
-        // Elimina campos extra que no correspondan (por ejemplo, 'tipo')
         if (isset($formData['tipo'])) {
             unset($formData['tipo']);
         }
@@ -220,13 +205,62 @@ class NotificacionController extends Controller
                 'link'            => $link,
             ]);
 
-            // Despacha el Job usando el PDF codificado en base64 para evitar problemas de JSON
+            // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
             dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
         }
 
         Session::forget(['form_data', 'pdf_data']);
 
-        return response()->json(['message' => 'Correos en proceso de envío.']);
+        return response()->json(['message' => 'Correos globales en proceso de envío.']);
+    }
+
+    /**
+     * Envía el correo a los destinatarios seleccionados (Lista Personalizada) usando colas.
+     */
+    public function enviarCorreoPersonalizado(Request $request)
+    {
+        $request->validate([
+            'destinatarios' => 'required|array|min:1'
+        ]);
+
+        if (!Session::has('form_data') || !Session::has('pdf_data')) {
+            return response()->json(['error' => 'No hay datos para enviar'], 400);
+        }
+        
+        $selectedDestIds = $request->input('destinatarios');
+        $formData = Session::get('form_data');
+        $pdfContentBase64 = Session::get('pdf_data');
+        $pdfContentBinary = base64_decode($pdfContentBase64);
+
+        $formData['user_id'] = Auth::id();
+        if (isset($formData['tipo'])) {
+            unset($formData['tipo']);
+        }
+
+        $notificacion = Notificacion::create($formData);
+        $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
+        Storage::put($pdfPath, $pdfContentBinary);
+
+        $destinatarios = Destinatario::whereIn('id', $selectedDestIds)->get();
+
+        foreach ($destinatarios as $destinatario) {
+            $token = Str::uuid()->toString();
+            $link = route('notificacion.abrir', ['token' => $token]);
+
+            Detalle::create([
+                'id_notificacion' => $notificacion->id,
+                'destinatario_id' => $destinatario->id,
+                'status_abierto'  => 'UNREAD',
+                'status_envio'    => 'send',
+                'link'            => $link,
+            ]);
+
+            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
+        }
+
+        Session::forget(['form_data', 'pdf_data']);
+
+        return response()->json(['message' => 'Correos personalizados en proceso de envío.']);
     }
 
     /**
@@ -239,53 +273,4 @@ class NotificacionController extends Controller
         $detalle->update(['status_abierto' => 'READ']);
         return view('notificaciones.abierto', compact('detalle'));
     }
-
-
-    
-
-// public function testSendMail(Request $request)
-// {
-//     // Datos de prueba para el PDF
-//     $data = [
-//         'no_acuerdo' => 'Acuerdo de prueba',
-//         'fecha_aprobacion' => '2025-02-20',
-//         'sesion' => 'Sesión de prueba',
-//         'titulo' => 'Título de prueba',
-//         'descripcion' => 'Descripción de prueba',
-//         'tipo' => 'Acuerdo'
-//     ];
-
-//     // Generar el PDF con el método existente
-//     $requestData = new Request($data);
-//     $pdfContentBinary = $this->generatePdf($requestData);
-
-//     // Registro del tamaño del PDF para depuración
-//     Log::info('Tamaño del PDF generado: ' . strlen($pdfContentBinary));
-
-//     // Verificar si el PDF se generó correctamente
-//     if (empty($pdfContentBinary)) {
-//         Log::error('El contenido del PDF está vacío.');
-//         return response()->json(['error' => 'No se pudo generar el PDF'], 500);
-//     }
-
-//     // Enlace de prueba para el correo
-//     $link = 'http://example.com/test-link';
-
-//     try {
-//         // Enviar el correo directamente sin colas
-//         Mail::to('destinatario@ejemplo.com')
-//             ->send(new NotificacionMailable($pdfContentBinary, $link));
-
-//         Log::info('Correo enviado correctamente.');
-
-//         return response()->json(['message' => 'Correo de prueba enviado correctamente.']);
-
-//     } catch (\Exception $e) {
-//         Log::error('Error al enviar el correo: ' . $e->getMessage());
-//         return response()->json(['error' => 'Error al enviar el correo.'], 500);
-//     }
-// }
-
-
-
 }
