@@ -148,7 +148,7 @@
 
         <!-- Modal de Selección de Lista -->
         <div v-if="modalVisible" class="modal">
-            <div class="modal-content">
+            <div class="modal-content space-y-8">
                 <h3>Selecciona una opción</h3>
                 <p>¿Deseas guardar esta notificación en la lista global o en una lista personalizada?</p>
                 <div class="flex flex-col justify-center items-center space-y-2">
@@ -167,7 +167,7 @@
 
         <!-- Modal para lista personalizada: selección de destinatarios -->
         <div v-if="personalizadaModalVisible" class="modal">
-            <div class="modal-content">
+            <div class="modal-content space-y-10">
                 <h3>Selecciona destinatarios</h3>
                 <div v-for="dest in destinatarios" :key="dest.id">
                     <label>
@@ -175,7 +175,7 @@
                         {{ dest.nombre }} ({{ dest.correo }})
                     </label>
                 </div>
-                <button type="button" @click="enviarCorreoPersonalizado">Enviar a seleccionados</button>
+                <button type="button" @click="enviarCorreoPersonalizado" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Enviar a seleccionados</button>
                 <button type="button" @click="personalizadaModalVisible = false">Cancelar</button>
             </div>
         </div>
@@ -183,7 +183,7 @@
 
         <!-- Modal de Confirmación de Envío Global -->
         <div v-if="confirmModalVisible" class="modal">
-            <div class="modal-content">
+            <div class="modal-content space-y-8">
                 <h3>Confirmar Envío</h3>
                 <p>¿Estás seguro de que deseas enviar este correo a todos los usuarios existentes?</p>
                 <button @click="enviarCorreoGlobal" type="button" class="text-white bg-gray-500 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800">Sí, enviar</button>
