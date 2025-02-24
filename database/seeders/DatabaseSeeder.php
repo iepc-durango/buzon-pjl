@@ -20,8 +20,25 @@ class DatabaseSeeder extends Seeder
         $destinatarios = [
             ['nombre' => 'Alejandro Parra Villa', 'correo' => 'alejandro.parra@iepcdurango.mx', 'cargo' => 'Magistrado'],
             ['nombre' => 'Jorge Galo Solano García', 'correo' => 'alexparra2404@gmail.com', 'cargo' => 'Magistrado'],
-//            ['nombre' => 'Rebeca Macias Herrera', 'correo' => 'rebeca.macias@iepcdurango.mx', 'cargo' => 'Magistrado'],
-//            ['nombre' => 'Misael Omar Vargas Ochoa', 'correo' => 'misael.vargas@iepcdurango.mx', 'cargo' => 'Magistrado']
+            ['nombre' => 'Ricardo López López', 'correo' => 'correo@correo.mx', 'cargo' => 'Magistrado'],
+            ['nombre' => 'Fernando Alonso Rodríguez García', 'correo' => 'fernando.rodriguez@iepcdurango.mx', 'cargo' => 'Magistrado'],
+            ['nombre' => 'Imar Celeste Mata García', 'correo' => 'irma.mata@iepcdurango.mx	', 'cargo' => 'Magistrado'],
+            ['nombre' => 'Jesús Lemuel Flores Hernández', 'correo' => 'jesus.flores@iepcdurango.mx', 'cargo' => 'Magistrado'],
+            ['nombre' => 'Ilse Monserrat Chihuahua Núñez', 'correo' => 'ilse.chihuahua@iepcdurango.mx', 'cargo' => 'Magistrade'],
+            ['nombre' => 'Clarissa Herrera Canales', 'correo' => 'clarissa.herrera@iepcdurango.mx', 'cargo' => 'Magistrada'],
+            ['nombre' => 'Carlos Antonio Hernández Aldana', 'correo' => 'carlos antonio.hernández@iepcdurango.hx', 'cargo' => 'Juez Civil'],
+            ['nombre' => 'Madeleine Palencia Rosales', 'correo' => 'madeleine.palencia@iepcdurango.mx', 'cargo' => 'Magistrado'],
+            ['nombre' => 'Jesús Francisco Enríquez Gamero', 'correo' => 'jesús francisco.enríquez@iepcdurango.hx', 'cargo' => 'Juez Civil'],
+            ['nombre' => 'Juana Garay Beltrán', 'correo' => 'juana.garay@iepcdurango.mx', 'cargo' => 'Juez Civil'],
+
+
+
+
+
+
+
+
+
         ];
 
         foreach ($destinatarios as $destinatario) {
