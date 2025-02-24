@@ -89,7 +89,9 @@ class NotificacionController extends Controller
             $templateId = $pdf->importPage(1);
             $pdf->useTemplate($templateId);
 
-            $pdf->SetFont('Helvetica', '', 12);
+            
+
+            $pdf->SetFont('Helvetica', '', 11);
 
             $currentDate = now()->format('Y-m-d H:i:s');
             $typeText = $type === 'Acuerdo' ? 'Acuerdo' : 'PES';
@@ -105,13 +107,63 @@ class NotificacionController extends Controller
                 $pdf->Cell(0, 10, $data['titulo'] ?? '', 0, 1);
                 $pdf->SetXY(50, 80);
                 $pdf->MultiCell(0, 10, $data['descripcion'] ?? '', 0, 1);
+
+
+
             } else if ($type === 'PES') {
-                $pdf->SetXY(10, 10);
+                $pdf->SetXY(130, 25);
+                $pdf->Cell(0, 10, $data['tipo'] ?? '', 0, 1);
+                $pdf->SetXY(130, 18);
                 $pdf->Cell(0, 10, $data['no_expediente'] ?? '', 0, 1);
+                $pdf->SetXY(127, 25);
+                $pdf->Cell(0, 10, $data['denunciante'] ?? '', 0, 1);
+                $pdf->SetXY(127, 33);
+                $pdf->Cell(0, 10, $data['denunciado'] ?? '', 0, 1);
+                $pdf->SetXY(20, 98);
+                $pdf->Cell(0, 10, $data['municipio'] ?? '', 0, 1);
+                $pdf->SetXY(20, 115);
+                $pdf->MultiCell(0, 5, $data['descripcion_fundamento'] ?? '', 0, 1);
+                $pdf->SetXY(20, 170);
+                $pdf->MultiCell(0, 5, $data['descripcion_docu'] ?? '', 0, 1);
+                $pdf->SetXY(20, 208);
+                $pdf->MultiCell(0, 5, $data['frag_doc'] ?? '', 0, 1);
+                $pdf->SetXY(10, 10);
+                $pdf->Cell(0, 10, $data['descripcion_notificado'] ?? '', 0, 1);
+                $pdf->SetXY(10, 10);
+
+
+                setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
+
+                $dia = date('d'); // Día en número
+                $mes = strftime('%B');
+                $mes = ucfirst(strftime('%B')); // Nombre del mes con la primera letra en mayúscula
+                $anio = date('Y'); // Año
+              
+
+                $pdf->SetXY(70, 98);
+                $pdf->Cell(0, 10, "Durango, a", 0, 0);
+
+                $pdf->SetXY(20, 98);
+                $pdf->Cell(0, 10, $dia, 0, 0, 'C'); // Día en número
+
+                $pdf->SetXY(115, 98);
+                $pdf->Cell(0, 10, "de", 0, 0);
+
+                $pdf->SetXY(70, 98);
+                $pdf->Cell(0, 10, $mes, 0, 0, 'C'); // Nombre del mes
+
+                $pdf->SetXY(150, 98);
+                $pdf->Cell(0, 10, "de", 0, 0);
+
+                $pdf->SetXY(160, 98);
+                $pdf->Cell(0, 10, $anio, 0, 0, 'C'); // Año
+                
+
+                
             }
 
-            $pdf->SetXY(10, 290);
-            $pdf->Cell(0, 10, "Tipo: $typeText - Fecha de generación: $currentDate", 0, 1, 'C');
+            //$pdf->SetXY(10, 290);
+            //$pdf->Cell(0, 10, "Tipo: $typeText - Fecha de generación: $currentDate", 0, 1, 'C');
 
             $pdfOutput = $pdf->Output('S');
 
@@ -206,9 +258,10 @@ class NotificacionController extends Controller
         $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
 
 
-        $destinatarios = Destinatario::all();
+        $destinatarios = Destinatario::all()->toArray();
 
-        foreach ($destinatarios as $destinatario) {
+        foreach ($destinatarios as $index => $destinatario) {
+//        dd($destinatario);
             // FPDI  instance
             $pdf = new Fpdi();
 
@@ -217,7 +270,7 @@ class NotificacionController extends Controller
 
             Detalle::create([
                 'id_notificacion' => $notificacion->id,
-                'destinatario_id' => $destinatario->id,
+                'destinatario_id' => $destinatario['id'],
                 'status_abierto' => 'UNREAD',
                 'status_envio' => 'send',
                 'link' => $link,
@@ -238,7 +291,7 @@ class NotificacionController extends Controller
 
             // Recipient
             $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_strtoupper(mb_convert_encoding($destinatario->nombre, 'ISO-8859-1', 'UTF-8')));
+            $pdf->Write(0, mb_convert_encoding(($destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetFont('Helvetica', '', 11, true);;
             $pdf->SetXY(31, 102);
@@ -270,14 +323,14 @@ class NotificacionController extends Controller
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
             // Path to save the generated PDF
-            $outputPath = storage_path('app/public/generated.pdf');
+            $outputPath = storage_path('app/public/generated_'.$index.'.pdf');
 
             // Save the PDF to the disk
             $pdf->Output($outputPath, 'F', true);
 
             // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
 //            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
-            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
+            Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable($outputPath, $link));
         }
 
         Session::forget(['form_data', 'pdf_data']);

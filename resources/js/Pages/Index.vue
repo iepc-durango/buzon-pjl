@@ -19,7 +19,7 @@ const props = defineProps({
 
 <template>
     
-    <AppLayout title="Detalles">
+    <AppLayout title="Notificaciones">
         
         <div class="py-10">
             
