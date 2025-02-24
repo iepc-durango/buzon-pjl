@@ -19,7 +19,7 @@ class NotificacionMailable extends Mailable implements ShouldQueue
      * @param string $pdf Contenido binario del PDF.
      * @param string $link Enlace único para seguimiento.
      */
-    public function __construct($pdf, $link)
+    public function __construct(string $pdf, string $link)
     {
         $this->pdf = $pdf;
         $this->link = $link;
@@ -27,11 +27,14 @@ class NotificacionMailable extends Mailable implements ShouldQueue
 
     public function build()
     {
-        return $this->subject('Nueva Notificación')
-                    ->view('emails.notificacion')
-                    ->attachData($this->pdf, 'notificacion.pdf', [
-                        'mime' => 'application/pdf',
-                    ])
-                    ->with(['link' => $this->link]);
+        return $this
+            ->from('buzonpopjl@appsiepcdurango.mx')
+            ->subject('Nueva Notificación')
+            ->attach($this->pdf, [
+                'as' => 'Notificación.pdf',
+                'mime' => 'application/pdf',
+            ])
+            ->view('emails.notificacion')
+            ->with(['link' => $this->link]);
     }
 }
