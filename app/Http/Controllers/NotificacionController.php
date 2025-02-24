@@ -201,15 +201,15 @@ class NotificacionController extends Controller
 //        $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
 //        Storage::put($pdfPath, $pdfContentBinary);
 
-        $destinatarios = Destinatario::all();
 
         // Path to PDF template
         $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
 
-        // FPDI  instance
 
+        $destinatarios = Destinatario::all();
 
         foreach ($destinatarios as $destinatario) {
+            // FPDI  instance
             $pdf = new Fpdi();
 
             $token = Str::uuid()->toString();
@@ -238,7 +238,7 @@ class NotificacionController extends Controller
 
             // Recipient
             $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_strtoupper($destinatario->nombre));
+            $pdf->Write(0, mb_strtoupper(mb_convert_encoding($destinatario->nombre, 'ISO-8859-1', 'UTF-8')));
 
             $pdf->SetFont('Helvetica', '', 11, true);;
             $pdf->SetXY(31, 102);
