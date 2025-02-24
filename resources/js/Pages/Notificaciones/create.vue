@@ -11,7 +11,7 @@
                 <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de Notificación</label>
-                        <select v-model="form.tipo_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray focus:border-gray- block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                        <select v-model="form.tipo_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500">
                             <option class="border border-gray-50" v-for="tipo in tipos" :key="tipo.id" :value="tipo.id">
                                 {{ tipo.tipo }}
                             </option>
@@ -26,7 +26,7 @@
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
                             <label for="titulo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
-                            <textarea v-model="form.titulo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"/>
+                            <textarea v-model="form.titulo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"/>
 
                         </div>
                     </div>
@@ -49,15 +49,15 @@
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div class="mb-4">
-                            <label class="block text-gray-600 text-sm font-medium">Descripción</label>
-                            <textarea v-model="form.descripcion" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4"></textarea>
+                            <label class="block text-gray-600 text-sm font-medium">Resumen</label>
+                            <textarea v-model="form.descripcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="4"></textarea>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
                             <label class="block text-gray-600 text-sm font-medium">Fecha de Aprobación</label>
-                            <input v-model="form.fecha_aprobacion" type="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                            <input v-model="form.fecha_aprobacion" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"/>
                         </div>
                     </div>
 
@@ -65,58 +65,76 @@
 
                 <!-- Campos para PES -->
                 <div v-else-if="selectedTipo?.tipo === 'PES'">
-                    <div>
-                        <label for="no_expediente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de Expediente</label>
+                    <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+                        <div>
+                        <label for="no_expediente" class="block text-gray-600 text-sm font-medium">Número de Expediente</label>
                         <input v-model="form.no_expediente" id="no_expediente" placeholder="Número de Expediente"
-                               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"/>
+                    </div>
                     </div>
 
-                    <div>
-                        <label for="denunciante" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Denunciante</label>
+                    <div  class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-2">
+                        
+                        <div>
+                        <label for="denunciante"class="block text-gray-600 text-sm font-medium">Denunciante</label>
                         <input v-model="form.denunciante" id="denunciante" placeholder="Denunciante"
-                               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" />
                     </div>
 
                     <div>
-                        <label for="denunciado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Denunciado</label>
+                        <label for="denunciado" class="block text-gray-600 text-sm font-medium">Denunciado</label>
                         <input v-model="form.denunciado" id="denunciado" placeholder="Denunciado"
-                               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"/>
                     </div>
 
-                    <div>
-                        <label for="municipio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Municipio</label>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+                        <div>
+                        <label for="municipio" class="block text-gray-600 text-sm font-medium">Municipio</label>
                         <select v-model="form.municipio" id="municipio"
-                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray focus:border-gray- block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                             <option v-for="municipio in municipios" :key="municipio" :value="municipio">
                                 {{ municipio }}
                             </option>
                         </select>
                     </div>
-
-                    <div>
-                        <label for="descripcion_fundamento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción del Fundamento</label>
-                        <textarea v-model="form.descripcion_fundamento" id="descripcion_fundamento" placeholder="Descripción del Fundamento"
-                                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
                     </div>
 
-                    <div>
-                        <label for="descripcion_docu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción del Documento</label>
-                        <textarea v-model="form.descripcion_docu" id="descripcion_docu" placeholder="Descripción del Documento"
-                                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+                        <div>
+                        <label for="descripcion_fundamento" class="block text-gray-600 text-sm font-medium">Descripción del Fundamento</label>
+                        <textarea v-model="form.descripcion_fundamento" id="descripcion_fundamento" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="4"></textarea>
+                        
+                    </div>
                     </div>
 
-                    <div>
-                        <label for="frag_doc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fragmento del Documento</label>
-                        <input v-model="form.frag_doc" id="frag_doc" placeholder="Fragmento del Documento"
-                               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                    <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+                        <div>
+                        <label for="descripcion_docu" class="block text-gray-600 text-sm font-medium">Descripción del Documento</label>
+                        <textarea v-model="form.descripcion_docu" id="descripcion_docu" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="4"></textarea>
+                    </div>
                     </div>
 
-                    <div>
-                        <label for="descripcion_notificado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción del Notificado</label>
-                        <textarea v-model="form.descripcion_notificado" id="descripcion_notificado" placeholder="Descripción del Notificado"
-                                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+                        <div>
+                        <label for="frag_doc" class="block text-gray-600 text-sm font-medium">Fragmento del Documento</label>
+                        <textarea v-model="form.frag_doc" id="frag_doc" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="4"></textarea>
                     </div>
-                </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+                        <div>
+                        <label for="descripcion_notificado" class="block text-gray-600 text-sm font-medium">Descripción del Notificado</label>
+                        <textarea v-model="form.descripcion_notificado" id="descripcion_notificado" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" rows="4"></textarea>
+                    </div>
+                    </div>
+
+                    </div>
 
 
                 <div class="flex justify-center mt-8">
