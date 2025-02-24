@@ -206,9 +206,10 @@ class NotificacionController extends Controller
         $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
 
 
-        $destinatarios = Destinatario::all();
+        $destinatarios = Destinatario::all()->toArray();
 
-        foreach ($destinatarios as $destinatario) {
+        foreach ($destinatarios as $index => $destinatario) {
+//        dd($destinatario);
             // FPDI  instance
             $pdf = new Fpdi();
 
@@ -217,7 +218,7 @@ class NotificacionController extends Controller
 
             Detalle::create([
                 'id_notificacion' => $notificacion->id,
-                'destinatario_id' => $destinatario->id,
+                'destinatario_id' => $destinatario['id'],
                 'status_abierto' => 'UNREAD',
                 'status_envio' => 'send',
                 'link' => $link,
@@ -238,7 +239,7 @@ class NotificacionController extends Controller
 
             // Recipient
             $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_strtoupper(mb_convert_encoding($destinatario->nombre, 'ISO-8859-1', 'UTF-8')));
+            $pdf->Write(0, mb_convert_encoding(($destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetFont('Helvetica', '', 11, true);;
             $pdf->SetXY(31, 102);
@@ -270,14 +271,14 @@ class NotificacionController extends Controller
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
             // Path to save the generated PDF
-            $outputPath = storage_path('app/public/generated.pdf');
+            $outputPath = storage_path('app/public/generated_'.$index.'.pdf');
 
             // Save the PDF to the disk
             $pdf->Output($outputPath, 'F', true);
 
             // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
 //            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
-            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
+            Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable($outputPath, $link));
         }
 
         Session::forget(['form_data', 'pdf_data']);
