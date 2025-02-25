@@ -137,8 +137,10 @@ class NotificacionController extends Controller
 
 
 
+            
             } else if ($type === 'PES') {
-            } else if ($type === 'PES') {
+                $pdf->importPage(1);
+
                 $pdf->SetXY(130, 25);
                 $pdf->Cell(0, 10, $data['tipo'] ?? '', 0, 1);
                 $pdf->SetXY(130, 18);
@@ -155,11 +157,6 @@ class NotificacionController extends Controller
                 $pdf->MultiCell(0, 5, $data['descripcion_docu'] ?? '', 0, 1);
                 $pdf->SetXY(20, 208);
                 $pdf->MultiCell(0, 5, $data['frag_doc'] ?? '', 0, 1);
-                $pdf->SetXY(10, 10);
-                $pdf->Cell(0, 10, $data['descripcion_notificado'] ?? '', 0, 1);
-                $pdf->SetXY(10, 10);
-
-
                 setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
 
                 $dia = date('d'); // Día en número
@@ -168,10 +165,9 @@ class NotificacionController extends Controller
                 $anio = date('Y'); // Año
               
 
-                $pdf->SetXY(70, 98);
-                $pdf->Cell(0, 10, "Durango, a", 0, 0);
+               
 
-                $pdf->SetXY(20, 98);
+                $pdf->SetXY(15, 98);
                 $pdf->Cell(0, 10, $dia, 0, 0, 'C'); // Día en número
 
                 $pdf->SetXY(115, 98);
@@ -180,21 +176,37 @@ class NotificacionController extends Controller
                 $pdf->SetXY(70, 98);
                 $pdf->Cell(0, 10, $mes, 0, 0, 'C'); // Nombre del mes
 
-                $pdf->SetXY(150, 98);
+                $pdf->SetXY(155, 98);
                 $pdf->Cell(0, 10, "de", 0, 0);
 
                 $pdf->SetXY(160, 98);
                 $pdf->Cell(0, 10, $anio, 0, 0, 'C'); // Año
+
+                $pdf->AddPage(); // Asegúrate de agregar una nueva página
+                $templateId1 = $pdf->importPage(2);
+                $pdf->useTemplate($templateId1);
+
+                $pdf->SetXY(130, 18);
+                $pdf->Cell(0, 10, $data['no_expediente'] ?? '', 0, 1);
+                $pdf->SetXY(127, 25);
+                $pdf->Cell(0, 10, $data['denunciante'] ?? '', 0, 1);
+                $pdf->SetXY(127, 33);
+                $pdf->Cell(0, 10, $data['denunciado'] ?? '', 0, 1);
+                $pdf->SetXY(20, 55);
+                $pdf->MultiCell(0, 5, $data['descripcion_notificado'] ?? '', 0, 1);
+                $pdf->SetXY(10, 10);
+
+
                 
 
                 
             }
 
 
-                setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
+              
 
                 
-            }
+            
 
             //$pdf->SetXY(10, 290);
             //$pdf->Cell(0, 10, "Tipo: $typeText - Fecha de generación: $currentDate", 0, 1, 'C');
@@ -206,7 +218,7 @@ class NotificacionController extends Controller
             file_put_contents($tempPdfPath, $pdfOutput);
 
             return $pdfOutput;
-        } catch (\Exception $e) {
+        }catch (\Exception $e) {
             Log::error('Error al generar el PDF: ' . $e->getMessage());
             return response()->json(['error' => 'Error al generar el PDF.'], 500);
         }

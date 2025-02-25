@@ -25,6 +25,8 @@
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@vueup/vue-quill": "^1.2.0",
         "flowbite": "^3.1.2",
+        "html2canvas": "^1.4.1",
+        "jspdf": "^3.0.0",
         "quill": "^2.0.3",
         "vue-pdf": "^4.3.0",
         "vue-trix": "^1.2.0",
