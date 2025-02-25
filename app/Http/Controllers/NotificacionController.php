@@ -194,8 +194,7 @@ class NotificacionController extends Controller
                 $pdf->Cell(0, 10, $data['denunciado'] ?? '', 0, 1);
                 $pdf->SetXY(20, 55);
                 $pdf->MultiCell(0, 5, $data['descripcion_notificado'] ?? '', 0, 1);
-                $pdf->SetXY(10, 10);
-
+            
 
                 
 
@@ -218,7 +217,7 @@ class NotificacionController extends Controller
             file_put_contents($tempPdfPath, $pdfOutput);
 
             return $pdfOutput;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Error al generar el PDF: ' . $e->getMessage());
             return response()->json(['error' => 'Error al generar el PDF.'], 500);
         }
