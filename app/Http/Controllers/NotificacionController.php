@@ -136,6 +136,8 @@ class NotificacionController extends Controller
 
 
 
+
+            } else if ($type === 'PES') {
             } else if ($type === 'PES') {
                 $pdf->SetXY(130, 25);
                 $pdf->Cell(0, 10, $data['tipo'] ?? '', 0, 1);
@@ -184,6 +186,12 @@ class NotificacionController extends Controller
                 $pdf->SetXY(160, 98);
                 $pdf->Cell(0, 10, $anio, 0, 0, 'C'); // Año
                 
+
+                
+            }
+
+
+                setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
 
                 
             }
