@@ -31,4 +31,9 @@ class Notificacion extends Model
     {
         return $this->hasMany(Detalle::class, 'id_notificacion');
     }
+
+    public function archivos()
+{
+    return $this->hasMany(NotificacionArchivo::class);
+}
 }
