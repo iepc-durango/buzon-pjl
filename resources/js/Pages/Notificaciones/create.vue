@@ -137,19 +137,22 @@
                     </div>
 
 
-                <div class="flex justify-center mt-8">
-                    <button type="submit" class="text-white bg-gray-600 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-12 py-3 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
-                        Siguiente
-                    </button>
-                </div>
-
-<!--Lineas de codigo para adjuntar los archivos-->
+                    <!--Lineas de codigo para adjuntar los archivos-->
                 <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
   <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
     Adjuntar archivos adicionales
   </label>
   <input type="file" multiple @change="handleFileUpload" />
 </div>
+
+
+                <div class="flex justify-center mt-8">
+                    <button type="submit" class="text-white bg-gray-600 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-12 py-3 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                        Siguiente
+                    </button>
+                </div>
+
+
             </form>
 
         </section>

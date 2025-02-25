@@ -18,7 +18,7 @@ class CreateNotificacionArchivosTable extends Migration
 
             $table->foreign('notificacion_id')
                   ->references('id')
-                  ->on('notificacions') // ajusta el nombre de la tabla según tu esquema
+                  ->on('notificaciones') 
                   ->onDelete('cascade');
         });
     }
