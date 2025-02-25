@@ -459,7 +459,7 @@ class NotificacionController extends Controller
              // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
 //            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
      
- Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable( $$pdfContentBase64, $link, $attachmentsData));
+ Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable( $destinatario, $$pdfContentBase64, [$link], $attachmentsData));
         }
 
         Session::forget(['form_data', 'pdf_data', 'attachments']);
