@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class NotificacionMailable extends Mailable implements ShouldQueue
 {
@@ -34,23 +35,32 @@ class NotificacionMailable extends Mailable implements ShouldQueue
         // Decodifica el contenido del PDF
         $pdfContent = base64_decode($this->pdf);
 
-        // Adjunta el PDF usando attachData (esto agregará un elemento estructurado correctamente en $this->attachments)
-        $this->from('buzonpopjl@appsiepcdurango.mx')
-            ->subject('Nueva Notificación')
-            ->attachData($pdfContent, 'Notificacion.pdf', [
-                'mime' => 'application/pdf',
-            ]);
+
+        Log::info('Adjuntando PDF', ['pdf_length' => strlen($pdfContent)]);
+        Log::info('Adjuntos personalizados', $this->customAttachments);
+
+         //Adjunta el PDF usando attachData (esto agregará un elemento estructurado correctamente en $this->attachments)
+         $this->from('buzonpopjl@appsiepcdurango.mx')
+             ->subject('Nueva Notificación')
+             ->attachData($pdfContent, 'Notificacion.pdf', [
+                 'mime' => 'application/pdf',
+             ]);
+
+
+        
 
         // Recorremos nuestros adjuntos personalizados y los agregamos con attach()
         foreach ($this->customAttachments as $att) {
             if (isset($att['path'], $att['name'])) {
                 $filePath = storage_path('app/' . $att['path']);
                 if (file_exists($filePath)) {
+                    Log::info('Adjuntando archivo', ['file' => $att['name'], 'path' => $filePath]);
                     $this->attach($filePath, [
                         'as'   => $att['name'],
                         'mime' => File::mimeType($filePath),
                     ]);
-                }
+                }else {
+                    Log::warning('Archivo no encontrado', ['file' => $att['name'], 'path' => $filePath]);
             }
         }
 
@@ -58,4 +68,5 @@ class NotificacionMailable extends Mailable implements ShouldQueue
         return $this->view('emails.notificacion')
                     ->with(['link' => $this->link]);
     }
+}
 }

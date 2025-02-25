@@ -107,7 +107,7 @@ class NotificacionController extends Controller
             $data = $request->except('tipo');
             $type = $request->input('tipo');
 
-            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'Acuerdo2.pdf' : 'PES.pdf'));
+            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'acuerdo_plantilla.pdf' : 'PES.pdf'));
 
             $pdf = new Fpdi();
             $pdf->AddPage();
@@ -316,6 +316,9 @@ class NotificacionController extends Controller
 //        $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
 //        Storage::put($pdfPath, $pdfContentBinary);
 
+  // Procesa y guarda los adjuntos en la BD
+  $this->procesarAdjuntos($notificacion);
+
 
         // Path to PDF template
         $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
@@ -431,6 +434,10 @@ class NotificacionController extends Controller
         $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
         Storage::put($pdfPath, $pdfContentBinary);
 
+
+        // Procesa y guarda los adjuntos en la BD
+    $this->procesarAdjuntos($notificacion);
+
         $destinatarios = Destinatario::whereIn('id', $selectedDestIds)->get();
 
         foreach ($destinatarios as $destinatario) {
@@ -447,10 +454,15 @@ class NotificacionController extends Controller
 
             $attachmentsData = Session::get('attachments', []);
 
-            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link, $attachmentsData));
+            //dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link, $attachmentsData));
+
+             // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
+//            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
+     
+ Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable($destinatario, $$pdfContentBase64,  $attachmentsData, $link));
         }
 
-        Session::forget(['form_data', 'pdf_data']);
+        Session::forget(['form_data', 'pdf_data', 'attachments']);
        
 
         return response()->json(['message' => 'Correos personalizados en proceso de envío.']);
@@ -478,4 +490,24 @@ class NotificacionController extends Controller
     // Devuelve la descarga del archivo
     return Storage::download($archivo->file_path, $archivo->file_name);
 }
+
+private function procesarAdjuntos(Notificacion $notificacion)
+{
+    if (Session::has('attachments')) {
+        $attachmentsData = Session::get('attachments');
+        foreach ($attachmentsData as $att) {
+            // Define la nueva ruta definitiva para el archivo
+            $newPath = 'notificaciones_archivos/' . basename($att['path']);
+            // Mueve el archivo desde la carpeta temporal a la definitiva
+            Storage::move($att['path'], $newPath);
+            // Crea el registro en la base de datos
+            NotificacionArchivo::create([
+                'notificacion_id' => $notificacion->id,
+                'file_path'       => $newPath,
+                'file_name'       => $att['name']
+            ]);
+        }
+    }
+}
+
 }
