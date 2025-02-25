@@ -468,4 +468,15 @@ class NotificacionController extends Controller
         $detalle->update(['status_abierto' => 'READ']);
         return view('notificaciones.abierto', compact('detalle'));
     }
+
+
+    public function descargarArchivo(NotificacionArchivo $archivo)
+{
+    // Verifica que el archivo exista
+    if (!Storage::exists($archivo->file_path)) {
+        abort(404);
+    }
+    // Devuelve la descarga del archivo
+    return Storage::download($archivo->file_path, $archivo->file_name);
+}
 }

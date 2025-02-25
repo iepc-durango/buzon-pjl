@@ -1,6 +1,6 @@
 <template>
 
-    <AppLayout>
+    <AppLayout title="Nueva Notificación">
         <Head title="Nuevo Correo"/>
 
         <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-8">
@@ -188,20 +188,25 @@
         </div>
 
 
-        <!-- Modal para lista personalizada: selección de destinatarios -->
-        <div v-if="personalizadaModalVisible" class="modal">
-            <div class="modal-content space-y-10">
-                <h3>Selecciona destinatarios</h3>
-                <div v-for="dest in destinatarios" :key="dest.id">
-                    <label>
-                        <input type="checkbox" :value="dest.id" v-model="selectedDestinatarios">
-                        {{ dest.nombre }} ({{ dest.correo }})
-                    </label>
-                </div>
-                <button type="button" @click="enviarCorreoPersonalizado" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Enviar a seleccionados</button>
-                <button type="button" @click="personalizadaModalVisible = false">Cancelar</button>
-            </div>
-        </div>
+       <!-- Modal para lista personalizada: selección de destinatarios -->
+<div v-if="personalizadaModalVisible" class="modal">
+  <div class="modal-content space-y-10">
+    <h3>Selecciona destinatarios</h3>
+    <!-- Contenedor con scroll: ajusta max-h-64 (16rem) o el valor que prefieras -->
+    <div class="max-h-64 overflow-y-auto border p-2">
+      <div v-for="dest in destinatarios" :key="dest.id" class="py-1">
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" :value="dest.id" v-model="selectedDestinatarios">
+          <span>{{ dest.nombre }} ({{ dest.correo }})</span>
+        </label>
+      </div>
+    </div>
+    <button type="button" @click="enviarCorreoPersonalizado" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+      Enviar a seleccionados
+    </button>
+    <button type="button" @click="personalizadaModalVisible = false">Cancelar</button>
+  </div>
+</div>
 
 
         <!-- Modal de Confirmación de Envío Global -->

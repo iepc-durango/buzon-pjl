@@ -102,6 +102,10 @@ Route::get('/', function () {
 })->name('index');
 
 
+Route::get('notificaciones/descargar/{archivo}', [NotificacionController::class, 'descargarArchivo'])
+    ->name('notificaciones.download');
+
+
 });
 
 
