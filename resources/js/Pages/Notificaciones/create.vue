@@ -137,11 +137,22 @@
                     </div>
 
 
+                    <!--Lineas de codigo para adjuntar los archivos-->
+                <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
+  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+    Adjuntar archivos adicionales
+  </label>
+  <input type="file" multiple @change="handleFileUpload" />
+</div>
+
+
                 <div class="flex justify-center mt-8">
                     <button type="submit" class="text-white bg-gray-600 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-12 py-3 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
                         Siguiente
                     </button>
                 </div>
+
+
             </form>
 
         </section>
@@ -225,6 +236,16 @@ const form = useForm({
     descripcion_notificado: ''
 });
 
+//Lineas de codigo para adjuntar archivos
+
+const attachments = ref([]);
+
+const handleFileUpload = (event) => {
+  attachments.value = Array.from(event.target.files);
+};
+
+
+
 const selectedTipo = computed(() => props.tipos.find(t => t.id === form.tipo_id));
 const modalVisible = ref(false);
 const confirmModalVisible = ref(false);
@@ -233,10 +254,34 @@ const selectedDestinatarios = ref([]);
 
 const generarPDF = async () => {
     try {
-        await axios.post('/notificaciones/generar-pdf-temporal', {
-            ...form.data(),
-            tipo: selectedTipo.value.tipo
-        });
+        //Lineas para adjuntar archivos
+
+        const formData = new FormData();
+    Object.entries(form.data()).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+     // Envía también el tipo en texto (usando tu computed selectedTipo)
+     formData.append('tipo', selectedTipo.value.tipo);
+
+
+
+    // Agrega cada archivo seleccionado
+    attachments.value.forEach((file, index) => {
+      formData.append(`attachments[]`, file);
+    });
+
+
+        // await axios.post('/notificaciones/generar-pdf-temporal', {
+            
+        //     ...form.data(),
+        //     tipo: selectedTipo.value.tipo
+        // });
+
+        await axios.post('/notificaciones/generar-pdf-temporal', formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+    
         modalVisible.value = true;
     } catch (error) {
         console.error("Error generando PDF", error);
