@@ -123,16 +123,26 @@ class NotificacionController extends Controller
             $typeText = $type === 'Acuerdo' ? 'Acuerdo' : 'PES';
 
             if ($type === 'Acuerdo') {
-                $pdf->SetXY(50, 40);
+                $pdf->SetXY(31, 96.5);
                 $pdf->Cell(0, 10, $data['no_acuerdo'] ?? '', 0, 1);
-                $pdf->SetXY(50, 50);
+                $pdf->SetXY(101, 96.8);
                 $pdf->Cell(0, 10, $data['fecha_aprobacion'] ?? '', 0, 1);
-                $pdf->SetXY(50, 60);
+                $pdf->SetXY(149, 96.5);
                 $pdf->Cell(0, 10, $data['sesion'] ?? '', 0, 1);
-                $pdf->SetXY(50, 70);
+                $pdf->SetXY(31, 115);
                 $pdf->Cell(0, 10, $data['titulo'] ?? '', 0, 1);
-                $pdf->SetXY(50, 80);
-                $pdf->MultiCell(0, 10, $data['descripcion'] ?? '', 0, 1);
+                $pdf->SetXY(31, 154.5);
+                $pdf->MultiCell(156, 4, $data['descripcion'] ?? '', 0, 1);
+                $pdf->SetFont('Helvetica', 'B', 11);
+                $pdf->SetXY(65, 225);
+                // Establecer el idioma a español
+                Carbon::setLocale('es');
+                $now = Carbon::now();
+
+                $pdf->Write(0, "Victoria de Durango, Dgo a " . now()->format('d') . " de " . $now->translatedFormat('F') . " de " . now()->format('Y'));
+
+                // Imagen de la firma
+                $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
 
 
