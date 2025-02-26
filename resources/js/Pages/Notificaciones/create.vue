@@ -26,7 +26,7 @@
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
                             <label for="titulo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
-                            <textarea v-model="form.titulo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required/>
+                            <textarea v-model="form.titulo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required/>
 
                         </div>
                     </div>
@@ -35,14 +35,14 @@
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-2">
                         <div>
                             <label for="acuerdo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No. acuerdo</label>
-                            <input v-model="form.no_acuerdo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required/>
+                            <input v-model="form.no_acuerdo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required/>
 
                         </div>
 
 
                         <div>
                             <label for="sesion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sesión</label>
-                            <input v-model="form.sesion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required/>
+                            <input v-model="form.sesion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required/>
                         </div>
 
                     </div>
@@ -50,14 +50,14 @@
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div class="mb-4">
                             <label class="block text-gray-600 text-sm font-medium">Resumen</label>
-                            <textarea v-model="form.descripcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required></textarea>
+                            <textarea v-model="form.descripcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required></textarea>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
                             <label class="block text-gray-600 text-sm font-medium">Fecha de Aprobación</label>
-                            <input v-model="form.fecha_aprobacion" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required/>
+                            <input v-model="form.fecha_aprobacion" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required/>
                         </div>
                     </div>
 
@@ -67,95 +67,92 @@
                 <div v-else-if="selectedTipo?.tipo === 'PES'">
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
-                        <label for="no_expediente" class="block text-gray-600 text-sm font-medium">Número de Expediente</label>
-                        <input v-model="form.no_expediente" id="no_expediente" placeholder="Número de Expediente"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required/>
-                    </div>
+                            <label for="no_expediente" class="block text-gray-600 text-sm font-medium">Número de Expediente</label>
+                            <input v-model="form.no_expediente" id="no_expediente" placeholder="Número de Expediente"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required/>
+                        </div>
                     </div>
 
-                    <div  class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-2">
-                        
+                    <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-2">
+
                         <div>
-                        <label for="denunciante"class="block text-gray-600 text-sm font-medium">Denunciante</label>
-                        <input v-model="form.denunciante" id="denunciante" placeholder="Denunciante"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required/>
-                    </div>
+                            <label for="denunciante" class="block text-gray-600 text-sm font-medium">Denunciante</label>
+                            <input v-model="form.denunciante" id="denunciante" placeholder="Denunciante"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required/>
+                        </div>
 
-                    <div>
-                        <label for="denunciado" class="block text-gray-600 text-sm font-medium">Denunciado</label>
-                        <input v-model="form.denunciado" id="denunciado" placeholder="Denunciado"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required/>
-                    </div>
+                        <div>
+                            <label for="denunciado" class="block text-gray-600 text-sm font-medium">Denunciado</label>
+                            <input v-model="form.denunciado" id="denunciado" placeholder="Denunciado"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required/>
+                        </div>
 
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
-                        <label for="municipio" class="block text-gray-600 text-sm font-medium">Municipio</label>
-                        <select v-model="form.municipio" id="municipio"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray focus:border-gray- block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"Required>
-                            <option v-for="municipio in municipios" :key="municipio" :value="municipio">
-                                {{ municipio }}
-                            </option>
-                        </select>
-                    </div>
+                            <label for="municipio" class="block text-gray-600 text-sm font-medium">Municipio</label>
+                            <select v-model="form.municipio" id="municipio"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray focus:border-gray- block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" Required>
+                                <option v-for="municipio in municipios" :key="municipio" :value="municipio">
+                                    {{ municipio }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
-                        <label for="descripcion_fundamento" class="block text-gray-600 text-sm font-medium">Descripción del Fundamento</label>
-                        <textarea v-model="form.descripcion_fundamento" id="descripcion_fundamento" 
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required>a>
-                        
+                            <label for="descripcion_fundamento" class="block text-gray-600 text-sm font-medium">Descripción del Fundamento</label>
+                            <textarea v-model="form.descripcion_fundamento" id="descripcion_fundamento"
+                                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required>a>
+
                     </div>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
                         <label for="descripcion_docu" class="block text-gray-600 text-sm font-medium">Descripción del Documento</label>
-                        <textarea v-model="form.descripcion_docu" id="descripcion_docu" 
+                        <textarea v-model="form.descripcion_docu" id="descripcion_docu"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required></textarea>
-                    </div>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
-                        <label for="frag_doc" class="block text-gray-600 text-sm font-medium">Fragmento del Documento</label>
-                        <textarea v-model="form.frag_doc" id="frag_doc" 
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required></textarea>
-                    </div>
+                            <label for="frag_doc" class="block text-gray-600 text-sm font-medium">Fragmento del Documento</label>
+                            <textarea v-model="form.frag_doc" id="frag_doc"
+                                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required></textarea>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
-                        <label for="descripcion_notificado" class="block text-gray-600 text-sm font-medium">Descripción del Notificado</label>
-                        <textarea v-model="form.descripcion_notificado" id="descripcion_notificado" 
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"Required></textarea>
-                    </div>
-                    </div>
-
+                            <label for="descripcion_notificado" class="block text-gray-600 text-sm font-medium">Descripción del Notificado</label>
+                            <textarea v-model="form.descripcion_notificado" id="descripcion_notificado"
+                                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" Required></textarea>
+                        </div>
                     </div>
 
-
-                    <!--Lineas de codigo para adjuntar los archivos-->
-                    <div class="flex items-center justify-center w-full py-8">
-                <!--<div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">-->
-  <label class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-
-    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-            </svg>
-            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click para </span> Adjuntar archivos adicionales</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-        </div>
-        <input type="file" multiple @change="handleFileUpload" />
-  </label>
- 
-</div> 
+                </div>
 
 
+                <!--Lineas de codigo para adjuntar los archivos-->
+                <div class="flex items-center justify-center w-full py-8">
+                    <!--<div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">-->
+                    <label class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click para </span> Adjuntar archivos adicionales</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                        </div>
+                        <input type="file" multiple @change="handleFileUpload"/>
+                    </label>
+
+                </div>
 
 
                 <div class="flex justify-center mt-8">
@@ -188,25 +185,25 @@
         </div>
 
 
-       <!-- Modal para lista personalizada: selección de destinatarios -->
-<div v-if="personalizadaModalVisible" class="modal">
-  <div class="modal-content space-y-10">
-    <h3>Selecciona destinatarios</h3>
-    <!-- Contenedor con scroll: ajusta max-h-64 (16rem) o el valor que prefieras -->
-    <div class="max-h-64 overflow-y-auto border p-2">
-      <div v-for="dest in destinatarios" :key="dest.id" class="py-1">
-        <label class="flex items-center space-x-2">
-          <input type="checkbox" :value="dest.id" v-model="selectedDestinatarios">
-          <span>{{ dest.nombre }} ({{ dest.correo }})</span>
-        </label>
-      </div>
-    </div>
-    <button type="button" @click="enviarCorreoPersonalizado" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
-      Enviar a seleccionados
-    </button>
-    <button type="button" @click="personalizadaModalVisible = false">Cancelar</button>
-  </div>
-</div>
+        <!-- Modal para lista personalizada: selección de destinatarios -->
+        <div v-if="personalizadaModalVisible" class="modal">
+            <div class="modal-content space-y-10">
+                <h3>Selecciona destinatarios</h3>
+                <!-- Contenedor con scroll: ajusta max-h-64 (16rem) o el valor que prefieras -->
+                <div class="max-h-64 overflow-y-auto border p-2">
+                    <div v-for="dest in destinatarios" :key="dest.id" class="py-1">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" :value="dest.id" v-model="selectedDestinatarios">
+                            <span>{{ dest.nombre }} ({{ dest.correo }})</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="button" @click="enviarCorreoPersonalizado" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                    Enviar a seleccionados
+                </button>
+                <button type="button" @click="personalizadaModalVisible = false">Cancelar</button>
+            </div>
+        </div>
 
 
         <!-- Modal de Confirmación de Envío Global -->
@@ -258,9 +255,8 @@ const form = useForm({
 const attachments = ref([]);
 
 const handleFileUpload = (event) => {
-  attachments.value = Array.from(event.target.files);
+    attachments.value = Array.from(event.target.files);
 };
-
 
 
 const selectedTipo = computed(() => props.tipos.find(t => t.id === form.tipo_id));
@@ -274,31 +270,30 @@ const generarPDF = async () => {
         //Lineas para adjuntar archivos
 
         const formData = new FormData();
-    Object.entries(form.data()).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+        Object.entries(form.data()).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
 
-     // Envía también el tipo en texto (usando tu computed selectedTipo)
-     formData.append('tipo', selectedTipo.value.tipo);
+        // Envía también el tipo en texto (usando tu computed selectedTipo)
+        formData.append('tipo', selectedTipo.value.tipo);
 
 
-
-    // Agrega cada archivo seleccionado
-    attachments.value.forEach((file, index) => {
-      formData.append(`attachments[]`, file);
-    });
+        // Agrega cada archivo seleccionado
+        attachments.value.forEach((file, index) => {
+            formData.append(`attachments[]`, file);
+        });
 
 
         // await axios.post('/notificaciones/generar-pdf-temporal', {
-            
+
         //     ...form.data(),
         //     tipo: selectedTipo.value.tipo
         // });
 
         await axios.post('/notificaciones/generar-pdf-temporal', formData, {
-      headers: { "Content-Type": "multipart/form-data" }
-    });
-    
+            headers: {"Content-Type": "multipart/form-data"}
+        });
+
         modalVisible.value = true;
     } catch (error) {
         console.error("Error generando PDF", error);
