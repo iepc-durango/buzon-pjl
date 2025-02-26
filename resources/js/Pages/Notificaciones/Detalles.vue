@@ -71,10 +71,10 @@ const exportarPDF = async () => {
                                     {{ detalle.id_notificacion }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ detalle.destinatario_id }}
+                                    {{ detalle.destinatario.nombre }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ detalle.created_at }}
+                                    {{ new Date(detalle.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ detalle.status_abierto }}

@@ -12,6 +12,7 @@ class DetalleController extends Controller
     {
         
         $detalles = Detalle::where('id_notificacion', '=', $notificacion)->get();
+        $detalles = Detalle::with('destinatario')->get(); 
 
         return Inertia::render('Notificaciones/Detalles', [
             'detalles' => $detalles

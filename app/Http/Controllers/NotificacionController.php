@@ -31,6 +31,9 @@ class NotificacionController extends Controller
     public function index()
     {
 
+        
+
+
         $notificaciones = Notificacion::all();
 
         return Inertia::render('Index', [
