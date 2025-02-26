@@ -415,16 +415,15 @@ class NotificacionController extends Controller
         if (Session::has('attachments')) {
             $attachmentsData = Session::get('attachments');
             // Retornar archivo como descarga a manera de prueba...
-            foreach ($attachmentsData as $att) {
+            foreach ($attachmentsData as $index => $att) {
                 $fileName = $att['name'];
                 $path = 'BUZONPOPJL2025/N' . mb_str_pad($notificacion->id, '3', '0', STR_PAD_LEFT) . '/' . $fileName;
-                $file = Storage::get($attachmentsData[0]['path']);
+                $file = Storage::get($att['path']);
                 // Guarda el archivo en AWS S3
                 Storage::disk('s3')->put($path, $file);
                 // Elimina el archivo de la carpeta temporal
-                Storage::delete($attachmentsData[0]['path']);
-//                $newPath = 'notificaciones_archivos/' . basename($att['path']);
-//                Storage::move($att['path'], $newPath);
+                Storage::delete($att['path']);
+                // Crea el registro
                 NotificacionArchivo::create([
                     'notificacion_id' => $notificacion->id,
                     'file_path' => $path,
