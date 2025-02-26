@@ -495,7 +495,11 @@ class NotificacionController extends Controller
             $pdf->SetXY(29, 38.5);
             $pdf->Write(0, mb_convert_encoding($destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
 
+            $pdf->SetXY(147, 28);
+            $pdf->Write(0, 'IEPC/SE/BE/01/2025');
+
             $pdf->SetFont('Helvetica', '', 11);
+
             $pdf->SetXY(31, 102);
             $pdf->Write(0, $formData['no_acuerdo']);
 
@@ -525,7 +529,6 @@ class NotificacionController extends Controller
             $pdf->Output($outputPath, 'F');
 
             // Envío de correo
-//            dd($outputPath);
             Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
         }
 
