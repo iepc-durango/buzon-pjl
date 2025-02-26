@@ -15,19 +15,21 @@ class NotificacionMailable extends Mailable implements ShouldQueue
 
     public $pdf;
     public $link;
+    public $attachmentsData;
     // Usamos una propiedad separada para nuestros adjuntos personalizados
-    public $customAttachments;
+  
 
     /**
      * @param string $pdf Contenido del PDF en base64.
      * @param string $link Enlace único para seguimiento.
      * @param array $attachments Arreglo de archivos adicionales (cada uno con 'path' y 'name')
      */
-    public function __construct(string $pdf, string $link, array $attachments = [])
+    public function __construct(string $pdf, string $link, $attachmentsData)
     {
         $this->pdf = $pdf;
         $this->link = $link;
-        $this->customAttachments = $attachments;
+        $this->attachmentsData = $attachmentsData;
+   
     }
 
     public function build()
@@ -36,8 +38,6 @@ class NotificacionMailable extends Mailable implements ShouldQueue
         $pdfContent = base64_decode($this->pdf);
 
 
-        Log::info('Adjuntando PDF', ['pdf_length' => strlen($pdfContent)]);
-        Log::info('Adjuntos personalizados', $this->customAttachments);
 
          //Adjunta el PDF usando attachData (esto agregará un elemento estructurado correctamente en $this->attachments)
          $this->from('buzonpopjl@appsiepcdurango.mx')
@@ -45,28 +45,8 @@ class NotificacionMailable extends Mailable implements ShouldQueue
              ->attachData($pdfContent, 'Notificacion.pdf', [
                  'mime' => 'application/pdf',
              ]);
-
-
-        
-
-        // Recorremos nuestros adjuntos personalizados y los agregamos con attach()
-        foreach ($this->customAttachments as $att) {
-            if (isset($att['path'], $att['name'])) {
-                $filePath = storage_path('app/' . $att['path']);
-                if (file_exists($filePath)) {
-                    Log::info('Adjuntando archivo', ['file' => $att['name'], 'path' => $filePath]);
-                    $this->attach($filePath, [
-                        'as'   => $att['name'],
-                        'mime' => File::mimeType($filePath),
-                    ]);
-                }else {
-                    Log::warning('Archivo no encontrado', ['file' => $att['name'], 'path' => $filePath]);
-            }
-        }
-
-        // Finalmente, retornamos la vista (asegúrate de que resources/views/emails/notificacion.blade.php exista)
+  // Finalmente, retornamos la vista (asegúrate de que resources/views/emails/notificacion.blade.php exista)
         return $this->view('emails.notificacion')
                     ->with(['link' => $this->link]);
     }
-}
 }

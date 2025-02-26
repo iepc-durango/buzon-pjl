@@ -72,18 +72,18 @@ class NotificacionController extends Controller
         // Codifica el PDF en base64 para almacenarlo de forma segura en sesión
         $pdfContent = base64_encode($pdfContent);
 
-        $attachmentsData = [];
-    if ($request->hasFile('attachments')) {
-        foreach ($request->file('attachments') as $file) {
-            // Guarda el archivo en una carpeta temporal (por ejemplo, "temp_attachments")
-            $path = $file->store('temp_attachments');
-            $attachmentsData[] = [
-                'path' => $path,
-                'name' => $file->getClientOriginalName()
-            ];
-        }
-    }
-
+       // Procesar archivos adjuntos: se guardan en carpeta temporal y su información (incluyendo el nombre original) se almacena en sesión.
+       $attachmentsData = [];
+       if ($request->hasFile('attachments')) {
+           foreach ($request->file('attachments') as $file) {
+               // Guarda el archivo en una carpeta temporal (por ejemplo, "temp_attachments")
+               $path = $file->store('temp_attachments');
+               $attachmentsData[] = [
+                   'path' => $path,
+                   'name' => $file->getClientOriginalName()
+               ];
+           }
+       }
     // Excluye los archivos adjuntos del request al guardarlo en sesión
     $formData = $request->except('attachments');
 
@@ -243,22 +243,19 @@ class NotificacionController extends Controller
         $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
         Storage::put($pdfPath, $pdfContent);
 
-        // Procesar archivos adjuntos guardados en sesión
-    if (Session::has('attachments')) {
-        $attachmentsData = Session::get('attachments');
-        foreach ($attachmentsData as $att) {
-            // Opcional: mover el archivo desde la carpeta temporal a una definitiva
-            $newPath = 'notificaciones_archivos/' . basename($att['path']);
-            Storage::move($att['path'], $newPath);
-
-            NotificacionArchivo::create([
-                'notificacion_id' => $notificacion->id,
-                'file_path'       => $newPath,
-                'file_name'       => $att['name']
-            ]);
+         // Procesa y almacena los archivos adjuntos en la base de datos
+         if (Session::has('attachments')) {
+            $attachmentsData = Session::get('attachments');
+            foreach ($attachmentsData as $att) {
+                $newPath = 'notificaciones_archivos/' . basename($att['path']);
+                Storage::move($att['path'], $newPath);
+                NotificacionArchivo::create([
+                    'notificacion_id' => $notificacion->id,
+                    'file_path'       => $newPath,
+                    'file_name'       => $att['name']
+                ]);
+            }
         }
-    }
-
         
 
         Session::forget(['form_data', 'pdf_data', 'attachments']);
@@ -393,11 +390,20 @@ class NotificacionController extends Controller
 
             // Save the PDF to the disk
             $pdf->Output($outputPath, 'F', true);
-            $attachmentsData = Session::get('attachments', []);
+
+
+           $attachmentsData = Session::get('attachments', []);
 
             // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
 //            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
-            Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable($outputPath, $link, $attachmentsData));
+            //Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable($destinatario, $outputPath, $link));
+
+            Mail::mailer('ses')->to($destinatario['correo'])
+                ->queue(new NotificacionMailable(
+                    base64_encode(file_get_contents($outputPath)),
+                    $link,
+                    $attachmentsData
+                ));
         }
 
         Session::forget(['form_data', 'pdf_data']);
@@ -453,13 +459,18 @@ class NotificacionController extends Controller
             ]);
 
             $attachmentsData = Session::get('attachments', []);
+            
 
             //dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link, $attachmentsData));
 
              // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
 //            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
      
- Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable( $destinatario, $$pdfContentBase64, [$link], $attachmentsData));
+ //Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable( $destinatario, $link, $$pdfContentBase64, $attachmentsData));
+
+
+ Mail::mailer('ses')->to($destinatario['correo'])
+                ->queue(new NotificacionMailable($pdfContentBase64, $link, $attachmentsData));
         }
 
         Session::forget(['form_data', 'pdf_data', 'attachments']);
@@ -475,39 +486,40 @@ class NotificacionController extends Controller
     {
         $expectedLink = route('notificacion.abrir', ['token' => $token]);
         //$detalle = Detalle::where('link', $expectedLink)->firstOrFail();
+       
         $detalle = Detalle::with('notificacion.archivos')->where('link', $expectedLink)->firstOrFail();
         $detalle->update(['status_abierto' => 'READ']);
         return view('notificaciones.abierto', compact('detalle'));
     }
 
 
+   
     public function descargarArchivo(NotificacionArchivo $archivo)
-{
-    // Verifica que el archivo exista
-    if (!Storage::exists($archivo->file_path)) {
-        abort(404);
+    {
+        if (!Storage::exists($archivo->file_path)) {
+            abort(404);
+        }
+        return Storage::download($archivo->file_path, $archivo->file_name);
     }
-    // Devuelve la descarga del archivo
-    return Storage::download($archivo->file_path, $archivo->file_name);
-}
 
-private function procesarAdjuntos(Notificacion $notificacion)
-{
-    if (Session::has('attachments')) {
-        $attachmentsData = Session::get('attachments');
-        foreach ($attachmentsData as $att) {
-            // Define la nueva ruta definitiva para el archivo
-            $newPath = 'notificaciones_archivos/' . basename($att['path']);
-            // Mueve el archivo desde la carpeta temporal a la definitiva
-            Storage::move($att['path'], $newPath);
-            // Crea el registro en la base de datos
-            NotificacionArchivo::create([
-                'notificacion_id' => $notificacion->id,
-                'file_path'       => $newPath,
-                'file_name'       => $att['name']
-            ]);
+    /**
+     * Procesa los archivos adjuntos guardados en sesión y crea los registros en la BD.
+     */
+    private function procesarAdjuntos(Notificacion $notificacion)
+    {
+        if (Session::has('attachments')) {
+            $attachmentsData = Session::get('attachments');
+            foreach ($attachmentsData as $att) {
+                $newPath = 'notificaciones_archivos/' . basename($att['path']);
+                Storage::move($att['path'], $newPath);
+                NotificacionArchivo::create([
+                    'notificacion_id' => $notificacion->id,
+                    'file_path'       => $newPath,
+                    'file_name'       => $att['name']
+                ]);
+            }
         }
     }
-}
+
 
 }
