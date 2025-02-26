@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NotificacionMailable;
+use Aws\DocDB\DocDBClient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Tipo;
@@ -517,12 +518,12 @@ class NotificacionController extends Controller
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
             // Guardar PDF generado
-            $outputPath = storage_path('app/public/generated_'.$notificacion->id.'_'.$destinatario->id.'.pdf');
+            $outputPath = storage_path('app/public/generated_'.$notificacion->id.'_'. $index .'.pdf');
             $pdf->Output($outputPath, 'F');
 
             // Envío de correo
-            $attachmentsData = Session::get('attachments', []);
-            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link, $attachmentsData));
+//            dd($outputPath);
+            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
         }
 
         // Limpiar la sesión después de enviar los correos
