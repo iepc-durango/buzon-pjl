@@ -77,7 +77,7 @@ class NotificacionController extends Controller
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
                 // Guarda el archivo en una carpeta temporal (por ejemplo, "temp_attachments")
-                $path = $file->store('temp_attachments');
+                $path = $file->storeAs('temp_attachments', $file->getClientOriginalName());
                 $attachmentsData[] = [
                     'path' => $path,
                     'name' => $file->getClientOriginalName()
@@ -441,32 +441,34 @@ class NotificacionController extends Controller
         $request->validate([
             'destinatarios' => 'required|array|min:1'
         ]);
-    
+
         if (!Session::has('form_data')) {
             return response()->json(['error' => 'No hay datos para enviar'], 400);
         }
-    
+
         $selectedDestIds = $request->input('destinatarios');
         $formData = Session::get('form_data');
-    
+
         $formData['user_id'] = Auth::id();
         if (isset($formData['tipo'])) {
             unset($formData['tipo']);
         }
-    
+
         $notificacion = Notificacion::create($formData);
-    
+
+        $this->procesarAdjuntos($notificacion);
+
         // Ruta de la plantilla PDF
         $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
-    
+
         $destinatarios = Destinatario::whereIn('id', $selectedDestIds)->get();
-    
+
         foreach ($destinatarios as $index => $destinatario) {
             // Instancia de FPDI para modificar el PDF
             $pdf = new Fpdi();
             $token = Str::uuid()->toString();
             $link = route('notificacion.abrir', ['token' => $token]);
-    
+
             Detalle::create([
                 'id_notificacion' => $notificacion->id,
                 'destinatario_id' => $destinatario->id,
@@ -474,58 +476,58 @@ class NotificacionController extends Controller
                 'status_envio' => 'send',
                 'link' => $link,
             ]);
-    
+
             // Importamos la plantilla PDF
             $pdf->setSourceFile($templatePath);
             $tplIdx = $pdf->importPage(1);
             $pdf->AddPage();
             $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // Tamaño Carta
-    
+
             // Configuración de fuente
             $pdf->SetFont('Helvetica', 'B', 11);
             $pdf->SetTextColor(0, 0, 0);
-    
+
             // Escribir datos en el PDF
             $pdf->SetXY(29, 38.5);
             $pdf->Write(0, mb_convert_encoding($destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
-    
+
             $pdf->SetFont('Helvetica', '', 11);
             $pdf->SetXY(31, 102);
             $pdf->Write(0, $formData['no_acuerdo']);
-    
+
             $pdf->SetXY(101, 102);
             $pdf->Write(0, Carbon::create($formData['fecha_aprobacion'])->format('d/m/Y'));
-    
+
             $pdf->SetXY(149, 102);
             $pdf->Write(0, $formData['sesion']);
-    
+
             $pdf->SetXY(31, 115);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['titulo'], 'ISO-8859-1', 'UTF-8'));
-    
+
             $pdf->SetXY(31, 154.5);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['descripcion'], 'ISO-8859-1', 'UTF-8'));
-    
+
             // Lugar y fecha
             Carbon::setLocale('es');
             $now = Carbon::now();
             $pdf->SetXY(65, 225);
             $pdf->Write(0, "Victoria de Durango, Dgo a " . now()->format('d') . " de " . $now->translatedFormat('F') . " de " . now()->format('Y'));
-    
+
             // Agregar firma y sello
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
-    
+
             // Guardar PDF generado
             $outputPath = storage_path('app/public/generated_'.$notificacion->id.'_'.$destinatario->id.'.pdf');
             $pdf->Output($outputPath, 'F');
-    
+
             // Envío de correo
             $attachmentsData = Session::get('attachments', []);
             Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link, $attachmentsData));
         }
-    
+
         // Limpiar la sesión después de enviar los correos
         Session::forget(['form_data', 'pdf_data']);
-    
+
         return response()->json(['message' => 'Correos personalizados en proceso de envío.']);
     }
 
