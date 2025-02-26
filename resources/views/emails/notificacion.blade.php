@@ -7,8 +7,10 @@
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-md">
-    <img src="/img/logo.jpeg" alt="Logo" class="mx-auto w-16 h-16 mb-4">
-    <h2 class="text-xl font-semibold text-gray-800">Nueva Notificación</h2>
+    <img src="https://i.imgur.com/9TJfat5.png" alt="Logo" class="mx-auto w-30 h-16 mb-4" alt="Logo" class="mx-auto w-16 h-16 mb-4">
+    <h2 class="text-xl font-semibold text-gray-800 py-4">INSTITUTO ELECTORAL Y DE PARTICIPACIÓN CIUDADANA DEL ESTADO DE DURANGO</h2>
+    <h3 class="text-xl font-semibold text-gray-800">Nueva Notificación</h3>
+    
     <p class="text-gray-600 mt-4">Estimado usuario,</p>
     <p class="text-gray-600 mt-2">
       Se ha generado una nueva notificación. Adjuntamos el documento correspondiente.
@@ -17,7 +19,7 @@
       Para confirmar que has leído la notificación, haz clic en el siguiente enlace:
     </p>
     <p class="mt-4">
-      <a href="{{ $link }}" class="text-blue-600 hover:underline">Marcar Notificación como Leída</a>
+      <a href="{{ $link }}" class="text-blue-600 hover:underline">Visualizar Archivos</a>
     </p>
     <p class="text-gray-600 mt-6">Saludos,</p>
     <p class="text-gray-600">El equipo de Notificaciones</p>
