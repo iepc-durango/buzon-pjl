@@ -29,7 +29,7 @@ class NotificacionMailable extends Mailable implements ShouldQueue
     {
         return $this->from('buzonpopjl@appsiepcdurango.mx')
             ->subject('Nueva Notificación')
-            ->attach(file_get_contents($this->pdf), [
+            ->attach($this->pdf, [
                 'as' => 'Notificación.pdf',
                 'mime' => 'application/pdf',
             ])
