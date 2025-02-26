@@ -57,7 +57,7 @@ const props = defineProps({
                                     {{ notificacion.created_at}}
                                 </td>
                                 <td class="px-6 py-4">
-                                  <a href="/detalles" class="font-medium text-gray-600 dark:text-gray-500 hover:underline">Detalles</a>
+                                  <a :href="route('detalles.index', notificacion.id)" class="font-medium text-gray-600 dark:text-gray-500 hover:underline">Detalles</a>
                                 </td>
                             </tr>
                         </tbody>

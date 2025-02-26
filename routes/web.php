@@ -60,7 +60,7 @@ Route::post('/generate-pdf', [NotificacionController::class, 'generatePdf'])->na
 
 
 
-Route::get('/detalles', [DetalleController::class, 'index'])->name('detalles.index');
+Route::get('/detalles/{notificacion}', [DetalleController::class, 'index'])->name('detalles.index');
 
 
 

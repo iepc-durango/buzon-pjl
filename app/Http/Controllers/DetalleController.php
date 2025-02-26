@@ -8,10 +8,10 @@ use Inertia\Inertia;
 
 class DetalleController extends Controller
 {
-    public function index()
+    public function index($notificacion)
     {
         
-        $detalles = Detalle::all(); 
+        $detalles = Detalle::where('id_notificacion', '=', $notificacion)->get();
 
         return Inertia::render('Notificaciones/Detalles', [
             'detalles' => $detalles
