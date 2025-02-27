@@ -9,7 +9,7 @@ import Welcome from '@/Components/Welcome.vue';
 
 <template>
     <AppLayout title="Dashboard">
-       
+
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -22,7 +22,7 @@ import Welcome from '@/Components/Welcome.vue';
 
       <!-- Contenedor de la tabla -->
       <div class="relative overflow-x-auto shadow-0 py-3 sm:rounded-lg">
-        
+
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Tabla de detalles -->
@@ -31,18 +31,18 @@ import Welcome from '@/Components/Welcome.vue';
                     <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-ls text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3">Notificacion</th>
+                                <th scope="col" class="px-6 py-3">Notificación</th>
                                 <th scope="col" class="px-6 py-3">Destinatario</th>
-                                <th scope="col" class="px-6 py-3">Fecha de Envío</th>
-                                <th scope="col" class="px-6 py-3">Estado de Notificacion</th>
-                                <th scope="col" class="px-6 py-3">Estado de Notificacion</th>
+                                <th scope="col" class="px-6 py-3">Fecha de envío</th>
+                                <th scope="col" class="px-6 py-3">Estado de Notificación</th>
+                                <th scope="col" class="px-6 py-3">Estado de Notificación</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Recorrer los detalles y mostrar la información -->
                             <tr  v-for="notificacion in notificaciones" :key="notificacion.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ notificacion.tipo_id  }}
+                                    {{ 'IEPC/SE/BE/' + String(notificacion.tipo_id).padStart(2, '0') + '/' + new Date().getFullYear() }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ detalle.destinatario_id  }}

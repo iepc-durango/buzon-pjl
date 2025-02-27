@@ -32,8 +32,6 @@ class NotificacionController extends Controller
     {
 
 
-
-
         $notificaciones = Notificacion::all();
 
         return Inertia::render('Index', [
@@ -356,7 +354,7 @@ class NotificacionController extends Controller
             $pdf->Write(0, mb_convert_encoding(($destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetXY(147, 28);
-            $pdf->Write(0, 'IEPC/SE/BE/01/2025');
+            $pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->id, 2, '0', STR_PAD_LEFT) . '/2025');
 
             $pdf->SetFont('Helvetica', '', 11, true);;
 
@@ -485,10 +483,10 @@ class NotificacionController extends Controller
 
             // Escribir datos en el PDF
             $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_convert_encoding($destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
+            $pdf->Write(0, mb_convert_encoding('C. ' . $destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetXY(147, 28);
-            $pdf->Write(0, 'IEPC/SE/BE/01/2025');
+            $pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->id, 2, '0', STR_PAD_LEFT) . '/2025');
 
             $pdf->SetFont('Helvetica', '', 11);
 
@@ -517,7 +515,7 @@ class NotificacionController extends Controller
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
             // Guardar PDF generado
-            $outputPath = storage_path('app/public/generated_'.$notificacion->id.'_'. $index .'.pdf');
+            $outputPath = storage_path('app/public/generated_' . $notificacion->id . '_' . $index . '.pdf');
             $pdf->Output($outputPath, 'F');
 
             // Envío de correo

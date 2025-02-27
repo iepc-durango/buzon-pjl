@@ -49,7 +49,7 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('index')" :active="route().current('dashboard')">
-                                    Buzon Electronico
+                                    Buzón Electrónico
                                 </NavLink>
                             </div>
                         </div>
@@ -151,7 +151,7 @@ const logout = () => {
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <DropdownLink as="button">
-                                                Log Out
+                                                Cerrar sesión
                                             </DropdownLink>
                                         </form>
                                     </template>
@@ -192,7 +192,7 @@ const logout = () => {
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Buzon Electronico
+                            Buzón Electrónico
                         </ResponsiveNavLink>
                     </div>
 
@@ -225,7 +225,7 @@ const logout = () => {
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
                                 <ResponsiveNavLink as="button">
-                                    Log Out
+                                    Cerrar sesión
                                 </ResponsiveNavLink>
                             </form>
 

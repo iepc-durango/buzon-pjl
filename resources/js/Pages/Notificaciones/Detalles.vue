@@ -21,7 +21,7 @@ const exportarPDF = async () => {
   const imgData = canvas.toDataURL('image/png');
 
   const imgWidth = 190; // Ancho de la imagen en el PDF
-  const pageHeight = pdf.internal.pageSize.height; 
+  const pageHeight = pdf.internal.pageSize.height;
   const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
   let heightLeft = imgHeight;
@@ -45,7 +45,7 @@ const exportarPDF = async () => {
     <AppLayout title="Detalles">
         <div class="py-10 flex justify-between items-center max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h2 class="text-xl font-semibold leading-tight text-gray-800">Detalles</h2>
-            <button 
+            <button
                 @click="exportarPDF"
                 class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
                 Imprimir detalles
@@ -61,14 +61,14 @@ const exportarPDF = async () => {
                             <tr>
                                 <th scope="col" class="px-6 py-3">Notificación</th>
                                 <th scope="col" class="px-6 py-3">Destinatario</th>
-                                <th scope="col" class="px-6 py-3">Fecha de Envío</th>
+                                <th scope="col" class="px-6 py-3">Fecha de envío</th>
                                 <th scope="col" class="px-6 py-3">Estado de Notificación</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="detalle in props.detalles" :key="detalle.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ detalle.id_notificacion }}
+                                    {{ 'IEPC/SE/BE/' + String(detalle.id_notificacion).padStart(2, '0') + '/' + new Date().getFullYear() }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ detalle.destinatario.nombre }}
@@ -77,7 +77,7 @@ const exportarPDF = async () => {
                                     {{ new Date(detalle.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ detalle.status_abierto }}
+                                    {{ detalle.status_abierto === 'READ' ? 'Leído' : '--' }}
                                 </td>
                             </tr>
                         </tbody>

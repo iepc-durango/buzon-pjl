@@ -20,7 +20,7 @@
                 <tr>
                     <td style="color: #333333; font-size: 16px; line-height: 1.5;">
                         <h2 style="font-weight:bold;margin:0;padding:0;font-size:12pt;">Estimada persona Candidata.</h2>
-                        <h2 style="font-weight:bold;margin:0;padding:0;font-size:12pt;">PRESENTE.</h2>
+                        <h2 style="font-weight:bold;margin:0;padding:0;font-size:12pt;">Presente.</h2>
 
                         <p style="margin-top:1pc;text-align:justify;">Con fundamento en lo dispuesto por el Artículo 164, numeral 3 BIS, fracción I, inciso g), párrafo segundo de la Ley de Instituciones y Procedimientos Electorales para el estado de Durango, por medio del presente se notifica diverso documento que se encuentra para su lectura en el vínculo siguiente:</p>
 
