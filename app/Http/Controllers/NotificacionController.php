@@ -390,7 +390,7 @@ class NotificacionController extends Controller
             // Save the PDF to the disk
             $pdf->Output($outputPath, 'F', true);
 
-            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
+            Mail::mailer('ses')->to($destinatario["correo"])->queue(new NotificacionMailable($outputPath, $link));
         }
 
         Session::forget(['form_data', 'pdf_data']);
