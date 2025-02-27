@@ -31,7 +31,7 @@ class NotificacionController extends Controller
     public function index()
     {
 
-        
+
 
 
         $notificaciones = Notificacion::all();
@@ -390,19 +390,7 @@ class NotificacionController extends Controller
             // Save the PDF to the disk
             $pdf->Output($outputPath, 'F', true);
 
-
-            $attachmentsData = Session::get('attachments', []);
-
-            // Enviamos el correo pasando el PDF en base64 para evitar problemas de JSON
-//            dispatch(new EnviarNotificacionJob($destinatario, $pdfContentBase64, $link));
-            //Mail::mailer('ses')->to($destinatario['correo'])->queue(new NotificacionMailable($destinatario, $outputPath, $link));
-
-            Mail::mailer('ses')->to($destinatario['correo'])
-                ->queue(new NotificacionMailable(
-                    base64_encode(file_get_contents($outputPath)),
-                    $link,
-                    $attachmentsData
-                ));
+            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
         }
 
         Session::forget(['form_data', 'pdf_data']);
