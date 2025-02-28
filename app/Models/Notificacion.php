@@ -40,6 +40,6 @@ class Notificacion extends Model
 
 public function folio()
 {
-    return $this->hasOne(Folio::class, 'notificacion_id', 'id');
+    return $this->belongsTo(Folio::class, 'notificacion_id', 'id');
 }
 }

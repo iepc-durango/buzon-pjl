@@ -35,6 +35,9 @@ class NotificacionController extends Controller
 
         //$notificaciones = Notificacion::all();
 
+ 
+
+
         $notificaciones = Notificacion::with('folio')->get();
         // Revisar si los datos traen el folio correctamente
     Log::info('Notificaciones con folio: ', $notificaciones->toArray());
@@ -490,6 +493,11 @@ class NotificacionController extends Controller
 
         $notificacion = Notificacion::create($formData);
 
+
+        // Cargar la notificación con su folio relacionado
+$notificacion = Notificacion::with('folio')->find($notificacion->id);
+
+
           // Generar el folio automáticamente
           $this->generarFolioParaNotificacion($notificacion);
 
@@ -499,6 +507,8 @@ class NotificacionController extends Controller
         $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
 
         $destinatarios = Destinatario::whereIn('id', $selectedDestIds)->get();
+
+       dd($notificacion);
 
         foreach ($destinatarios as $index => $destinatario) {
             // Instancia de FPDI para modificar el PDF
@@ -528,8 +538,16 @@ class NotificacionController extends Controller
             $pdf->SetXY(29, 38.5);
             $pdf->Write(0, mb_convert_encoding('C. ' . $destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
 
-            $pdf->SetXY(147, 28);
-            $pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->id, 2, '0', STR_PAD_LEFT) . '/2025');
+
+              // Obtener el folio o mostrar "SIN FOLIO"
+        $folio = $notificacion->folio->folio ?? 'SIN FOLIO';
+
+        // Mostrar el folio en el PDF
+        $pdf->SetXY(147, 28);
+        $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio, 2, '0', STR_PAD_LEFT) . '/2025');
+
+            //$pdf->SetXY(147, 28);
+            //$pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->folio, 2, '0', STR_PAD_LEFT) . '/2025' );
 
             $pdf->SetFont('Helvetica', '', 11);
 
