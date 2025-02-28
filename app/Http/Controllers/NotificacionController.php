@@ -53,26 +53,48 @@ class NotificacionController extends Controller
     }
 
 
+    // private function generarFolioParaNotificacion($notificacion)
+    // {
+    //     $ultimoFolio = Folio::max('folio') ?? 0;
+    //     $nuevoFolio = $ultimoFolio + 1;
+    
+    //     try {
+    //         $folio = Folio::create([
+    //             'notificacion_id' => $notificacion->id,
+    //             'folio' => $nuevoFolio,
+    //         ]);
+    
+    //         Log::info('Folio generado correctamente: ' . $folio->folio);
+    //         return $folio;
+    
+    //     } catch (\Exception $e) {
+    //         Log::error('Error al generar el folio: ' . $e->getMessage());
+    //         return null;
+    //     }
+    // }
+
+
     private function generarFolioParaNotificacion($notificacion)
-    {
-        $ultimoFolio = Folio::max('folio') ?? 0;
-        $nuevoFolio = $ultimoFolio + 1;
+{
+    $ultimoFolio = Folio::max('folio') ?? 0;
+    $nuevoFolio = $ultimoFolio + 1;
 
-        try {
-            $folio = Folio::create([
-                'notificacion_id' => $notificacion->id,
-                'folio' => $nuevoFolio,
-            ]);
+    try {
+        $folio = Folio::create([
+            'notificacion_id' => $notificacion->id,
+            'folio' => $nuevoFolio,
+        ]);
 
-            Log::info('Folio generado correctamente: ' . $folio->folio);
-            return $folio;
+        Log::info('Folio generado correctamente: ' . $folio->folio);
+        return $folio;
 
-        } catch (\Exception $e) {
-            Log::error('Error al generar el folio: ' . $e->getMessage());
-            return null;
-        }
+    } catch (\Exception $e) {
+        Log::error('Error al generar el folio: ' . $e->getMessage());
+        return null;
     }
+}
 
+    
     /**
      * Genera el PDF temporalmente y guarda los datos del formulario en sesión.
      * Se espera que el front-end envíe también el campo "tipo".
@@ -368,6 +390,10 @@ class NotificacionController extends Controller
             // FPDI  instance
             $pdf = new Fpdi();
 
+
+            // Generar un folio único para cada PDF generado
+        $folio = $this->generarFolioParaNotificacion($notificacion);
+
             $token = Str::uuid()->toString();
             $link = route('notificacion.abrir', ['token' => $token]);
 
@@ -397,7 +423,7 @@ class NotificacionController extends Controller
             $pdf->Write(0, mb_convert_encoding(('C. ' .$destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetXY(147, 28);
-            $pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->id, 2, '0', STR_PAD_LEFT) . '/2025');
+        $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
             $pdf->SetFont('Helvetica', '', 11, true);;
 
@@ -494,12 +520,7 @@ class NotificacionController extends Controller
         $notificacion = Notificacion::create($formData);
 
 
-        // Cargar la notificación con su folio relacionado
-$notificacion = Notificacion::with('folio')->find($notificacion->id);
-
-
-          // Generar el folio automáticamente
-          $this->generarFolioParaNotificacion($notificacion);
+  
 
         $this->procesarAdjuntos($notificacion);
 
@@ -508,11 +529,16 @@ $notificacion = Notificacion::with('folio')->find($notificacion->id);
 
         $destinatarios = Destinatario::whereIn('id', $selectedDestIds)->get();
 
-       dd($notificacion);
+       
 
         foreach ($destinatarios as $index => $destinatario) {
             // Instancia de FPDI para modificar el PDF
             $pdf = new Fpdi();
+
+            // Generar un folio único para cada PDF generado
+        $folio = $this->generarFolioParaNotificacion($notificacion);
+
+
             $token = Str::uuid()->toString();
             $link = route('notificacion.abrir', ['token' => $token]);
 
@@ -539,12 +565,9 @@ $notificacion = Notificacion::with('folio')->find($notificacion->id);
             $pdf->Write(0, mb_convert_encoding('C. ' . $destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
 
 
-              // Obtener el folio o mostrar "SIN FOLIO"
-        $folio = $notificacion->folio->folio ?? 'SIN FOLIO';
-
-        // Mostrar el folio en el PDF
-        $pdf->SetXY(147, 28);
-        $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio, 2, '0', STR_PAD_LEFT) . '/2025');
+              
+            $pdf->SetXY(147, 28);
+            $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
             //$pdf->SetXY(147, 28);
             //$pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->folio, 2, '0', STR_PAD_LEFT) . '/2025' );
