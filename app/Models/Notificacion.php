@@ -36,4 +36,10 @@ class Notificacion extends Model
 {
     return $this->hasMany(NotificacionArchivo::class);
 }
+
+
+public function folio()
+{
+    return $this->hasOne(Folio::class, 'notificacion_id', 'id');
+}
 }

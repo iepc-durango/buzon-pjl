@@ -11,6 +11,7 @@ use App\Models\Notificacion;
 use App\Models\NotificacionArchivo;
 use App\Models\Detalle;
 use App\Models\Destinatario;
+use App\Models\Folio;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
@@ -32,11 +33,41 @@ class NotificacionController extends Controller
     {
 
 
-        $notificaciones = Notificacion::all();
+        //$notificaciones = Notificacion::all();
+
+        $notificaciones = Notificacion::with('folio')->get();
+        // Revisar si los datos traen el folio correctamente
+    Log::info('Notificaciones con folio: ', $notificaciones->toArray());
 
         return Inertia::render('Index', [
             'notificaciones' => $notificaciones
         ]);
+
+
+       
+
+ 
+    }
+
+
+    private function generarFolioParaNotificacion($notificacion)
+    {
+        $ultimoFolio = Folio::max('folio') ?? 0;
+        $nuevoFolio = $ultimoFolio + 1;
+
+        try {
+            $folio = Folio::create([
+                'notificacion_id' => $notificacion->id,
+                'folio' => $nuevoFolio,
+            ]);
+
+            Log::info('Folio generado correctamente: ' . $folio->folio);
+            return $folio;
+
+        } catch (\Exception $e) {
+            Log::error('Error al generar el folio: ' . $e->getMessage());
+            return null;
+        }
     }
 
     /**
@@ -237,6 +268,11 @@ class NotificacionController extends Controller
         $formData['user_id'] = Auth::id();
 
         $notificacion = Notificacion::create($formData);
+
+        // Generar folio
+        $this->generarFolioParaNotificacion($notificacion);
+
+
         $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
         Storage::put($pdfPath, $pdfContent);
 
@@ -310,6 +346,10 @@ class NotificacionController extends Controller
 //        $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
 //        Storage::put($pdfPath, $pdfContentBinary);
 
+
+
+        $this->generarFolioParaNotificacion($notificacion);
+
         // Procesa y guarda los adjuntos en la BD
         $this->procesarAdjuntos($notificacion);
 
@@ -351,7 +391,7 @@ class NotificacionController extends Controller
 
             // Recipient
             $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_convert_encoding(($destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
+            $pdf->Write(0, mb_convert_encoding(('C. ' .$destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetXY(147, 28);
             $pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->id, 2, '0', STR_PAD_LEFT) . '/2025');
@@ -449,6 +489,9 @@ class NotificacionController extends Controller
         }
 
         $notificacion = Notificacion::create($formData);
+
+          // Generar el folio automáticamente
+          $this->generarFolioParaNotificacion($notificacion);
 
         $this->procesarAdjuntos($notificacion);
 
@@ -548,6 +591,10 @@ class NotificacionController extends Controller
         }
         return Storage::download($archivo->file_path, $archivo->file_name);
     }
+
+
+
+    
 
 
 }
