@@ -35,21 +35,14 @@ class NotificacionController extends Controller
 
         //$notificaciones = Notificacion::all();
 
- 
-
 
         $notificaciones = Notificacion::with('folio')->get();
         // Revisar si los datos traen el folio correctamente
-    Log::info('Notificaciones con folio: ', $notificaciones->toArray());
+        Log::info('Notificaciones con folio: ', $notificaciones->toArray());
 
-        return Inertia::render('Index', [
-            'notificaciones' => $notificaciones
-        ]);
+        return Inertia::render('Index', ['notificaciones' => $notificaciones]);
 
 
-       
-
- 
     }
 
 
@@ -57,72 +50,34 @@ class NotificacionController extends Controller
     // {
     //     $ultimoFolio = Folio::max('folio') ?? 0;
     //     $nuevoFolio = $ultimoFolio + 1;
-    
+
     //     try {
     //         $folio = Folio::create([
     //             'notificacion_id' => $notificacion->id,
     //             'folio' => $nuevoFolio,
     //         ]);
-    
+
     //         Log::info('Folio generado correctamente: ' . $folio->folio);
     //         return $folio;
-    
+
     //     } catch (\Exception $e) {
     //         Log::error('Error al generar el folio: ' . $e->getMessage());
     //         return null;
     //     }
     // }
 
-
-    private function generarFolioParaNotificacion($notificacion)
-{
-    $ultimoFolio = Folio::max('folio') ?? 0;
-    $nuevoFolio = $ultimoFolio + 1;
-
-    try {
-        $folio = Folio::create([
-            'notificacion_id' => $notificacion->id,
-            'folio' => $nuevoFolio,
-        ]);
-
-        Log::info('Folio generado correctamente: ' . $folio->folio);
-        return $folio;
-
-    } catch (\Exception $e) {
-        Log::error('Error al generar el folio: ' . $e->getMessage());
-        return null;
-    }
-}
-
-    
     /**
      * Genera el PDF temporalmente y guarda los datos del formulario en sesión.
      * Se espera que el front-end envíe también el campo "tipo".
      */
     public function generarPdfTemporal(Request $request)
     {
-        $request->validate([
-            'tipo_id' => 'required|exists:tipos,id',
-            'titulo' => 'nullable|string',
-            'no_acuerdo' => 'nullable|string',
-            'sesion' => 'nullable|string',
-            'descripcion' => 'nullable|string',
-            'fecha_aprobacion' => 'nullable|date',
-            'no_expediente' => 'nullable|string',
-            'denunciante' => 'nullable|string',
-            'denunciado' => 'nullable|string',
-            'municipio' => 'nullable|string',
-            'descripcion_fundamento' => 'nullable|string',
-            'descripcion_docu' => 'nullable|string',
-            'frag_doc' => 'nullable|string',
-            'descripcion_notificado' => 'nullable|string',
-            'tipo' => 'required|string',
+        $request->validate(['tipo_id' => 'required|exists:tipos,id', 'titulo' => 'nullable|string', 'no_acuerdo' => 'nullable|string', 'sesion' => 'nullable|string', 'descripcion' => 'nullable|string', 'fecha_aprobacion' => 'nullable|date', 'no_expediente' => 'nullable|string', 'denunciante' => 'nullable|string', 'denunciado' => 'nullable|string', 'municipio' => 'nullable|string', 'descripcion_fundamento' => 'nullable|string', 'descripcion_docu' => 'nullable|string', 'frag_doc' => 'nullable|string', 'descripcion_notificado' => 'nullable|string', 'tipo' => 'required|string',
 
             //Linea para adjuntar archivos
 
             // Puedes validar que attachments sea un arreglo de archivos
-            'attachments.*' => 'nullable|file'
-        ]);
+            'attachments.*' => 'nullable|file']);
 
         // Genera el PDF y obtiene el contenido binario
         $pdfContent = $this->generatePdf(new Request($request->all()));
@@ -136,10 +91,7 @@ class NotificacionController extends Controller
             foreach ($request->file('attachments') as $file) {
                 // Guarda el archivo en una carpeta temporal (por ejemplo, "temp_attachments")
                 $path = $file->storeAs('temp_attachments', $file->getClientOriginalName());
-                $attachmentsData[] = [
-                    'path' => $path,
-                    'name' => $file->getClientOriginalName()
-                ];
+                $attachmentsData[] = ['path' => $path, 'name' => $file->getClientOriginalName()];
             }
         }
         // Excluye los archivos adjuntos del request al guardarlo en sesión
@@ -307,11 +259,7 @@ class NotificacionController extends Controller
             foreach ($attachmentsData as $att) {
                 $newPath = 'notificaciones_archivos/' . basename($att['path']);
                 Storage::move($att['path'], $newPath);
-                NotificacionArchivo::create([
-                    'notificacion_id' => $notificacion->id,
-                    'file_path' => $newPath,
-                    'file_name' => $att['name']
-                ]);
+                NotificacionArchivo::create(['notificacion_id' => $notificacion->id, 'file_path' => $newPath, 'file_name' => $att['name']]);
             }
         }
 
@@ -327,19 +275,27 @@ class NotificacionController extends Controller
     public function create()
     {
         $tipos = Tipo::all();
-        $municipios = [
-            'Canatlán', 'Canelas', 'Coneto de Comonfort', 'Cuencamé', 'Durango',
-            'General Simón Bolívar', 'Gómez Palacio', 'Guadalupe Victoria', 'Guanaceví',
-            'Hidalgo', 'Indé', 'Lerdo', 'Mapimí', 'Mezquital', 'Nazas', 'Nombre de Dios',
-            'Ocampo', 'El Oro', 'Otáez', 'Pánuco de Coronado', 'Peñón Blanco', 'Poanas',
-            'Pueblo Nuevo', 'Rodeo', 'San Bernardo', 'San Dimas', 'San Juan de Guadalupe',
-            'San Juan del Río', 'San Luis del Cordero', 'San Pedro del Gallo', 'Santa Clara',
-            'Santiago Papasquiaro', 'Súchil', 'Tamazula', 'Tepehuanes', 'Tlahualilo', 'Topia',
-            'Vicente Guerrero'
-        ];
+        $municipios = ['Canatlán', 'Canelas', 'Coneto de Comonfort', 'Cuencamé', 'Durango', 'General Simón Bolívar', 'Gómez Palacio', 'Guadalupe Victoria', 'Guanaceví', 'Hidalgo', 'Indé', 'Lerdo', 'Mapimí', 'Mezquital', 'Nazas', 'Nombre de Dios', 'Ocampo', 'El Oro', 'Otáez', 'Pánuco de Coronado', 'Peñón Blanco', 'Poanas', 'Pueblo Nuevo', 'Rodeo', 'San Bernardo', 'San Dimas', 'San Juan de Guadalupe', 'San Juan del Río', 'San Luis del Cordero', 'San Pedro del Gallo', 'Santa Clara', 'Santiago Papasquiaro', 'Súchil', 'Tamazula', 'Tepehuanes', 'Tlahualilo', 'Topia', 'Vicente Guerrero'];
         $destinatarios = Destinatario::all();
 
         return Inertia::render('Notificaciones/create', compact('tipos', 'municipios', 'destinatarios'));
+    }
+
+    private function generarFolioParaNotificacion($notificacion)
+    {
+        $ultimoFolio = Folio::max('folio') ?? 0;
+        $nuevoFolio = $ultimoFolio + 1;
+
+        try {
+            $folio = Folio::create(['notificacion_id' => $notificacion->id, 'folio' => $nuevoFolio,]);
+
+            Log::info('Folio generado correctamente: ' . $folio->folio);
+            return $folio;
+
+        } catch (\Exception $e) {
+            Log::error('Error al generar el folio: ' . $e->getMessage());
+            return null;
+        }
     }
 
     /**
@@ -372,7 +328,6 @@ class NotificacionController extends Controller
 //        Storage::put($pdfPath, $pdfContentBinary);
 
 
-
         $this->generarFolioParaNotificacion($notificacion);
 
         // Procesa y guarda los adjuntos en la BD
@@ -392,18 +347,12 @@ class NotificacionController extends Controller
 
 
             // Generar un folio único para cada PDF generado
-        $folio = $this->generarFolioParaNotificacion($notificacion);
+            $folio = $this->generarFolioParaNotificacion($notificacion);
 
             $token = Str::uuid()->toString();
             $link = route('notificacion.abrir', ['token' => $token]);
 
-            Detalle::create([
-                'id_notificacion' => $notificacion->id,
-                'destinatario_id' => $destinatario['id'],
-                'status_abierto' => 'UNREAD',
-                'status_envio' => 'send',
-                'link' => $link,
-            ]);
+            Detalle::create(['id_notificacion' => $notificacion->id, 'destinatario_id' => $destinatario['id'], 'status_abierto' => 'UNREAD', 'status_envio' => 'send', 'link' => $link,]);
 
             // Set template and get pages count
             $pdf->setSourceFile($templatePath);
@@ -420,10 +369,10 @@ class NotificacionController extends Controller
 
             // Recipient
             $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_convert_encoding(('C. ' .$destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
+            $pdf->Write(0, mb_convert_encoding(('C. ' . $destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetXY(147, 28);
-        $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
+            $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
             $pdf->SetFont('Helvetica', '', 11, true);;
 
@@ -487,11 +436,7 @@ class NotificacionController extends Controller
                 // Elimina el archivo de la carpeta temporal
                 Storage::delete($att['path']);
                 // Crea el registro
-                NotificacionArchivo::create([
-                    'notificacion_id' => $notificacion->id,
-                    'file_path' => $path,
-                    'file_name' => $att['name']
-                ]);
+                NotificacionArchivo::create(['notificacion_id' => $notificacion->id, 'file_path' => $path, 'file_name' => $att['name']]);
             }
         }
     }
@@ -501,9 +446,7 @@ class NotificacionController extends Controller
      */
     public function enviarCorreoPersonalizado(Request $request)
     {
-        $request->validate([
-            'destinatarios' => 'required|array|min:1'
-        ]);
+        $request->validate(['destinatarios' => 'required|array|min:1']);
 
         if (!Session::has('form_data')) {
             return response()->json(['error' => 'No hay datos para enviar'], 400);
@@ -520,8 +463,6 @@ class NotificacionController extends Controller
         $notificacion = Notificacion::create($formData);
 
 
-  
-
         $this->procesarAdjuntos($notificacion);
 
         // Ruta de la plantilla PDF
@@ -529,26 +470,19 @@ class NotificacionController extends Controller
 
         $destinatarios = Destinatario::whereIn('id', $selectedDestIds)->get();
 
-       
 
         foreach ($destinatarios as $index => $destinatario) {
             // Instancia de FPDI para modificar el PDF
             $pdf = new Fpdi();
 
             // Generar un folio único para cada PDF generado
-        $folio = $this->generarFolioParaNotificacion($notificacion);
+            $folio = $this->generarFolioParaNotificacion($notificacion);
 
 
             $token = Str::uuid()->toString();
             $link = route('notificacion.abrir', ['token' => $token]);
 
-            Detalle::create([
-                'id_notificacion' => $notificacion->id,
-                'destinatario_id' => $destinatario->id,
-                'status_abierto' => 'UNREAD',
-                'status_envio' => 'send',
-                'link' => $link,
-            ]);
+            Detalle::create(['id_notificacion' => $notificacion->id, 'destinatario_id' => $destinatario->id, 'status_abierto' => 'UNREAD', 'status_envio' => 'send', 'link' => $link,]);
 
             // Importamos la plantilla PDF
             $pdf->setSourceFile($templatePath);
@@ -565,7 +499,6 @@ class NotificacionController extends Controller
             $pdf->Write(0, mb_convert_encoding('C. ' . $destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
 
 
-              
             $pdf->SetXY(147, 28);
             $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
@@ -632,10 +565,6 @@ class NotificacionController extends Controller
         }
         return Storage::download($archivo->file_path, $archivo->file_name);
     }
-
-
-
-    
 
 
 }
