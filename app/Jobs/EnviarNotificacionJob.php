@@ -23,9 +23,9 @@ class EnviarNotificacionJob implements ShouldQueue
      * @param $destinatario Modelo del destinatario.
      * @param string $pdf Contenido binario del PDF.
      * @param string $link Enlace único para seguimiento.
-     *  
+     *
      */
-    public function __construct($destinatario, $pdf, $link,  $attachments = [])
+    public function __construct($destinatario, $pdf, $link, $attachments = [])
     {
         $this->destinatario = $destinatario;
         $this->pdf = $pdf;
@@ -35,8 +35,7 @@ class EnviarNotificacionJob implements ShouldQueue
 
     public function handle()
     {
-        Mail::to($this->destinatario->correo)
-    ->send(new NotificacionMailable($this->pdf, $this->link, $this->attachments));
+        Mail::to($this->destinatario)->send(new NotificacionMailable($this->pdf, $this->link));
 
     }
 }
