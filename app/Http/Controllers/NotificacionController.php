@@ -538,7 +538,7 @@ class NotificacionController extends Controller
 
             // Envío de correo
 //            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
-            dispatch(new \App\Jobs\EnviarNotificacionJob($destinatario["correo"], $outputPath, $link))->delay(now()->addSeconds(5));
+            dispatch(new \App\Jobs\EnviarNotificacionJob($destinatario->correo, $outputPath, $link))->delay(now()->addSeconds(5));
         }
 
         // Limpiar la sesión después de enviar los correos
