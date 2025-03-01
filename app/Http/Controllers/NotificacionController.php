@@ -405,7 +405,7 @@ class NotificacionController extends Controller
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
             // Path to save the generated PDF
-            $outputPath = storage_path('app/public/generated_' . $index . '.pdf');
+            $outputPath = storage_path('IEPC-SE-BE-' . $folio->folio . '_' . $notificacion->id . '_' . time() . '.pdf');
 
             // Save the PDF to the disk
             $pdf->Output($outputPath, 'F', true);
@@ -533,7 +533,7 @@ class NotificacionController extends Controller
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
             // Guardar PDF generado
-            $outputPath = storage_path('app/public/generated_' . $notificacion->id . '_' . $index . '.pdf');
+            $outputPath = storage_path('app/public/IEPC-SE-BE-' . $folio->folio . '_' . $notificacion->id . '_' . time() . '.pdf');
             $pdf->Output($outputPath, 'F');
 
             // Envío de correo
