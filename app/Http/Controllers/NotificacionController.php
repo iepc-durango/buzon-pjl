@@ -410,7 +410,8 @@ class NotificacionController extends Controller
             // Save the PDF to the disk
             $pdf->Output($outputPath, 'F', true);
 
-            Mail::mailer('ses')->to($destinatario["correo"])->queue(new NotificacionMailable($outputPath, $link));
+//            Mail::mailer('ses')->to($destinatario["correo"])->queue(new NotificacionMailable($outputPath, $link));
+            dispatch(new \App\Jobs\EnviarNotificacionJob($destinatario->correo, $outputPath, $link))->delay(now()->addSeconds(30));
         }
 
         Session::forget(['form_data', 'pdf_data']);
@@ -536,7 +537,8 @@ class NotificacionController extends Controller
             $pdf->Output($outputPath, 'F');
 
             // Envío de correo
-            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
+//            Mail::mailer('ses')->to($destinatario->correo)->queue(new NotificacionMailable($outputPath, $link));
+            dispatch(new \App\Jobs\EnviarNotificacionJob($destinatario->correo, $outputPath, $link))->delay(now()->addSeconds(5));
         }
 
         // Limpiar la sesión después de enviar los correos
