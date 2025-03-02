@@ -17,7 +17,6 @@ class EnviarNotificacionJob implements ShouldQueue
     protected $destinatario;
     protected $pdf;
     protected $link;
-    protected $attachments; // nuevo campo
 
     /**
      * @param $destinatario Modelo del destinatario.
@@ -25,12 +24,11 @@ class EnviarNotificacionJob implements ShouldQueue
      * @param string $link Enlace único para seguimiento.
      *
      */
-    public function __construct($destinatario, $pdf, $link, $attachments = [])
+    public function __construct($destinatario, $pdf, $link)
     {
         $this->destinatario = $destinatario;
         $this->pdf = $pdf;
         $this->link = $link;
-        $this->attachments = $attachments;
     }
 
     public function handle()
