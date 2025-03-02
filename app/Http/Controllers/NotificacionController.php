@@ -411,7 +411,7 @@ class NotificacionController extends Controller
             $pdf->Output($outputPath, 'F', true);
 
             Log::info('Despachando trabajo de envío de notificación para: ' . $destinatario["correo"]);
-//            Mail::mailer('ses')->to($destinatario["correo"])->queue(new NotificacionMailable($outputPath, $link));
+            Mail::mailer('ses')->to($destinatario["correo"])->queue(new NotificacionMailable($outputPath, $link));
             Log::info('Trabajo de envío de notificación despachado para: ' . $destinatario["correo"]);
 //            dispatch(new \App\Jobs\EnviarNotificacionJob($destinatario["correo"], $outputPath, $link))->delay(now()->addSeconds(5));
         }
