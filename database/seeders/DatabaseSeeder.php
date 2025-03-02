@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        $destinatarios = [
-            ['nombre' => 'Alejandro Parra Villa', 'correo' => 'alejandro.parra@iepcdurango.mx', 'cargo' => 'Magistrado'],
-            ['nombre' => 'Jorge Galo Solano García', 'correo' => 'alexparra2404@gmail.com.mx', 'cargo' => 'Magistrado'],
+//        $destinatarios = [
+//            ['nombre' => 'Alejandro Parra Villa', 'correo' => 'alejandro.parra@iepcdurango.mx', 'cargo' => 'Magistrado'],
+//            ['nombre' => 'Jorge Galo Solano García', 'correo' => 'alexparra2404@gmail.com.mx', 'cargo' => 'Magistrado'],
 //            ['nombre' => 'Fernando Alonso Rodríguez García', 'correo' => 'fernando.rodriguez@iepcdurango.mx', 'cargo' => 'Magistrado'],
 //            ['nombre' => 'Irma Celeste Mata García', 'correo' => 'irma.mata@iepcdurango.mx	', 'cargo' => 'Magistrado'],
 //            ['nombre' => 'Jesús Lemuel Flores Hernández', 'correo' => 'jesus.flores@iepcdurango.mx', 'cargo' => 'Magistrado'],
@@ -30,206 +30,206 @@ class DatabaseSeeder extends Seeder
 //            ['nombre' => 'Jesús Francisco Enríquez Gamero', 'correo' => 'jesus.enriquez@iepcdurango.hx', 'cargo' => 'Juez Civil'],
 //            ['nombre' => 'Juana Garay Beltrán', 'correo' => 'juana.garay@iepcdurango.mx', 'cargo' => 'Juez Civil'],
 //            ['nombre' => 'Raúl Rosas Velázquez', 'correo' => 'raul.rosas@iepcdurango.mx', 'cargo' => 'Magistrado']
-        ];
+//        ];
 
-//        $destinatarios = array(
-//            array(
-//                "nombre" => "ALEJANDRA ESTRADA ARREOLA",
-//                "correo" => "alexaestra_17@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "BRENDA LIZETTE ACEVEDO CASTAÑEDA",
-//                "correo" => "brendaacevedoc@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "GLORIA GUADALUPE GALVÁN ROMÁN",
-//                "correo" => "licgalvanromann@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-//            array(
-//                "nombre" => "ILIANA ANGÉLICA ALVARADO SALINAS",
-//                "correo" => "ili_ss75@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "KARINA GARCÍA MONTELONGO",
-//                "correo" => "gk_1003@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "MARÍA MAGDALENA ALANÍS HERRERA",
-//                "correo" => "mmah1469@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "MIRIAM GUADALUPE LANZARÍN ROLDÁN",
-//                "correo" => "miriam_lanzarin@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "YESIKA LILIANA RAMOS RODRÍGUEZ",
-//                "correo" => "yesika.ramos.rdgz@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "ÁLVARO RODRÍGUEZ ALCALÁ",
-//                "correo" => "alvaroama3@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "CARLOS ENRIQUE GUZMÁN GONZÁLEZ",
-//                "correo" => "ceguzmanglez@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "GERARDO LARA PÉREZ",
-//                "correo" => "aranzalara733@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "JULIO CÉSAR PIÑA DE LA GARZA",
-//                "correo" => "julio.pina@ujed.mx",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "LUIS FERNANDO CONTRERAS CORTÉS",
-//                "correo" => "fercontre.ujed@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "MANUEL VALADEZ DÍAZ",
-//                "correo" => "valadezdiaz@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-//            array(
-//                "nombre" => "MIGUEL ÁNGEL QUIÑONES OROZCO",
-//                "correo" => "miguelangelqo@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-//            array(
-//                "nombre" => "ERNESTINA TERÁN RIVERA",
-//                "correo" => "teran_rivera@hotmail.com",
-//                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-//            array(
-//                "nombre" => "IRMA SELENE SOTO RODRÍGUEZ",
-//                "correo" => "selene.soto.pjed@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-//            array(
-//                "nombre" => "KAREN FLORES MACIEL",
-//                "correo" => "karen.flores.maciel@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-//            array(
-//                "nombre" => "ÁNGEL GERARDO BONILLA SAUCEDO",
-//                "correo" => "gbonilla6@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-//            array(
-//                "nombre" => "JOSÉ DURÁN BARRERA",
-//                "correo" => "dubj2023@gmail.com",
-//                "cargo" => "Magistratura para el Tribunal de Justicia Penal para Adolescentes "),
-//            array(
-//                "nombre" => "MARTHA ELVIA ASTORGA RIVAS",
-//                "correo" => "martha_astorgar@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "AMÉRICA ILIANA CHÁVEZ BAUTISTA",
-//                "correo" => "ame.bautista90@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "DEBORAH MÓNICA CERRILLO RUÍZ",
-//                "correo" => "monica_cerrillo@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "ÉRIKA MONSERRAT FLORES CISNEROS",
-//                "correo" => "eflores723@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "JOSELYN SILDAN GASCA REYES",
-//                "correo" => "josefa_923@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "LORENA ITZEL FERNÁNDEZ HERNÁNDEZ",
-//                "correo" => "lorenafdez1109@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "LUZ MARÍA DE LA ROSA FRANCO",
-//                "correo" => "luz.delarosa78@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "FERNANDA PAULETTE MONREAL CASTILLO",
-//                "correo" => "fernanda_monreal@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "RAMONA GISELA CHAIDEZ VILLARREAL",
-//                "correo" => "gisela92@icloud.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "VERÓNICA MOGUEL TOLEDO",
-//                "correo" => "toledo_moguel@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "YARELY PALMA OLIVERA",
-//                "correo" => "yarely993@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "YOLANDA MARÍA MERCADO ALMAGUER",
-//                "correo" => "yolandaalmague@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "HÉCTOR MANUEL ZARAGOZA SOLÍS",
-//                "correo" => "hectorzs@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "FERNANDO GAMERO DE LA HOYA",
-//                "correo" => "dr.fernandogamero@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "FRANCISCO JAVIER BETANCOURT SOLÍS",
-//                "correo" => "javiertrk_169@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "JAIME MARRUFO HERRERA",
-//                "correo" => "jaime.m.h@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "LEÓN ENRIQUE HERNÁNDEZ FUENTES",
-//                "correo" => "leon.hdez.f@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "MARCO ANTONIO AGUIRRE HERNÁNDEZ",
-//                "correo" => "marquito.aguirre@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "RAYMUNDO ALFONSO ANDRADE SALINAS",
-//                "correo" => "rayandrade.abogado@gmail.com",
-//                "cargo" => "Magistraturas del Tribunal de Conciliación y Arbitraje"),
-//            array(
-//                "nombre" => "JESÚS ANTONIO TREJO REYES",
-//                "correo" => "trejo070896@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "FABIOLA DEL RAYO VIZCARRA ORTÍZ",
-//                "correo" => "fabiolavizcarraortiz@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "YESIKA MANSUR GARCÍA",
-//                "correo" => "ysikmansur@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "GEOVANNE MARÍA VARGAS AGÜERO",
-//                "correo" => "geovannevargas27@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "GABRIEL DE JESÚS GONZÁLEZ AGUILERA",
-//                "correo" => "gabychuy68@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "GUSTAVO ALBERTO ESCARPITA MUÑOZ",
-//                "correo" => "escarpita1@hotmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "HÉCTOR FRANCISCO COLON GARCÍA",
-//                "correo" => "hector.fco.hfcg@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "MARIO ALBERTO GAMBOA GUAJARDO",
-//                "correo" => "marioalbertogamboaguajardo@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "ÓSCAR GABRIEL MEDINA MORENO",
-//                "correo" => "advocatusoscarmedina@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-//            array(
-//                "nombre" => "RAÚL NEZAHUALCOYOTL MUÑOZ DE LEÓN SEGOVIA",
-//                "correo" => "raulmdls.rgm@gmail.com",
-//                "cargo" => "Juezas y Jueces/Personas Juzgadoras")
-//        );
+        $destinatarios = array(
+            array(
+                "nombre" => "ALEJANDRA ESTRADA ARREOLA",
+                "correo" => "alexaestra_17@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "BRENDA LIZETTE ACEVEDO CASTAÑEDA",
+                "correo" => "brendaacevedoc@gmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "GLORIA GUADALUPE GALVÁN ROMÁN",
+                "correo" => "licgalvanromann@gmail.com",
+                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
+            array(
+                "nombre" => "ILIANA ANGÉLICA ALVARADO SALINAS",
+                "correo" => "ili_ss75@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "KARINA GARCÍA MONTELONGO",
+                "correo" => "gk_1003@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "MARÍA MAGDALENA ALANÍS HERRERA",
+                "correo" => "mmah1469@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "MIRIAM GUADALUPE LANZARÍN ROLDÁN",
+                "correo" => "miriam_lanzarin@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "YESIKA LILIANA RAMOS RODRÍGUEZ",
+                "correo" => "yesika.ramos.rdgz@gmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "ÁLVARO RODRÍGUEZ ALCALÁ",
+                "correo" => "alvaroama3@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "CARLOS ENRIQUE GUZMÁN GONZÁLEZ",
+                "correo" => "ceguzmanglez@gmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "GERARDO LARA PÉREZ",
+                "correo" => "aranzalara733@gmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "JULIO CÉSAR PIÑA DE LA GARZA",
+                "correo" => "julio.pina@ujed.mx",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "LUIS FERNANDO CONTRERAS CORTÉS",
+                "correo" => "fercontre.ujed@gmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "MANUEL VALADEZ DÍAZ",
+                "correo" => "valadezdiaz@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
+            array(
+                "nombre" => "MIGUEL ÁNGEL QUIÑONES OROZCO",
+                "correo" => "miguelangelqo@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
+            array(
+                "nombre" => "ERNESTINA TERÁN RIVERA",
+                "correo" => "teran_rivera@hotmail.com",
+                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
+            array(
+                "nombre" => "IRMA SELENE SOTO RODRÍGUEZ",
+                "correo" => "selene.soto.pjed@gmail.com",
+                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
+            array(
+                "nombre" => "KAREN FLORES MACIEL",
+                "correo" => "karen.flores.maciel@gmail.com",
+                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
+            array(
+                "nombre" => "ÁNGEL GERARDO BONILLA SAUCEDO",
+                "correo" => "gbonilla6@gmail.com",
+                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
+            array(
+                "nombre" => "JOSÉ DURÁN BARRERA",
+                "correo" => "dubj2023@gmail.com",
+                "cargo" => "Magistratura para el Tribunal de Justicia Penal para Adolescentes "),
+            array(
+                "nombre" => "MARTHA ELVIA ASTORGA RIVAS",
+                "correo" => "martha_astorgar@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "AMÉRICA ILIANA CHÁVEZ BAUTISTA",
+                "correo" => "ame.bautista90@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "DEBORAH MÓNICA CERRILLO RUÍZ",
+                "correo" => "monica_cerrillo@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "ÉRIKA MONSERRAT FLORES CISNEROS",
+                "correo" => "eflores723@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "JOSELYN SILDAN GASCA REYES",
+                "correo" => "josefa_923@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "LORENA ITZEL FERNÁNDEZ HERNÁNDEZ",
+                "correo" => "lorenafdez1109@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "LUZ MARÍA DE LA ROSA FRANCO",
+                "correo" => "luz.delarosa78@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "FERNANDA PAULETTE MONREAL CASTILLO",
+                "correo" => "fernanda_monreal@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "RAMONA GISELA CHAIDEZ VILLARREAL",
+                "correo" => "gisela92@icloud.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "VERÓNICA MOGUEL TOLEDO",
+                "correo" => "toledo_moguel@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "YARELY PALMA OLIVERA",
+                "correo" => "yarely993@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "YOLANDA MARÍA MERCADO ALMAGUER",
+                "correo" => "yolandaalmague@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "HÉCTOR MANUEL ZARAGOZA SOLÍS",
+                "correo" => "hectorzs@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "FERNANDO GAMERO DE LA HOYA",
+                "correo" => "dr.fernandogamero@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "FRANCISCO JAVIER BETANCOURT SOLÍS",
+                "correo" => "javiertrk_169@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "JAIME MARRUFO HERRERA",
+                "correo" => "jaime.m.h@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "LEÓN ENRIQUE HERNÁNDEZ FUENTES",
+                "correo" => "leon.hdez.f@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "MARCO ANTONIO AGUIRRE HERNÁNDEZ",
+                "correo" => "marquito.aguirre@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "RAYMUNDO ALFONSO ANDRADE SALINAS",
+                "correo" => "rayandrade.abogado@gmail.com",
+                "cargo" => "Magistraturas del Tribunal de Conciliación y Arbitraje"),
+            array(
+                "nombre" => "JESÚS ANTONIO TREJO REYES",
+                "correo" => "trejo070896@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "FABIOLA DEL RAYO VIZCARRA ORTÍZ",
+                "correo" => "fabiolavizcarraortiz@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "YESIKA MANSUR GARCÍA",
+                "correo" => "ysikmansur@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "GEOVANNE MARÍA VARGAS AGÜERO",
+                "correo" => "geovannevargas27@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "GABRIEL DE JESÚS GONZÁLEZ AGUILERA",
+                "correo" => "gabychuy68@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "GUSTAVO ALBERTO ESCARPITA MUÑOZ",
+                "correo" => "escarpita1@hotmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "HÉCTOR FRANCISCO COLON GARCÍA",
+                "correo" => "hector.fco.hfcg@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "MARIO ALBERTO GAMBOA GUAJARDO",
+                "correo" => "marioalbertogamboaguajardo@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "ÓSCAR GABRIEL MEDINA MORENO",
+                "correo" => "advocatusoscarmedina@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
+            array(
+                "nombre" => "RAÚL NEZAHUALCOYOTL MUÑOZ DE LEÓN SEGOVIA",
+                "correo" => "raulmdls.rgm@gmail.com",
+                "cargo" => "Juezas y Jueces/Personas Juzgadoras")
+        );
 
         foreach ($destinatarios as $destinatario) {
             Destinatario::create($destinatario);
