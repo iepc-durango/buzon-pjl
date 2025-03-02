@@ -283,6 +283,8 @@ class NotificacionController extends Controller
 
     private function generarFolioParaNotificacion($notificacion)
     {
+        // Si está vacío, asigna 0
+
         $ultimoFolio = Folio::max('folio') ?? 0;
         $nuevoFolio = $ultimoFolio + 1;
 
@@ -326,9 +328,6 @@ class NotificacionController extends Controller
         $notificacion = Notificacion::create($formData);
 //        $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
 //        Storage::put($pdfPath, $pdfContentBinary);
-
-
-        $this->generarFolioParaNotificacion($notificacion);
 
         // Procesa y guarda los adjuntos en la BD
         $this->procesarAdjuntos($notificacion);
