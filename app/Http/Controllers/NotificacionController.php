@@ -25,6 +25,8 @@ use App\Jobs\EnviarNotificacionJob;
 use setasign\Fpdi\PdfParser\PdfParserException;
 use setasign\Fpdi\PdfReader\PdfReaderException;
 use function Laravel\Prompts\form;
+use NumberFormatter;
+
 
 class NotificacionController extends Controller
 {
@@ -116,7 +118,7 @@ class NotificacionController extends Controller
             $data = $request->except('tipo');
             $type = $request->input('tipo');
 
-            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'acuerdo_plantilla.pdf' : 'PES.pdf'));
+            $templatePath = storage_path('app/plantillas/' . ($type === 'Acuerdo' ? 'acuerdo_plantilla.pdf' : 'pes_plantilla.pdf'));
 
             $pdf = new Fpdi();
             $pdf->AddPage();
@@ -174,26 +176,38 @@ class NotificacionController extends Controller
                 $pdf->MultiCell(0, 5, $data['frag_doc'] ?? '', 0, 1);
                 setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
 
-                $dia = date('d'); // Día en número
-                $mes = strftime('%B');
-                $mes = ucfirst(strftime('%B')); // Nombre del mes con la primera letra en mayúscula
-                $anio = date('Y'); // Año
+
+                $now = Carbon::now(); 
+    $formatter = new NumberFormatter('es', NumberFormatter::SPELLOUT);
+    $diaEnLetras = ucfirst($formatter->format($now->day)); // "Doce" en lugar de "12"
+    
+    // Formato final de la fecha
+    $textoFecha = "$diaEnLetras de " . ucfirst($now->translatedFormat('F')) . " del " . $now->format('Y');
+
+    // Especificar la posición en el PDF y escribir la fecha
+    $pdf->SetXY(65, 225);
+    $pdf->Write(0, $textoFecha);
+
+                // $dia = date('d'); // Día en número
+                // $mes = strftime('%B');
+                // $mes = ucfirst(strftime('%B')); // Nombre del mes con la primera letra en mayúscula
+                // $anio = date('Y'); // Año
 
 
-                $pdf->SetXY(15, 98);
-                $pdf->Cell(0, 10, $dia, 0, 0, 'C'); // Día en número
+                // $pdf->SetXY(15, 98);
+                // $pdf->Cell(0, 10, $dia, 0, 0, 'C'); // Día en número
 
-                $pdf->SetXY(115, 98);
-                $pdf->Cell(0, 10, "de", 0, 0);
+                // $pdf->SetXY(115, 98);
+                // $pdf->Cell(0, 10, "de", 0, 0);
 
-                $pdf->SetXY(70, 98);
-                $pdf->Cell(0, 10, $mes, 0, 0, 'C'); // Nombre del mes
+                // $pdf->SetXY(70, 98);
+                // $pdf->Cell(0, 10, $mes, 0, 0, 'C'); // Nombre del mes
 
-                $pdf->SetXY(155, 98);
-                $pdf->Cell(0, 10, "de", 0, 0);
+                // $pdf->SetXY(155, 98);
+                // $pdf->Cell(0, 10, "de", 0, 0);
 
-                $pdf->SetXY(160, 98);
-                $pdf->Cell(0, 10, $anio, 0, 0, 'C'); // Año
+                // $pdf->SetXY(160, 98);
+                // $pdf->Cell(0, 10, $anio, 0, 0, 'C'); // Año
 
                 $pdf->AddPage(); // Asegúrate de agregar una nueva página
                 $templateId1 = $pdf->importPage(2);
@@ -312,6 +326,9 @@ class NotificacionController extends Controller
         }
 
         $formData = Session::get('form_data');
+        $tipoPlantilla = strtolower($formData['tipo']);
+
+       
 
 //        $pdf = $this->generatePdf(new Request($formData));
 
@@ -319,7 +336,19 @@ class NotificacionController extends Controller
         // Decodifica el PDF para guardarlo en disco
 //        $pdfContentBinary = base64_decode($pdfContentBase64);
 
+ 
+
+// Agregar validación para asegurarse de que el tipo de plantilla sea válido
+if (!in_array($tipoPlantilla, ['acuerdo', 'pes'])) {
+    // Mostrar el valor recibido para ayudar a depurar el error
+    return response()->json(['error' => 'Tipo de plantilla inválido', 'received_tipo' => $tipoPlantilla], 400);
+}
+
+
         $formData['user_id'] = Auth::id();
+
+
+          
 
         if (isset($formData['tipo'])) {
             unset($formData['tipo']);
@@ -332,9 +361,13 @@ class NotificacionController extends Controller
         // Procesa y guarda los adjuntos en la BD
         $this->procesarAdjuntos($notificacion);
 
+       
+
+// Ruta de la plantilla PDF dependiendo del tipo (acuerdo_plantilla.pdf o pes_plantilla.pdf)
+$templatePath = storage_path('app/plantillas/' . $tipoPlantilla . '_plantilla.pdf'); // 'acuerdo_plantilla.pdf' o 'pes_plantilla.pdf'
 
         // Path to PDF template
-        $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
+        //$templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
 
 
         $destinatarios = Destinatario::all()->toArray();
@@ -353,55 +386,86 @@ class NotificacionController extends Controller
 
             Detalle::create(['id_notificacion' => $notificacion->id, 'destinatario_id' => $destinatario['id'], 'status_abierto' => 'UNREAD', 'status_envio' => 'send', 'link' => $link,]);
 
-            // Set template and get pages count
-            $pdf->setSourceFile($templatePath);
-            // Import the first page of the template
-            $tplIdx = $pdf->importPage(1);
+           // Importamos la plantilla PDF
+           $pdf->setSourceFile($templatePath);
+           $tplIdx = $pdf->importPage(1);
+           $pdf->AddPage();
+           $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // Tamaño Carta
 
-            // Add a page to the document and use the imported template
-            $pdf->AddPage();
-            $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // 215.9 mm hoja Carta
+           // Configuración de fuente
+           $pdf->SetFont('Helvetica', '', 8);
+           $pdf->SetTextColor(0, 0, 0);
 
-            // Write the text over the template
-            $pdf->SetFont('Helvetica', 'B', 11);
-            $pdf->SetTextColor(0, 0, 0);
+        // Escribir datos en el PDF según el tipo de plantilla
+       if ($tipoPlantilla == 'acuerdo') {
+           // Datos específicos para "acuerdo"
+           $pdf->SetXY(29, 38.5);
+           $pdf->Write(0, mb_convert_encoding(('C. ' . $destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
-            // Recipient
-            $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_convert_encoding(('C. ' . $destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(147, 28);
+           $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
-            $pdf->SetXY(147, 28);
-            $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
+           $pdf->SetFont('Helvetica', '', 11);
+           
+           $pdf->SetXY(31, 102);
+           $pdf->Write(0, $formData['no_acuerdo']);
+           $pdf->SetXY(101, 102);
+           $pdf->Write(0, Carbon::create($formData['fecha_aprobacion'])->format('d/m/Y'));
+           $pdf->SetXY(149, 102);
+           $pdf->Write(0, $formData['sesion']);
+           $pdf->SetXY(31, 115);
+           $pdf->MultiCell(150, 4, mb_convert_encoding($formData['titulo'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(31, 154.5);
+           $pdf->MultiCell(150, 4, mb_convert_encoding($formData['descripcion'], 'ISO-8859-1', 'UTF-8'));
+           $now = Carbon::now();
+           $pdf->SetXY(65, 225);
+           $pdf->Write(0, "Victoria de Durango, Dgo a " . now()->format('d') . " de " . $now->translatedFormat('F') . " de " . now()->format('Y'));
+           $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
+       } elseif ($tipoPlantilla == 'pes') {
+           // Datos específicos para "pes"
+           $pdf->SetXY(35, 61);
+           $pdf->Write(0, mb_convert_encoding(('C. ' . $destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(33, 65);
+           $pdf->Write(0, mb_convert_encoding(($destinatario["cargo"]), 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(124, 13.5);
+           $pdf->Cell(0, 10, mb_convert_encoding($formData['no_expediente'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(126, 19);
+           $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciante'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(127, 25);
+           $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciado'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(20, 92);
+           $pdf->MultiCell(175, 4, mb_convert_encoding($formData['descripcion_fundamento'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(19, 137.5);
+           $pdf->MultiCell(175, 4, mb_convert_encoding($formData['descripcion_docu'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(20, 168);
+           $pdf->MultiCell(175.3, 4, mb_convert_encoding($formData['frag_doc'], 'ISO-8859-1', 'UTF-8'));
 
-            $pdf->SetFont('Helvetica', '', 11, true);;
+           $now = Carbon::now(); 
+           $now->locale('es');
+           $formatter = new NumberFormatter('es', NumberFormatter::SPELLOUT);
+           $diaEnLetras = ucfirst($formatter->format($now->day)); 
+            $pdf->SetXY(20, 82);
+            $pdf->Write(0, mb_convert_encoding($formData['municipio'], 'ISO-8859-1', 'UTF-8')  .  '        Durango,              a              ' . $diaEnLetras . '                      de                       ' . ucfirst($now->translatedFormat('F')) . '                            de                         ' . now()->format('Y'));
 
-            $pdf->SetXY(31, 102);
-            $pdf->Write(0, $formData['no_acuerdo']);
 
-            $pdf->SetXY(101, 102);
-//        $pdf->Write(0, $request->information['approved_date']);
-            $pdf->Write(0, Carbon::create($formData['fecha_aprobacion'])->format('d/m/Y'));
 
-            $pdf->SetXY(149, 102);
-            $pdf->Write(0, $formData['sesion']);
 
-            $pdf->SetXY(31, 115);
-            $pdf->MultiCell(150, 4, mb_convert_encoding($formData['titulo'], 'ISO-8859-1', 'UTF-8'));
 
-            $pdf->SetXY(31, 154.5);
-            $pdf->MultiCell(150, 4, mb_convert_encoding($formData['descripcion'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->AddPage(); // Agregar segunda página para PES
+           $tplIdx = $pdf->importPage(2); // Importamos la segunda página de la plantilla
+           $pdf->useTemplate($tplIdx, 0, 0); // Usamos las dimensiones correspondientes
 
-            // Lugar y fecha en el siguiente formato: Victoria de Durango, Dgo a {día} de {mes de {año}
-            $pdf->SetFont('Helvetica', 'B', 11);
-            $pdf->SetXY(65, 225);
-            // Establecer el idioma a español
-            Carbon::setLocale('es');
-            $now = Carbon::now();
 
-            $pdf->Write(0, "Victoria de Durango, Dgo a " . now()->format('d') . " de " . $now->translatedFormat('F') . " de " . now()->format('Y'));
+           $pdf->SetXY(124, 18);
+           $pdf->Cell(0, 10, mb_convert_encoding($formData['no_expediente'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(126, 25);
+           $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciante'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(125, 33);
+           $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciado'], 'ISO-8859-1', 'UTF-8'));
+           $pdf->SetXY(20, 53);
+           $pdf->MultiCell(175.3, 4, mb_convert_encoding($formData['descripcion_notificado'], 'ISO-8859-1', 'UTF-8'));
 
-            // Imagen de la firma
-            $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
+       }
 
             // Path to save the generated PDF
             $outputPath = storage_path('IEPC-SE-BE-' . $folio->folio . '_' . $notificacion->id . '_' . time() . '.pdf');
@@ -456,6 +520,14 @@ class NotificacionController extends Controller
 
         $selectedDestIds = $request->input('destinatarios');
         $formData = Session::get('form_data');
+        $tipoPlantilla = strtolower($formData['tipo']);
+
+
+         // Agregar validación para asegurarse de que el tipo de plantilla sea válido
+         if (!in_array($tipoPlantilla, ['acuerdo', 'pes'])) {
+            // Mostrar el valor recibido para ayudar a depurar el error
+            return response()->json(['error' => 'Tipo de plantilla inválido', 'received_tipo' => $tipoPlantilla], 400);
+        }
 
         $formData['user_id'] = Auth::id();
         if (isset($formData['tipo'])) {
@@ -467,8 +539,12 @@ class NotificacionController extends Controller
 
         $this->procesarAdjuntos($notificacion);
 
+        // Establecemos la ruta de la plantilla según el tipo (acuerdo o pes)
+   // Ruta de la plantilla PDF dependiendo del tipo (acuerdo_plantilla.pdf o pes_plantilla.pdf)
+   $templatePath = storage_path('app/plantillas/' . $tipoPlantilla . '_plantilla.pdf'); // 'acuerdo_plantilla.pdf' o 'pes_plantilla.pdf'
+
         // Ruta de la plantilla PDF
-        $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
+        //$templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
 
         $destinatarios = Destinatario::whereIn('id', $selectedDestIds)->get();
 
@@ -493,45 +569,80 @@ class NotificacionController extends Controller
             $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // Tamaño Carta
 
             // Configuración de fuente
-            $pdf->SetFont('Helvetica', 'B', 11);
+            $pdf->SetFont('Helvetica', '', 8);
             $pdf->SetTextColor(0, 0, 0);
 
-            // Escribir datos en el PDF
+         // Escribir datos en el PDF según el tipo de plantilla
+        if ($tipoPlantilla == 'acuerdo') {
+            // Datos específicos para "acuerdo"
             $pdf->SetXY(29, 38.5);
-            $pdf->Write(0, mb_convert_encoding('C. ' . $destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
-
+            $pdf->Write(0, mb_convert_encoding('C. '. $destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetXY(147, 28);
             $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
-            //$pdf->SetXY(147, 28);
-            //$pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->folio, 2, '0', STR_PAD_LEFT) . '/2025' );
-
             $pdf->SetFont('Helvetica', '', 11);
-
+            
             $pdf->SetXY(31, 102);
             $pdf->Write(0, $formData['no_acuerdo']);
-
             $pdf->SetXY(101, 102);
             $pdf->Write(0, Carbon::create($formData['fecha_aprobacion'])->format('d/m/Y'));
-
             $pdf->SetXY(149, 102);
             $pdf->Write(0, $formData['sesion']);
-
             $pdf->SetXY(31, 115);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['titulo'], 'ISO-8859-1', 'UTF-8'));
-
             $pdf->SetXY(31, 154.5);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['descripcion'], 'ISO-8859-1', 'UTF-8'));
-
-            // Lugar y fecha
-            Carbon::setLocale('es');
             $now = Carbon::now();
             $pdf->SetXY(65, 225);
             $pdf->Write(0, "Victoria de Durango, Dgo a " . now()->format('d') . " de " . $now->translatedFormat('F') . " de " . now()->format('Y'));
-
-            // Agregar firma y sello
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
+        } elseif ($tipoPlantilla == 'pes') {
+            // Datos específicos para "pes"
+            $pdf->SetXY(35, 61);
+            $pdf->Write(0, mb_convert_encoding($destinatario->nombre, 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(33, 65);
+            $pdf->Write(0, mb_convert_encoding($destinatario->cargo, 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(124, 13.5);
+            $pdf->Cell(0, 10, mb_convert_encoding($formData['no_expediente'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(126, 19);
+            $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciante'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(127, 25);
+            $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciado'], 'ISO-8859-1', 'UTF-8'));
+            // $pdf->SetXY(20, 78);
+            // $pdf->Cell(0, 10, mb_convert_encoding($formData['municipio'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(20, 92);
+            $pdf->MultiCell(175, 4, mb_convert_encoding($formData['descripcion_fundamento'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(19, 137.5);
+            $pdf->MultiCell(175, 4, mb_convert_encoding($formData['descripcion_docu'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(20, 168);
+            $pdf->MultiCell(175.3, 4, mb_convert_encoding($formData['frag_doc'], 'ISO-8859-1', 'UTF-8'));
+
+            $now = Carbon::now(); 
+            $now->locale('es');
+            $formatter = new NumberFormatter('es', NumberFormatter::SPELLOUT);
+            $diaEnLetras = ucfirst($formatter->format($now->day)); 
+             $pdf->SetXY(20, 82);
+             $pdf->Write(0, mb_convert_encoding($formData['municipio'], 'ISO-8859-1', 'UTF-8')  .  '        Durango,              a              ' . $diaEnLetras . '                      de                       ' . ucfirst($now->translatedFormat('F')) . '                            de                         ' . now()->format('Y'));
+ 
+
+
+            $pdf->AddPage(); // Agregar segunda página para PES
+            $tplIdx = $pdf->importPage(2); // Importamos la segunda página de la plantilla
+            $pdf->useTemplate($tplIdx, 0, 0); // Usamos las dimensiones correspondientes
+
+
+            $pdf->SetXY(124, 18);
+            $pdf->Cell(0, 10, mb_convert_encoding($formData['no_expediente'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(126, 25);
+            $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciante'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(125, 33);
+            $pdf->Cell(0, 10, mb_convert_encoding($formData['denunciado'], 'ISO-8859-1', 'UTF-8'));
+            $pdf->SetXY(20, 53);
+            $pdf->MultiCell(175.3, 4, mb_convert_encoding($formData['descripcion_notificado'], 'ISO-8859-1', 'UTF-8'));
+
+        }
+
 
             // Guardar PDF generado
             $outputPath = storage_path('app/public/IEPC-SE-BE-' . $folio->folio . '_' . $notificacion->id . '_' . time() . '.pdf');
