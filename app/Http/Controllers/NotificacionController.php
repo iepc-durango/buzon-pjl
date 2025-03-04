@@ -240,7 +240,7 @@ class NotificacionController extends Controller
         $notificacion = Notificacion::create($formData);
 
         // Generar folio
-      //$this->generarFolioParaNotificacion($notificacion);
+        //$this->generarFolioParaNotificacion($notificacion);
 
 
         $pdfPath = 'pdfs/notificacion_' . $notificacion->id . '.pdf';
@@ -272,30 +272,6 @@ class NotificacionController extends Controller
         $destinatarios = Destinatario::all();
 
         return Inertia::render('Notificaciones/create', compact('tipos', 'municipios', 'destinatarios'));
-    }
-
-    private function generarFolioParaNotificacion($notificacion, $detalle)
-    {
-        // Si está vacío, asigna 0
-
-        $ultimoFolio = Folio::max('folio') ?? 0;
-        $nuevoFolio = $ultimoFolio + 1;
-
-        try {
-            // Crear el folio y asociarlo con el detalle
-            $folio = Folio::create([
-                'notificacion_id' => $notificacion->id,
-                'detalle_id' => $detalle->id, // Vincular con el detalle
-                'folio' => $nuevoFolio,
-            ]);
-    
-            Log::info('Folio generado correctamente: ' . $folio->folio);
-            return $folio;
-    
-        }catch (\Exception $e) {
-            Log::error('Error al generar el folio: ' . $e->getMessage());
-            return null;
-        }
     }
 
     /**
@@ -344,23 +320,23 @@ class NotificacionController extends Controller
 
 
             // Generar un folio único para cada PDF generado
-         // $folio = $this->generarFolioParaNotificacion($notificacion);
+            // $folio = $this->generarFolioParaNotificacion($notificacion);
 
             $token = Str::uuid()->toString();
             $link = route('notificacion.abrir', ['token' => $token]);
 
-         // Detalle::create(['id_notificacion' => $notificacion->id, 'destinatario_id' => $destinatario['id'], 'status_abierto' => 'UNREAD', 'status_envio' => 'send', 'link' => $link,]);
-         $detalle = Detalle::create([
-            'id_notificacion' => $notificacion->id,
-            'destinatario_id' => $destinatario['id'],
-            'status_abierto' => 'UNREAD',
-            'status_envio' => 'send',
-            'link' => $link,
-        ]);
+            // Detalle::create(['id_notificacion' => $notificacion->id, 'destinatario_id' => $destinatario['id'], 'status_abierto' => 'UNREAD', 'status_envio' => 'send', 'link' => $link,]);
+            $detalle = Detalle::create([
+                'id_notificacion' => $notificacion->id,
+                'destinatario_id' => $destinatario['id'],
+                'status_abierto' => 'UNREAD',
+                'status_envio' => 'send',
+                'link' => $link,
+            ]);
 
 
-                         // Ahora generamos el folio con el detalle correcto
-$folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
+            // Ahora generamos el folio con el detalle correcto
+            $folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
 
             // Set template and get pages count
             $pdf->setSourceFile($templatePath);
@@ -380,7 +356,7 @@ $folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
             $pdf->Write(0, mb_convert_encoding(('C. ' . $destinatario["nombre"]), 'ISO-8859-1', 'UTF-8'));
 
             $pdf->SetXY(147, 28);
-          $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
+            $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
             $pdf->SetFont('Helvetica', '', 11, true);;
 
@@ -413,19 +389,18 @@ $folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
             $pdf->Image(storage_path('app/plantillas/se_firma_sello.png'), 65, 205, 80, 0, 'PNG');
 
             // Path to save the generated PDF
-          $outputPath = storage_path('IEPC-SE-BE-' . $folio->folio . '_' . $notificacion->id . '_' . time() . '.pdf');
+            $outputPath = storage_path('IEPC-SE-BE-' . $folio->folio . '_' . $notificacion->id . '_' . time() . '.pdf');
 
             // Save the PDF to the disk
-          $pdf->Output($outputPath, 'F', true);
+            $pdf->Output($outputPath, 'F', true);
 
             Log::info('Despachando trabajo de envío de notificación para: ' . $destinatario["correo"]);
-         // Mail::mailer('ses')->to($destinatario["correo"])->queue(new NotificacionMailable($outputPath, $link));
+            Mail::mailer('ses')->to($destinatario["correo"])->queue(new NotificacionMailable($outputPath, $link));
             Log::info('Trabajo de envío de notificación despachado para: ' . $destinatario["correo"]);
 //            dispatch(new \App\Jobs\EnviarNotificacionJob($destinatario["correo"], $outputPath, $link))->delay(now()->addSeconds(5));
         }
 
         Session::forget(['form_data', 'pdf_data']);
-
 
         return response()->json(['message' => 'Correos globales en proceso de envío.']);
     }
@@ -452,6 +427,30 @@ $folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
         }
     }
 
+    private function generarFolioParaNotificacion($notificacion, $detalle)
+    {
+        // Si está vacío, asigna 0
+
+        $ultimoFolio = Folio::max('folio') ?? 0;
+        $nuevoFolio = $ultimoFolio + 1;
+
+        try {
+            // Crear el folio y asociarlo con el detalle
+            $folio = Folio::create([
+                'notificacion_id' => $notificacion->id,
+                'detalle_id' => $detalle->id, // Vincular con el detalle
+                'folio' => $nuevoFolio,
+            ]);
+
+            Log::info('Folio generado correctamente: ' . $folio->folio);
+            return $folio;
+
+        } catch (\Exception $e) {
+            Log::error('Error al generar el folio: ' . $e->getMessage());
+            return null;
+        }
+    }
+
     /**
      * Envía el correo a los destinatarios seleccionados (Lista Personalizada) usando colas.
      */
@@ -474,7 +473,7 @@ $folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
         $notificacion = Notificacion::create($formData);
 
 
-        $this->procesarAdjuntos($notificacion);  
+        $this->procesarAdjuntos($notificacion);
 
         // Ruta de la plantilla PDF
         $templatePath = storage_path('app/plantillas/acuerdo_plantilla.pdf');
@@ -487,28 +486,24 @@ $folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
             $pdf = new Fpdi();
 
             // Generar un folio único para cada PDF generado
-          //$folio = $this->generarFolioParaNotificacion($notificacion);
-
- 
+            //$folio = $this->generarFolioParaNotificacion($notificacion);
 
 
             $token = Str::uuid()->toString();
             $link = route('notificacion.abrir', ['token' => $token]);
 
-        // Detalle::create(['id_notificacion' => $notificacion->id, 'destinatario_id' => $destinatario->id, 'status_abierto' => 'UNREAD', 'status_envio' => 'send', 'link' => $link,]);
+            // Detalle::create(['id_notificacion' => $notificacion->id, 'destinatario_id' => $destinatario->id, 'status_abierto' => 'UNREAD', 'status_envio' => 'send', 'link' => $link,]);
 
-        $detalle = Detalle::create([
-            'id_notificacion' => $notificacion->id,
-            'destinatario_id' => $destinatario['id'],
-            'status_abierto' => 'UNREAD',
-            'status_envio' => 'send',
-            'link' => $link,
-        ]);
+            $detalle = Detalle::create([
+                'id_notificacion' => $notificacion->id,
+                'destinatario_id' => $destinatario['id'],
+                'status_abierto' => 'UNREAD',
+                'status_envio' => 'send',
+                'link' => $link,
+            ]);
 
-                 // Ahora generamos el folio con el detalle correcto
-$folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
-
-          
+            // Ahora generamos el folio con el detalle correcto
+            $folio = $this->generarFolioParaNotificacion($notificacion, $detalle);
 
 
             // Importamos la plantilla PDF
