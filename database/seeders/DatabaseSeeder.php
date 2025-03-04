@@ -17,20 +17,20 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        $destinatarios = [
-            ['nombre' => 'Alejandro Parra Villa', 'correo' => 'alejandro.parra@iepcdurango.mx', 'cargo' => 'Magistrado'],
-            ['nombre' => 'Jorge Galo Solano García', 'correo' => 'alexparra2404@gmail.com.mx', 'cargo' => 'Magistrado'],
-            ['nombre' => 'Fernando Alonso Rodríguez García', 'correo' => 'fernando.rodriguez@iepcdurango.mx', 'cargo' => 'Magistrado'],
-            ['nombre' => 'Irma Celeste Mata García', 'correo' => 'irma.mata@iepcdurango.mx', 'cargo' => 'Magistrado'],
-            ['nombre' => 'Jesús Lemuel Flores Hernández', 'correo' => 'jesus.flores@iepcdurango.mx', 'cargo' => 'Magistrado'],
-            ['nombre' => 'Ilse Monserrat Chihuahua Núñez', 'correo' => 'ilse.chihuahua@iepcdurango.mx', 'cargo' => 'Magistrade'],
-            ['nombre' => 'Clarissa Herrera Canales', 'correo' => 'clarissa.herrera@iepcdurango.mx', 'cargo' => 'Magistrada'],
-            ['nombre' => 'Carlos Antonio Hernández Aldana', 'correo' => 'carlos.hernandez@iepcdurango.mx', 'cargo' => 'Juez Civil'],
-            ['nombre' => 'Madeleine Palencia Rosales', 'correo' => 'madeleine.palencia@iepcdurango.mx', 'cargo' => 'Magistrado'],
-            ['nombre' => 'Jesús Francisco Enríquez Gamero', 'correo' => 'jesus.enriquez@iepcdurango.hx', 'cargo' => 'Juez Civil'],
-            ['nombre' => 'Juana Garay Beltrán', 'correo' => 'juana.garay@iepcdurango.mx', 'cargo' => 'Juez Civil'],
-            ['nombre' => 'Raúl Rosas Velázquez', 'correo' => 'raul.rosas@iepcdurango.mx', 'cargo' => 'Magistrado']
-        ];
+//        $destinatarios = [
+//            ['nombre' => 'Alejandro Parra Villa', 'correo' => 'alejandro.parra@iepcdurango.mx', 'cargo' => 'Magistrado'],
+//            ['nombre' => 'Jorge Galo Solano García', 'correo' => 'alexparra2404@gmail.com.mx', 'cargo' => 'Magistrado'],
+//            ['nombre' => 'Fernando Alonso Rodríguez García', 'correo' => 'fernando.rodriguez@iepcdurango.mx', 'cargo' => 'Magistrado'],
+//            ['nombre' => 'Irma Celeste Mata García', 'correo' => 'irma.mata@iepcdurango.mx', 'cargo' => 'Magistrado'],
+//            ['nombre' => 'Jesús Lemuel Flores Hernández', 'correo' => 'jesus.flores@iepcdurango.mx', 'cargo' => 'Magistrado'],
+//            ['nombre' => 'Ilse Monserrat Chihuahua Núñez', 'correo' => 'ilse.chihuahua@iepcdurango.mx', 'cargo' => 'Magistrade'],
+//            ['nombre' => 'Clarissa Herrera Canales', 'correo' => 'clarissa.herrera@iepcdurango.mx', 'cargo' => 'Magistrada'],
+//            ['nombre' => 'Carlos Antonio Hernández Aldana', 'correo' => 'carlos.hernandez@iepcdurango.mx', 'cargo' => 'Juez Civil'],
+//            ['nombre' => 'Madeleine Palencia Rosales', 'correo' => 'madeleine.palencia@iepcdurango.mx', 'cargo' => 'Magistrado'],
+//            ['nombre' => 'Jesús Francisco Enríquez Gamero', 'correo' => 'jesus.enriquez@iepcdurango.hx', 'cargo' => 'Juez Civil'],
+//            ['nombre' => 'Juana Garay Beltrán', 'correo' => 'juana.garay@iepcdurango.mx', 'cargo' => 'Juez Civil'],
+//            ['nombre' => 'Raúl Rosas Velázquez', 'correo' => 'raul.rosas@iepcdurango.mx', 'cargo' => 'Magistrado']
+//        ];
 
         /*$destinatarios = array(
             array(
@@ -231,7 +231,7 @@ class DatabaseSeeder extends Seeder
                 "cargo" => "Juezas y Jueces/Personas Juzgadoras")
         );*/
 
-        /*$destinatarios = [
+        $destinatarios = [
             ["nombre" => "Lessly Jhovana Carrillo García", "correo" => "jhovanacarrillo8@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
             ["nombre" => "Alondra Gutiérrez Flores", "correo" => "alondra.gutierrez.isw@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
             ["nombre" => "José Uriel Zamora Benitez", "correo" => "realuriel7@gmail.com", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
@@ -273,7 +273,7 @@ class DatabaseSeeder extends Seeder
             ["nombre" => "Raymundo Saucedo Martínez", "correo" => "ing.raymundo.saucedo@gmail.com", "cargo" => "Magistraturas del Tribunal de Conciliación y Arbitraje"],
             ["nombre" => "Raymundo Saucedo Martínez", "correo" => "kurorailgun@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Sergio Manuel Quiñones Torres", "correo" => "smt_1806@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
-            ["nombre" => "Sergio Manuel Quiñones Torres", "correo" => "lic.sergio.manuelqtqgmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Sergio Manuel Quiñones Torres", "correo" => "lic.sergio.manuelqtq@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Sergio Manuel Quiñones Torres", "correo" => "sergio.quinones@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Sirena del Carmen Favela Plazola", "correo" => "sirenafavela2095@outlook.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Sirena del Carmen Favela Plazola", "correo" => "sirena.favela@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
@@ -289,7 +289,7 @@ class DatabaseSeeder extends Seeder
             ["nombre" => "Raúl Rosas Velázquez", "correo" => "raul.rosas@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Abril Cardoza Silerio", "correo" => "abril.cardoza@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Gerardo Barrientos Carrillo", "correo" => "geracarrillob@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"]
-        ];*/
+        ];
 
         foreach ($destinatarios as $destinatario) {
             Destinatario::create($destinatario);
