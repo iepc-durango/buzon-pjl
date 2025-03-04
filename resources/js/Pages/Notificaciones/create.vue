@@ -337,6 +337,16 @@ const enviarCorreoPersonalizado = async () => {
         console.error("Error enviando el correo personalizado", error);
     }
 };
+
+const assertMaxChars = (field, maxChars) => {
+    if (form[field].length > maxChars) {
+        form[field] = form[field].substring(0, maxChars);
+    }
+};
+
+watch(form.titulo, () => assertMaxChars('titulo', 100));
+watch(form.descripcion, () => assertMaxChars('descripcion', 500));
+
 </script>
 
 <style>
