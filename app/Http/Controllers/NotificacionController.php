@@ -31,17 +31,10 @@ class NotificacionController extends Controller
 
     public function index()
     {
-
-
-        //$notificaciones = Notificacion::all();
-
-
         $notificaciones = Notificacion::with('folio')->get();
-        // Revisar si los datos traen el folio correctamente
         Log::info('Notificaciones con folio: ', $notificaciones->toArray());
 
         return Inertia::render('Index', ['notificaciones' => $notificaciones]);
-
 
     }
 

@@ -26,7 +26,7 @@
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="titulo">Título</label>
-                            <textarea v-model="form.titulo" rows="8" @input="assertMaxChars('titulo', 570)" Required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"/>
+                            <textarea v-model="form.titulo" rows="8" @input="assertMaxChars('titulo', 520)" Required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"/>
 
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                     <div class="grid grid-cols-1 gap-6 mt-5 sm:grid-cols-1">
                         <div class="mb-4">
                             <label class="block text-gray-600 text-sm font-medium">Resumen</label>
-                            <textarea v-model="form.descripcion" rows="10" @input="assertMaxChars('descripcion', 600)" Required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"></textarea>
+                            <textarea v-model="form.descripcion" rows="10" @input="assertMaxChars('descripcion', 590)" Required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"></textarea>
                         </div>
                     </div>
 
@@ -340,7 +340,7 @@ const enviarCorreoPersonalizado = async () => {
 
 const assertMaxChars = (field, maxChars) => {
     if (form[field].length > maxChars) {
-        form[field] = form.titulo.substring(0, maxChars);
+        form[field] = form[field].substring(0, maxChars);
     }
 };
 
