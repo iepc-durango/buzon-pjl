@@ -348,7 +348,7 @@ class NotificacionController extends Controller
             $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // 215.9 mm hoja Carta
 
             // Write the text over the template
-            $pdf->SetFont('Helvetica', 'B', 10);
+            $pdf->SetFont('Helvetica', 'B', 11);
             $pdf->SetTextColor(0, 0, 0);
 
             // Recipient
@@ -358,7 +358,7 @@ class NotificacionController extends Controller
             $pdf->SetXY(147, 28);
             $pdf->Write(0, 'IEPC/SE/BE/' . str_pad($folio->folio, 2, '0', STR_PAD_LEFT) . '/2025');
 
-            $pdf->SetFont('Helvetica', '', 11, true);;
+            $pdf->SetFont('Helvetica', '', 9, true);;
 
             $pdf->SetXY(31, 102);
             $pdf->Write(0, $formData['no_acuerdo']);
@@ -373,7 +373,9 @@ class NotificacionController extends Controller
             $pdf->SetXY(31, 115);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['titulo'], 'ISO-8859-1', 'UTF-8'));
 
-            $pdf->SetXY(31, 154.5);
+            $pdf->SetFont('Helvetica', '', 10);
+
+            $pdf->SetXY(31, 154);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['descripcion'], 'ISO-8859-1', 'UTF-8'));
 
             // Lugar y fecha en el siguiente formato: Victoria de Durango, Dgo a {día} de {mes de {año}
@@ -513,7 +515,7 @@ class NotificacionController extends Controller
             $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // Tamaño Carta
 
             // Configuración de fuente
-            $pdf->SetFont('Helvetica', 'B', 10);
+            $pdf->SetFont('Helvetica', 'B', 11);
             $pdf->SetTextColor(0, 0, 0);
 
             // Escribir datos en el PDF
@@ -527,7 +529,7 @@ class NotificacionController extends Controller
             //$pdf->SetXY(147, 28);
             //$pdf->Write(0, 'IEPC/SE/BE/' . mb_str_pad($notificacion->folio, 2, '0', STR_PAD_LEFT) . '/2025' );
 
-            $pdf->SetFont('Helvetica', '', 11);
+            $pdf->SetFont('Helvetica', '', 9);
 
             $pdf->SetXY(31, 102);
             $pdf->Write(0, $formData['no_acuerdo']);
@@ -541,7 +543,9 @@ class NotificacionController extends Controller
             $pdf->SetXY(31, 115);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['titulo'], 'ISO-8859-1', 'UTF-8'));
 
-            $pdf->SetXY(31, 154.5);
+            $pdf->SetFont('Helvetica', '', 10);
+
+            $pdf->SetXY(31, 154);
             $pdf->MultiCell(150, 4, mb_convert_encoding($formData['descripcion'], 'ISO-8859-1', 'UTF-8'));
 
             // Lugar y fecha
