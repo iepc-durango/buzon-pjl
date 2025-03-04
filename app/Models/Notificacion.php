@@ -42,4 +42,7 @@ public function folio()
 {
     return $this->belongsTo(Folio::class, 'notificacion_id', 'id');
 }
+
+
+
 }

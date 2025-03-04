@@ -39,7 +39,6 @@ const props = defineProps({
                         <thead class="text-ls text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Notificacion</th>
-                                <th scope="col" class="px-6 py-3">Folio</th>
                                 <th scope="col" class="px-6 py-3">Tipo</th>
                                 <th scope="col" class="px-6 py-3">Fecha de Envío</th>
                                 <th scope="col" class="px-6 py-3">Acciones</th>
@@ -52,14 +51,12 @@ const props = defineProps({
                                     {{ notificacion.id  }}
                                 </td>
 
-                                <td class="px-6 py-4">
-                                    <!-- Mostrar el folio si está disponible -->
-                                    {{ notificacion.folio?.folio ?? 'Sin folio' }}
-                                </td>
+                                
 
                                 <td class="px-6 py-4">
                                     {{ notificacion.tipo  }}
                                 </td>
+
                                 <td class="px-6 py-4">
                                     {{ new Date(notificacion.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) }}
                                 </td>

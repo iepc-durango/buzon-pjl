@@ -67,11 +67,17 @@ const exportarPDF = async () => {
                         </thead>
                         <tbody>
                             <tr v-for="detalle in props.detalles" :key="detalle.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ 'IEPC/SE/BE/' + String(detalle.id_notificacion).padStart(2, '0') + '/' + new Date().getFullYear() }}
-                                </td>
+
+
+                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <!-- {{ 'IEPC/SE/BE/' + String(detalle.id_notificacion).padStart(2, '0') + '/' + new Date().getFullYear() }} -->
+
+                                   
+                                    {{ 'IEPC/SE/BE/' + (detalle.folio ? detalle.folio.folio : 'N/A') + '/' + new Date().getFullYear() }}
+
+                                </td> 
                                 <td class="px-6 py-4">
-                                    {{ detalle.destinatario.nombre }}
+                                     {{ detalle.destinatario.nombre }} 
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ new Date(detalle.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) }}

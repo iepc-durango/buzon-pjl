@@ -25,5 +25,14 @@ class Detalle extends Model
     {
         return $this->belongsTo(Destinatario::class, 'destinatario_id');
     }
+
+    public function folio()
+{
+    return $this->hasOne(Folio::class, 'detalle_id', 'id');
+}
+
+    
+    
+
 }
 
