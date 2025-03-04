@@ -230,232 +230,65 @@ class DatabaseSeeder extends Seeder
                 "correo" => "raulmdls.rgm@gmail.com",
                 "cargo" => "Juezas y Jueces/Personas Juzgadoras")
         );*/
-        $destinatarios = array(
-            array(
-                "nombre" => "Lessly Jhovana Carrillo García",
-                "correo" => "jhovanacarrillo8@gmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Alondra Gutiérrez Flores",
-                "correo" => "alondra.gutierrez.isw@gmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "José Uriel Zamora Benitez",
-                "correo" => "realuriel7@gmail.com",
-                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-            array(
-                "nombre" => "José Uriel Zamora Benitez",
-                "correo" => "uri.7amora@gmail.cpm",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Jorge Galo Solano García",
-                "correo" => "galosola2273@gmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Jorge Galo Solano García",
-                "correo" => "galosola@hotmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Jorge Galo Solano García",
-                "correo" => "galo.solano@iepcdurango.mx",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Joaquín de la Cruz Pérez",
-                "correo" => "jdlcp_12@outlook.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "José Lemuel Flores Hernández",
-                "correo" => "joselemuelfloreshernandez@gmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "José Lemuel Flores Hernández",
-                "correo" => "jose.flores@iepcdurango.mx",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Fernando Alonso Rodríguez García",
-                "correo" => "farg980702@gmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Fernando Alonso Rodríguez García",
-                "correo" => "fernando.rodriguez@iepcdurango.mx",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Madeleine Palencia Rosales",
-                "correo" => "madeleine.159@hotmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Madeleine Palencia Rosales",
-                "correo" => "kikaira159@gmail.com",
-                "cargo" => "Magistraturas del Tribunal Superior de Justicia "),
-            array(
-                "nombre" => "Madeleine Palencia Rosales",
-                "correo" => "madeleine.palencia@iepcdurango.mx",
-                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-            array(
-                "nombre" => "Irma Celeste Mata García",
-                "correo" => "matagarciaceleste@gmail.com",
-                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-            array(
-                "nombre" => "Irma Celeste Mata García",
-                "correo" => "irma.cele19991@hotmail.com",
-                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-            array(
-                "nombre" => "Irma Celeste Mata García",
-                "correo" => "irma.mata@iepcdurango.mx",
-                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-            array(
-                "nombre" => "Carlos Antonio Hernández Aldana",
-                "correo" => "carlosantonioh2310@gmail.com",
-                "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"),
-            array(
-                "nombre" => "Carlos Antonio Hernández Aldana",
-                "correo" => "carlos.hernandez@iepcdurango.mx",
-                "cargo" => "Magistratura para el Tribunal de Justicia Penal para Adolescentes "),
-            array(
-                "nombre" => "Clarissa Herrera Canales",
-                "correo" => "clarissa.herrerac07@gmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Clarissa Herrera Canales",
-                "correo" => "clary_22omhc@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Clarissa Herrera Canales",
-                "correo" => "clarissa.herrera@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Juana Garay Beltrán",
-                "correo" => "garay780512@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Juana Garay Beltrán",
-                "correo" => "juana.garay@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Ilse Monserrat Chihuahua Núñez",
-                "correo" => "chihuahuanunezi@gmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Ilse Monserrat Chihuahua Núñez",
-                "correo" => "ilse.chihuahua@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Jesús Francisco Enríquez Gamero",
-                "correo" => "fm_nj@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Jesús Francisco Enríquez Gamero",
-                "correo" => "jesus.flores@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Misael Omar Vargas Ochoa",
-                "correo" => "misaelomar.1590@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Misael Omar Vargas Ochoa",
-                "correo" => "misael.vargas@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Jorge Antonio Quiñones Alvarado",
-                "correo" => "Jorge_alvarado_1@outlook.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Jorge Antonio Quiñones Alvarado",
-                "correo" => "joorgee_111@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Jorge Antonio Quiñones Alvarado",
-                "correo" => "correochafa_111@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Rebeca Macías Herrera",
-                "correo" => "herrera_rm@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Rebeca Macías Herrera",
-                "correo" => "rebek_mc@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Rebeca Macías Herrera",
-                "correo" => "rebeka.mahe@gmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Rebeca Macías Herrera",
-                "correo" => "rebeca.macias@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Raymundo Saucedo Martínez",
-                "correo" => "ing.raymundo.saucedo@gmail.com",
-                "cargo" => "Magistraturas del Tribunal de Conciliación y Arbitraje"),
-            array(
-                "nombre" => "Raymundo Saucedo Martínez",
-                "correo" => "kurorailgun@gmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Sergio Manuel Quiñones Torres",
-                "correo" => "smt_1806@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Sergio Manuel Quiñones Torres",
-                "correo" => "lic.sergio.manuelqtqgmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Sergio Manuel Quiñones Torres",
-                "correo" => "sergio.quinones@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Sirena del Carmen Favela Plazola",
-                "correo" => "sirenafavela2095@outlook.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Sirena del Carmen Favela Plazola",
-                "correo" => "sirena.favela@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Alejandro Parra Villa",
-                "correo" => "alexparra2404@gmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Alejandro Parra Villa",
-                "correo" => "alejandro.parra@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Jesús Raymundo Hernández Hernández",
-                "correo" => "jesus.hernandez@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Perla Lucero Arreola Escobedo",
-                "correo" => "perla.arreola@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "José Omar Ortega Soria",
-                "correo" => "omar.ortega@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Cristina de Guadalupe Campos Zavala",
-                "correo" => "cristina.campos@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Ruth Alejandra Soto Medina",
-                "correo" => "ruthsoton55@gmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Gala Yareli Cervantes Alvarado",
-                "correo" => "gala_c@hotmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Gala Yareli Cervantes Alvarado",
-                "correo" => "galita.ca@gmail.com",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Raúl Rosas Velázquez",
-                "correo" => "raul.rosas@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
-            array(
-                "nombre" => "Abril Cardoza Silerio",
-                "correo" => "abril.cardoza@iepcdurango.mx",
-                "cargo" => "Juezas y Jueces/Personas Juzgadoras")
-        );
+        $destinatarios = [
+            ["nombre" => "Lessly Jhovana Carrillo García", "correo" => "jhovanacarrillo8@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Alondra Gutiérrez Flores", "correo" => "alondra.gutierrez.isw@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "José Uriel Zamora Benitez", "correo" => "realuriel7@gmail.com", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
+            ["nombre" => "José Uriel Zamora Benitez", "correo" => "uri.7amora@gmail.cpm", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Jorge Galo Solano García", "correo" => "galosola2273@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Jorge Galo Solano García", "correo" => "galosola@hotmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Jorge Galo Solano García", "correo" => "galo.solano@iepcdurango.mx", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Joaquín de la Cruz Pérez", "correo" => "jdlcp_12@outlook.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "José Lemuel Flores Hernández", "correo" => "joselemuelfloreshernandez@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "José Lemuel Flores Hernández", "correo" => "jose.flores@iepcdurango.mx", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Fernando Alonso Rodríguez García", "correo" => "farg980702@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Fernando Alonso Rodríguez García", "correo" => "fernando.rodriguez@iepcdurango.mx", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Madeleine Palencia Rosales", "correo" => "madeleine.159@hotmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Madeleine Palencia Rosales", "correo" => "kikaira159@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
+            ["nombre" => "Madeleine Palencia Rosales", "correo" => "madeleine.palencia@iepcdurango.mx", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
+            ["nombre" => "Irma Celeste Mata García", "correo" => "matagarciaceleste@gmail.com", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
+            ["nombre" => "Irma Celeste Mata García", "correo" => "irma.cele19991@hotmail.com", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
+            ["nombre" => "Irma Celeste Mata García", "correo" => "irma.mata@iepcdurango.mx", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
+            ["nombre" => "Carlos Antonio Hernández Aldana", "correo" => "carlosantonioh2310@gmail.com", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
+            ["nombre" => "Carlos Antonio Hernández Aldana", "correo" => "carlos.hernandez@iepcdurango.mx", "cargo" => "Magistratura para el Tribunal de Justicia Penal para Adolescentes "],
+            ["nombre" => "Clarissa Herrera Canales", "correo" => "clarissa.herrerac07@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Clarissa Herrera Canales", "correo" => "clary_22omhc@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Clarissa Herrera Canales", "correo" => "clarissa.herrera@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Juana Garay Beltrán", "correo" => "garay780512@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Juana Garay Beltrán", "correo" => "juana.garay@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Ilse Monserrat Chihuahua Núñez", "correo" => "chihuahuanunezi@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Ilse Monserrat Chihuahua Núñez", "correo" => "ilse.chihuahua@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Jesús Francisco Enríquez Gamero", "correo" => "fm_nj@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Jesús Francisco Enríquez Gamero", "correo" => "jesus.enriquez@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Misael Omar Vargas Ochoa", "correo" => "misaelomar.1590@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Misael Omar Vargas Ochoa", "correo" => "misael.vargas@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Jorge Antonio Quiñones Alvarado", "correo" => "jorge_alvarado_1@outlook.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Jorge Antonio Quiñones Alvarado", "correo" => "joorgee_111@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Jorge Antonio Quiñones Alvarado", "correo" => "correochafa_111@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Rebeca Macías Herrera", "correo" => "herrera_rm@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Rebeca Macías Herrera", "correo" => "rebek_mc@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Rebeca Macías Herrera", "correo" => "rebeka.mahe@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Rebeca Macías Herrera", "correo" => "rebeca.macias@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Raymundo Saucedo Martínez", "correo" => "ing.raymundo.saucedo@gmail.com", "cargo" => "Magistraturas del Tribunal de Conciliación y Arbitraje"],
+            ["nombre" => "Raymundo Saucedo Martínez", "correo" => "kurorailgun@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Sergio Manuel Quiñones Torres", "correo" => "smt_1806@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Sergio Manuel Quiñones Torres", "correo" => "lic.sergio.manuelqtqgmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Sergio Manuel Quiñones Torres", "correo" => "sergio.quinones@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Sirena del Carmen Favela Plazola", "correo" => "sirenafavela2095@outlook.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Sirena del Carmen Favela Plazola", "correo" => "sirena.favela@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Alejandro Parra Villa", "correo" => "alexparra2404@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Alejandro Parra Villa", "correo" => "alejandro.parra@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Jesús Raymundo Hernández Hernández", "correo" => "jesus.hernandez@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Perla Lucero Arreola Escobedo", "correo" => "perla.arreola@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "José Omar Ortega Soria", "correo" => "omar.ortega@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Cristina de Guadalupe Campos Zavala", "correo" => "cristina.campos@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Ruth Alejandra Soto Medina", "correo" => "ruthsotom55@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Gala Yareli Cervantes Alvarado", "correo" => "gala_c@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Gala Yareli Cervantes Alvarado", "correo" => "galita.ca@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Raúl Rosas Velázquez", "correo" => "raul.rosas@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Abril Cardoza Silerio", "correo" => "abril.cardoza@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "Gerardo Barrientos Carrillo", "correo" => "geracarrillob@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"]
+        ];
 
         foreach ($destinatarios as $destinatario) {
             Destinatario::create($destinatario);

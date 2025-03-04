@@ -363,7 +363,7 @@ class NotificacionController extends Controller
             $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // 215.9 mm hoja Carta
 
             // Write the text over the template
-            $pdf->SetFont('Helvetica', 'B', 11);
+            $pdf->SetFont('Helvetica', 'B', 10);
             $pdf->SetTextColor(0, 0, 0);
 
             // Recipient
@@ -493,7 +493,7 @@ class NotificacionController extends Controller
             $pdf->useTemplate($tplIdx, 0, 0, 215.9, 279.4); // Tamaño Carta
 
             // Configuración de fuente
-            $pdf->SetFont('Helvetica', 'B', 11);
+            $pdf->SetFont('Helvetica', 'B', 10);
             $pdf->SetTextColor(0, 0, 0);
 
             // Escribir datos en el PDF
