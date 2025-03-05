@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\SerializesModels;
 
 
@@ -35,5 +36,14 @@ class NotificacionMailable extends Mailable implements ShouldQueue
             ])
             ->view('emails.notificacion')
             ->with(['link' => $this->link]);
+    }
+
+    /**
+     * @param array $middleware
+     * @return array
+     */
+    public function middleware(array $middleware): array
+    {
+        return [new RateLimited('ses')];
     }
 }

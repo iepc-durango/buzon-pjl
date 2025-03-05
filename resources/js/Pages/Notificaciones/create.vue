@@ -339,6 +339,7 @@ const enviarCorreoPersonalizado = async () => {
 };
 
 const assertMaxChars = (field, maxChars) => {
+    form[field] = form[field].replace(/[\r\n]/g, '');
     if (form[field].length > maxChars) {
         form[field] = form[field].substring(0, maxChars);
     }
