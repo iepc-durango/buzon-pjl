@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 
 class NotificacionMailable extends Mailable implements ShouldQueue
@@ -39,11 +40,11 @@ class NotificacionMailable extends Mailable implements ShouldQueue
     }
 
     /**
-     * @param array $middleware
      * @return array
      */
-    public function middleware(array $middleware): array
+    public function middleware(): array
     {
+        Log::warning('El envío se ha limitado hasta por 14 mensajes por minuto.');
         return [new RateLimited('ses')];
     }
 }
