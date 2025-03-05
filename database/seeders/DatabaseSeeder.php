@@ -282,6 +282,7 @@ class DatabaseSeeder extends Seeder
             ["nombre" => "Jesús Raymundo Hernández Hernández", "correo" => "jesus.hernandez@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Perla Lucero Arreola Escobedo", "correo" => "perla.arreola@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "José Omar Ortega Soria", "correo" => "omar.ortega@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
+            ["nombre" => "José Omar Ortega Soria", "correo" => "omarortegasoria@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Cristina de Guadalupe Campos Zavala", "correo" => "cristina.campos@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Ruth Alejandra Soto Medina", "correo" => "ruthsotom55@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Gala Yareli Cervantes Alvarado", "correo" => "gala_c@hotmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
