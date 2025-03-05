@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         RateLimiter::for('ses', function () {
-            return Limit::perSecond(14);
+            return Limit::perSecond(14, 30);
         });
         //
     }
