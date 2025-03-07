@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 //            ['nombre' => 'Raúl Rosas Velázquez', 'correo' => 'raul.rosas@iepcdurango.mx', 'cargo' => 'Magistrado']
 //        ];
 
-        /*$destinatarios = array(
+        $destinatarios = array(
             array(
                 "nombre" => "ALEJANDRA ESTRADA ARREOLA",
                 "correo" => "alexaestra_17@hotmail.com",
@@ -214,7 +214,7 @@ class DatabaseSeeder extends Seeder
                 "correo" => "escarpita1@hotmail.com",
                 "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
             array(
-                "nombre" => "HÉCTOR FRANCISCO COLON GARCÍA",
+                "nombre" => "HÉCTOR FRANCISCO COLÓN GARCÍA",
                 "correo" => "hector.fco.hfcg@gmail.com",
                 "cargo" => "Juezas y Jueces/Personas Juzgadoras"),
             array(
@@ -229,9 +229,9 @@ class DatabaseSeeder extends Seeder
                 "nombre" => "RAÚL NEZAHUALCOYOTL MUÑOZ DE LEÓN SEGOVIA",
                 "correo" => "raulmdls.rgm@gmail.com",
                 "cargo" => "Juezas y Jueces/Personas Juzgadoras")
-        );*/
+        );
 
-        $destinatarios = [
+        /*$destinatarios = [
             ["nombre" => "Lessly Jhovana Carrillo García", "correo" => "jhovanacarrillo8@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
             ["nombre" => "Alondra Gutiérrez Flores", "correo" => "alondra.gutierrez.isw@gmail.com", "cargo" => "Magistraturas del Tribunal Superior de Justicia "],
             ["nombre" => "José Uriel Zamora Benitez", "correo" => "realuriel7@gmail.com", "cargo" => "Magistraturas del Tribunal de Disciplina Judicial"],
@@ -290,7 +290,7 @@ class DatabaseSeeder extends Seeder
             ["nombre" => "Raúl Rosas Velázquez", "correo" => "raul.rosas@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Abril Cardoza Silerio", "correo" => "abril.cardoza@iepcdurango.mx", "cargo" => "Juezas y Jueces/Personas Juzgadoras"],
             ["nombre" => "Gerardo Barrientos Carrillo", "correo" => "geracarrillob@gmail.com", "cargo" => "Juezas y Jueces/Personas Juzgadoras"]
-        ];
+        ];*/
 
         foreach ($destinatarios as $destinatario) {
             Destinatario::create($destinatario);
