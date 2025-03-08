@@ -49,7 +49,6 @@ Route::middleware([
     })->name('notificaciones.personalizada');
 
     Route::get('/', function () {
-        // Opcional: si quieres enviar datos, por ejemplo notificaciones:
         $notificaciones = Notificacion::all();
         return Inertia::render('Index', [
             'notificaciones' => $notificaciones,
